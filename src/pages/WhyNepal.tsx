@@ -1,4 +1,4 @@
-import { Band, Container, Eyebrow, Lede, SectionTitle } from '@/components/layout/Container'
+import { Band, Container, SectionHeader } from '@/components/layout/Container'
 import { Reveal } from '@/components/motion/Reveal'
 import { PageHero } from '@/components/sections/PageHero'
 import { ClockPanel } from '@/components/sections/ClockPanel'
@@ -26,44 +26,37 @@ export default function WhyNepal() {
         aside={<ClockPanel showDifference />}
       />
 
-      <Band className="border-t-0">
-        <Container>
-          <Eyebrow>The working day</Eyebrow>
-          <Reveal>
-            <SectionTitle className="mb-2.5">We shape our day around yours.</SectionTitle>
-            <Lede className="mb-7">
-              The time difference is a lever, not a constraint. Tell us when you want the output and
-              we set our hours to it — the two patterns below are simply the ones practices ask for
-              most often.
-            </Lede>
-          </Reveal>
-          <OverlapChart />
-        </Container>
-      </Band>
-
-      <Band className="py-0">
-        <Container className="px-0 sm:px-0">
-          <StatsRow />
-        </Container>
-      </Band>
-
       <Band>
         <Container>
-          <Eyebrow>The honest version of the cost argument</Eyebrow>
-          <Reveal>
-            <SectionTitle className="mb-5">Cheaper is the second reason, not the first.</SectionTitle>
-          </Reveal>
-          <div className="grid gap-8 lg:grid-cols-2">
-            <Reveal delay={0.06}>
-              <p className="text-[16px] leading-[1.7] text-muted-foreground">
-                The saving is real and it is structural: a qualified accountant's salary in
-                Kathmandu is a fraction of the same seat in London or Manchester, and there is no
-                recruitment fee, no notice period, no desk and no employer's NIC attached to it. You
-                will feel it most in the months where your own team is either idle or drowning.
+          <SectionHeader
+            eyebrow="The working day"
+            title="We shape our day around yours."
+            lede="The time difference is a lever, not a constraint. Tell us when you want the output and we set our hours to it — the two patterns below are simply the ones practices ask for most often."
+          />
+          <OverlapChart />
+          <div className="mt-6">
+            <StatsRow />
+          </div>
+        </Container>
+      </Band>
+
+      <Band tone="card">
+        <Container>
+          <SectionHeader
+            eyebrow="The honest version of the cost argument"
+            title="Cheaper is the second reason, not the first."
+          />
+          <div className="grid gap-8 lg:grid-cols-2 lg:gap-14">
+            <Reveal>
+              <p className="text-[17px] leading-[1.75] text-muted-foreground">
+                The saving is real and it is structural: a qualified accountant's salary in Kathmandu
+                is a fraction of the same seat in London or Manchester, and there is no recruitment
+                fee, no notice period, no desk and no employer's NIC attached to it. You will feel it
+                most in the months where your own team is either idle or drowning.
               </p>
             </Reveal>
-            <Reveal delay={0.14}>
-              <p className="text-[16px] leading-[1.7] text-muted-foreground">
+            <Reveal delay={0.1}>
+              <p className="text-[17px] leading-[1.75] text-muted-foreground">
                 But we do not lead with a percentage, because a cheap file you have to redo is the
                 most expensive thing in a practice. The argument we would rather make is that the
                 person preparing your work sat the same order of professional examination your own
@@ -75,17 +68,17 @@ export default function WhyNepal() {
       </Band>
 
       <Band>
-        <Container>
-          <Eyebrow>What you are not taking on</Eyebrow>
-          <Reveal>
-            <SectionTitle className="mb-7">The four things partners actually ask.</SectionTitle>
-          </Reveal>
+        <Container className="grid gap-4 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+          <SectionHeader
+            className="lg:sticky lg:top-28 lg:self-start"
+            eyebrow="What you are not taking on"
+            title="The four things partners actually ask."
+          />
           <PartnerQuestions />
         </Container>
       </Band>
 
       <CTABand
-        dark
         title="Test it on a single quarter."
         body="One file, one review, one honest conversation about whether the output is good enough for your practice."
         cta="Book a discovery call"

@@ -1,159 +1,154 @@
-import { useEffect, useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
-import { motion, useReducedMotion } from 'framer-motion'
-import { Menu } from 'lucide-react'
+import { useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
+import { motion, useMotionValueEvent, useScroll } from 'framer-motion'
+import { ArrowRight, Menu } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+import { ProbityMark } from '@/components/icons/Brand'
 import { Container } from './Container'
 import { ThemeToggle } from './ThemeToggle'
 import { nav, site } from '@/data/site'
 import { cn } from '@/lib/utils'
 
+const ease = [0.16, 1, 0.3, 1] as const
+
 export function Header() {
-  const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const location = useLocation()
-  const reduced = useReducedMotion()
+  const close = () => setOpen(false)
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  useEffect(() => setOpen(false), [location.pathname])
+  // Solid at rest, so it matches the navy masthead it sits on; frosted once the
+  // page scrolls light content up underneath it.
+  const [scrolled, setScrolled] = useState(false)
+  const { scrollY } = useScroll()
+  useMotionValueEvent(scrollY, 'change', (y) => setScrolled(y > 8))
 
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 border-b border-on-navy-line bg-navy-deep',
-        'transition-shadow duration-300',
-        scrolled && 'shadow-[0_10px_30px_-20px_rgba(0,0,0,0.9)]',
+        'sticky top-0 z-50 border-b transition-[background-color,border-color] duration-300',
+        scrolled
+          ? 'border-white/8 bg-navy-deep/90 backdrop-blur-xl backdrop-saturate-150'
+          : 'border-transparent bg-navy-deep',
       )}
     >
-      <Container>
-        <div
-          className={cn(
-            'flex items-center gap-6 transition-[padding] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
-            scrolled ? 'py-2.5' : 'py-3.5',
-          )}
-        >
-          <Link to="/" className="flex shrink-0 items-baseline gap-2.5 no-underline">
-            <span className="font-display text-[19px] font-semibold tracking-[0.01em] text-on-navy">
-              {site.name}
-            </span>
-            <span className="hidden font-mono text-[9.5px] uppercase tracking-[0.22em] text-gold sm:inline">
+      <Container className="flex h-16 items-center justify-between gap-6">
+        <Link to="/" className="flex shrink-0 items-center gap-2.5" aria-label={`${site.name} — home`}>
+          <ProbityMark className="size-8" />
+          <span className="flex flex-col leading-none">
+            <span className="font-display text-[18px] font-semibold text-white">{site.name}</span>
+            <span className="mt-1 text-[10px] font-medium uppercase tracking-[0.2em] text-gold">
               {site.tagline}
             </span>
-          </Link>
+          </span>
+        </Link>
 
-          <nav aria-label="Main" className="ml-auto hidden items-center gap-0.5 lg:flex">
+        <nav aria-label="Main" className="hidden lg:block">
+          <ul className="flex items-center gap-1 rounded-full border border-white/10 bg-white/3 p-1">
             {nav.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                end={item.to === '/'}
-                className={({ isActive }) =>
-                  cn(
-                    'relative rounded-md px-3 py-2 text-[13.5px] no-underline transition-colors duration-150',
-                    isActive
-                      ? 'text-on-navy'
-                      : 'text-on-navy-muted hover:bg-white/[0.06] hover:text-on-navy',
-                  )
-                }
-              >
-                {({ isActive }) => (
-                  <>
-                    {item.label}
-                    {isActive && (
-                      <motion.span
-                        layoutId={reduced ? undefined : 'nav-underline'}
-                        className="absolute inset-x-3 -bottom-px h-0.5 bg-gold"
-                        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                      />
-                    )}
-                  </>
-                )}
-              </NavLink>
-            ))}
-          </nav>
-
-          <div className="ml-auto flex items-center gap-2 lg:ml-0">
-            <ThemeToggle />
-            <Button asChild size="sm" variant="gold" className="hidden sm:inline-flex">
-              <Link to="/contact">Book a call</Link>
-            </Button>
-
-            <Sheet open={open} onOpenChange={setOpen}>
-              <SheetTrigger asChild>
-                <button
-                  type="button"
-                  aria-label="Open menu"
-                  className="grid size-9 place-items-center rounded-md border border-on-navy-line/60 text-on-navy transition-colors hover:border-gold hover:text-gold lg:hidden"
+              <li key={item.to}>
+                <NavLink
+                  to={item.to}
+                  end={item.to === '/'}
+                  className={({ isActive }) =>
+                    cn(
+                      'relative block rounded-full px-4 py-1.5 text-[14px] transition-colors duration-200',
+                      isActive ? 'text-white' : 'text-on-navy-muted hover:text-white',
+                    )
+                  }
                 >
-                  <Menu className="size-[18px]" />
-                </button>
-              </SheetTrigger>
-              <SheetContent>
-                <SheetTitle className="font-display text-[19px] font-semibold text-on-navy">
-                  {site.name}
-                </SheetTitle>
-                <p className="-mt-2 font-mono text-[9.5px] uppercase tracking-[0.22em] text-gold">
-                  {site.tagline}
-                </p>
+                  {({ isActive }) => (
+                    <>
+                      {isActive && (
+                        <motion.span
+                          layoutId="nav-pill"
+                          className="absolute inset-0 rounded-full bg-white/10"
+                          transition={{ type: 'spring', bounce: 0.15, duration: 0.5 }}
+                        />
+                      )}
+                      <span className="relative">{item.label}</span>
+                    </>
+                  )}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-                <nav className="mt-6 flex flex-col" aria-label="Mobile">
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <Button asChild size="sm" className="hidden sm:inline-flex">
+            <Link to="/contact">Book a call</Link>
+          </Button>
+
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild>
+              <button
+                type="button"
+                aria-label="Open menu"
+                className="grid size-9 place-items-center rounded-full border border-white/15 text-on-navy transition-colors hover:border-white/30 hover:bg-white/5 lg:hidden"
+              >
+                <Menu className="size-4.5" />
+              </button>
+            </SheetTrigger>
+            <SheetContent>
+              <SheetTitle className="flex items-center gap-2.5 font-display text-[18px] font-semibold text-white">
+                <ProbityMark className="size-7" />
+                {site.name}
+              </SheetTitle>
+
+              <nav aria-label="Mobile" className="mt-6">
+                <ul className="flex flex-col gap-1">
                   {nav.map((item, i) => (
-                    <motion.div
+                    <motion.li
                       key={item.to}
-                      initial={reduced ? false : { opacity: 0, x: 18 }}
+                      initial={{ opacity: 0, x: 16 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.06 + i * 0.05, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      transition={{ delay: 0.05 + i * 0.04, duration: 0.35, ease }}
                     >
                       {/* Radix `asChild` would overwrite NavLink's function className,
                           so the sheet is closed from the link itself instead. */}
                       <NavLink
                         to={item.to}
                         end={item.to === '/'}
-                        onClick={() => setOpen(false)}
+                        onClick={close}
                         className={({ isActive }) =>
                           cn(
-                            'block border-b border-on-navy-line/50 py-3.5 font-display text-[21px] no-underline transition-colors',
-                            isActive ? 'text-gold' : 'text-on-navy hover:text-gold',
+                            'block rounded-xl px-4 py-3 font-display text-[21px] transition-colors',
+                            isActive ? 'bg-white/6 text-gold' : 'text-on-navy hover:bg-white/4',
                           )
                         }
                       >
                         {item.label}
                       </NavLink>
-                    </motion.div>
+                    </motion.li>
                   ))}
-                </nav>
+                </ul>
+              </nav>
 
-                <div className="mt-auto flex flex-col gap-3 border-t border-on-navy-line pt-5">
-                  <a
-                    href={`mailto:${site.email}`}
-                    className="font-mono text-[12.5px] text-on-navy-muted no-underline transition-colors hover:text-gold"
-                  >
-                    {site.email}
-                  </a>
-                  <a
-                    href={`https://wa.me/${site.phoneUKRaw}`}
-                    target="_blank"
-                    rel="noopener"
-                    className="font-mono text-[12.5px] text-on-navy-muted no-underline transition-colors hover:text-gold"
-                  >
-                    {site.phoneUK}
-                  </a>
-                  <Button asChild variant="gold" className="mt-1 w-full">
-                    <Link to="/contact" onClick={() => setOpen(false)}>
-                      Book a call
-                    </Link>
-                  </Button>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
+              <div className="mt-auto flex flex-col gap-3 border-t border-on-navy-line pt-6">
+                <a
+                  href={`mailto:${site.email}`}
+                  className="w-fit text-[14px] text-on-navy-muted transition-colors hover:text-white"
+                >
+                  {site.email}
+                </a>
+                <a
+                  href={`https://wa.me/${site.phoneUKRaw}`}
+                  target="_blank"
+                  rel="noopener"
+                  className="w-fit text-[14px] text-on-navy-muted transition-colors hover:text-white"
+                >
+                  {site.phoneUK}
+                </a>
+                <Button asChild className="mt-2 w-full">
+                  <Link to="/contact" onClick={close}>
+                    Book a call
+                    <ArrowRight />
+                  </Link>
+                </Button>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </Container>
     </header>

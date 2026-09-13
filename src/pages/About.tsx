@@ -1,4 +1,5 @@
-import { Band, Container, Eyebrow, SectionTitle } from '@/components/layout/Container'
+import { Award } from 'lucide-react'
+import { Band, Container, Eyebrow, SectionHeader } from '@/components/layout/Container'
 import { Badge } from '@/components/ui/badge'
 import { Reveal, Stagger, StaggerItem } from '@/components/motion/Reveal'
 import { PageHero } from '@/components/sections/PageHero'
@@ -24,35 +25,33 @@ export default function About() {
         lede="Doing the work properly when nobody is checking. It is the only thing worth promising in this business, because everything else — the software, the turnaround, the rate — can be matched by somebody cheaper next year."
       />
 
-      <Band className="border-t-0">
+      <Band>
         <Container>
-          <Eyebrow>How we are set up</Eyebrow>
+          <Reveal>
+            <Eyebrow>How we are set up</Eyebrow>
+          </Reveal>
           <PrinciplesGrid />
         </Container>
       </Band>
 
-      <Band>
+      <Band tone="card">
         <Container>
-          <Eyebrow>The principals</Eyebrow>
-          <Reveal>
-            <SectionTitle className="mb-9">Who prepares your work.</SectionTitle>
-          </Reveal>
+          <SectionHeader eyebrow="The principals" title="Who prepares your work." />
           <TeamGrid full />
         </Container>
       </Band>
 
       <Band>
         <Container>
-          <Eyebrow>Qualifications</Eyebrow>
-          <Reveal>
-            <SectionTitle className="mb-6">
-              Memberships held by our principals in their own names.
-            </SectionTitle>
-          </Reveal>
-          <Stagger className="flex flex-wrap gap-2.5" step={0.08}>
+          <SectionHeader
+            eyebrow="Qualifications"
+            title="Memberships held by our principals in their own names."
+          />
+          <Stagger className="flex flex-wrap gap-2.5" step={0.06}>
             {memberships.map((item) => (
-              <StaggerItem key={item} as="span">
-                <Badge className="transition-colors duration-200 hover:border-gold hover:bg-gold-soft hover:text-gold-ink">
+              <StaggerItem key={item}>
+                <Badge>
+                  <Award className="text-gold-ink" />
                   {item}
                 </Badge>
               </StaggerItem>
@@ -62,7 +61,6 @@ export default function About() {
       </Band>
 
       <CTABand
-        dark
         title="Meet the people, not the pitch."
         body="Thirty minutes on a call with the principal who would actually be running your work."
       />

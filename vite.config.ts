@@ -10,11 +10,13 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
+        // vendors that change less often than the app cache on their own; three.js
+        // is only ever reached through the lazily loaded scenes
         manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (/[\\/](three|@react-three)[\\/]/.test(id)) return 'three'
-            if (id.includes('framer-motion')) return 'motion'
-          }
+          if (!id.includes('node_modules')) return
+          if (id.includes('framer-motion')) return 'motion'
+          if (/node_modules\/(three|@react-three|its-fine|zustand|suspend-react|react-use-measure)\//.test(id))
+            return 'three'
         },
       },
     },

@@ -1,9 +1,9 @@
 # Probity Advisory — Frontend
 
 Marketing site for Probity Advisory, an outsourced accounting practice in Kathmandu
-serving UK accountancy firms. Built from the approved
-`probity-advisory-website.html` reference: all copy, the navy/gold identity and the
-Spectral / IBM Plex type pairing are carried across unchanged.
+serving UK accountancy firms. All copy, the navy/gold identity and the
+Spectral / IBM Plex type pairing come from the approved
+`probity-advisory-website.html` reference.
 
 ## Stack
 
@@ -13,7 +13,6 @@ Spectral / IBM Plex type pairing are carried across unchanged.
 | Styling | Tailwind CSS v4 (CSS-first `@theme`, no config file) |
 | Components | shadcn/ui pattern — owned source in `src/components/ui` |
 | Animation | Framer Motion 13 |
-| 3D | three.js via @react-three/fiber + drei |
 | Routing | React Router 7 |
 | Icons | lucide-react (brand glyphs hand-rolled in `components/icons`) |
 
@@ -32,14 +31,13 @@ npm run lint
 ```
 src/
   components/
-    ui/         shadcn primitives (button, card, badge, input, select, accordion, sheet …)
-    layout/     Header, Footer, Layout shell, Container/Band/Eyebrow, theme toggle
-    motion/     Reveal, Stagger, WordReveal, Counter — the animation vocabulary
-    three/      Globe (Kathmandu → London arc) + LazyGlobe loader
+    ui/         shadcn primitives (button, badge, input, select, accordion, sheet …)
+    layout/     Header, Footer, Layout shell, Container/Band/SectionHeader, theme toggle
+    motion/     Reveal, Stagger, WordReveal — the animation vocabulary
     sections/   Page-level blocks (hero, clocks, timeline, ledger, forms …)
-    icons/      WhatsApp / LinkedIn SVGs
+    icons/      Probity monogram, WhatsApp / LinkedIn, one glyph per service
   data/         site.ts and team.ts — every word of copy lives here
-  hooks/        useClock, useTheme, useSeo
+  hooks/        useMinute + time formatting, useTheme, useSeo
   pages/        Home, Services, About, WhyNepal, Contact, NotFound
 ```
 
@@ -55,19 +53,22 @@ for dark — then mapped to both shadcn semantic names (`--color-primary`,
 site, in both themes.
 
 - **Display** Spectral · **Body** IBM Plex Sans · **Figures** IBM Plex Mono
+- **Radius** 6 / 10 / 14 / 18 / 24 / 32 px (`rounded-sm` … `rounded-3xl`). Cards
+  are `rounded-2xl`; buttons, badges and eyebrows are pills.
+- **Structure** Every page opens with `<PageHero>`; every section opens with
+  `<SectionHeader eyebrow title lede action />` inside a `<Band>`.
 - Theme follows the OS by default; the toggle persists to `localStorage`, and an
   inline script in `index.html` applies it before first paint so there is no flash.
 
 ## Motion
 
-Every animated element degrades to a static one under
-`prefers-reduced-motion: reduce` — the `Reveal`, `Stagger`, `WordReveal`,
-`Counter` and `OverlapChart` components each check it explicitly.
+Reduced motion is handled once, by `<MotionConfig reducedMotion="user">` in
+`main.tsx`: movement is dropped and fades remain. The only animations checked
+locally are the ones that are not transforms — the overlap chart's bar widths
+and the travelling dot on the clock card's SVG route.
 
-The three.js globe is ~240 kB gzipped, so it is deliberately kept out of the
-first paint: `LazyGlobe` code-splits it and only mounts the canvas once the frame
-scrolls into view. It also falls back to a plain labelled frame if WebGL is
-unavailable.
+The hero's London ↔ Kathmandu clock card is plain SVG and CSS. There is no
+WebGL, so it renders on locked-down office machines and remote desktops too.
 
 ## Deploying
 
@@ -78,6 +79,23 @@ The build is a static SPA, so the host must rewrite unknown paths to
 - Vercel — `vercel.json`
 
 For Apache/nginx, add the equivalent fallback rule.
+
+## Leftovers to delete
+
+These files are no longer imported, so they are not in the bundle, but they are
+still type-checked and linted:
+
+```
+src/components/three/                   (Globe, LazyGlobe)
+src/components/motion/Counter.tsx
+src/components/sections/SoftwareMarquee.tsx
+```
+
+Once they are gone, drop the 3D dependencies:
+
+```bash
+npm uninstall three @react-three/fiber @react-three/drei @types/three
+```
 
 ## Known gaps
 

@@ -5,28 +5,29 @@
 
 /* ============================================================
    PROBITY ADVISORY — brand system
-   Palette: deep navy / paper ground / gold rule
+   Palette: deep navy / paper ground / gold accent
    Type: Spectral (display serif) · IBM Plex Sans (body) · IBM Plex Mono (figures)
    ============================================================ */
 
 :root {
   /* brand */
-  --ground: #f1f4f7;
+  --ground: #f7f8fa;
   --surface: #ffffff;
-  --surface-2: #e7edf3;
-  --ink: #16202b;
-  --ink-muted: #556878;
-  --line: #d3dce4;
-  --line-soft: #e2e9ef;
+  --surface-2: #eef2f6;
+  --ink: #0f1b2a;
+  --ink-muted: #56687a;
+  --line: #dde3ea;
+  --line-soft: #eaeef3;
   --navy: #0e2a47;
   --navy-deep: #071a2e;
   --on-navy: #e9f0f7;
-  --on-navy-muted: #9db3c7;
-  --on-navy-line: rgb(201 162 39 / 0.28);
+  --on-navy-muted: #a3b6c9;
+  --on-navy-line: rgb(255 255 255 / 0.1);
   --gold: #c9a227;
-  --gold-ink: #8a6a12;
-  --gold-soft: rgb(201 162 39 / 0.13);
+  --gold-ink: #86660f;
+  --gold-soft: rgb(201 162 39 / 0.12);
   --teal: #2e6e8e;
+  --chart-uk: #0e2a47;
 
   /* shadcn semantic mapping */
   --background: var(--ground);
@@ -36,7 +37,7 @@
   --popover: var(--surface);
   --popover-foreground: var(--ink);
   --primary: var(--gold);
-  --primary-foreground: #20180a;
+  --primary-foreground: #1f1706;
   --secondary: var(--surface-2);
   --secondary-foreground: var(--ink);
   --muted: var(--surface-2);
@@ -49,30 +50,30 @@
   --input: var(--line);
   --ring: var(--gold);
 
-  --radius: 3px;
-  --shadow-card: 0 1px 2px rgb(14 42 71 / 0.05), 0 8px 24px -12px rgb(14 42 71 / 0.18);
-  --shadow-lift: 0 2px 4px rgb(14 42 71 / 0.06), 0 18px 40px -20px rgb(14 42 71 / 0.3);
+  --shadow-card: 0 1px 2px rgb(15 27 42 / 0.04), 0 2px 8px -2px rgb(15 27 42 / 0.04);
+  --shadow-lift: 0 2px 6px rgb(14 42 71 / 0.05), 0 20px 44px -18px rgb(14 42 71 / 0.22);
 }
 
 .dark {
-  --ground: #0a1420;
-  --surface: #111e2c;
-  --surface-2: #16273a;
-  --ink: #e4edf5;
-  --ink-muted: #93a8ba;
-  --line: #233850;
-  --line-soft: #1a2b3e;
-  --navy: #0f2b49;
-  --navy-deep: #050e1a;
+  --ground: #08121d;
+  --surface: #0f1c2a;
+  --surface-2: #152638;
+  --ink: #e6eef6;
+  --ink-muted: #95a9bc;
+  --line: #1f3347;
+  --line-soft: #172839;
+  --navy: #10304f;
+  --navy-deep: #050d17;
   --gold: #d6b33f;
-  --gold-ink: #dbb84e;
-  --gold-soft: rgb(214 179 63 / 0.15);
+  --gold-ink: #e0bd52;
+  --gold-soft: rgb(214 179 63 / 0.13);
   --teal: #4a8dad;
+  --chart-uk: #2d5378;
 
   --primary-foreground: #141004;
   --destructive: #e2685c;
-  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.6);
-  --shadow-lift: 0 2px 6px rgb(0 0 0 / 0.45), 0 18px 40px -20px rgb(0 0 0 / 0.75);
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow-lift: 0 2px 6px rgb(0 0 0 / 0.4), 0 20px 44px -18px rgb(0 0 0 / 0.7);
 }
 
 @theme inline {
@@ -105,20 +106,25 @@
   --color-navy-deep: var(--navy-deep);
   --color-on-navy: var(--on-navy);
   --color-on-navy-muted: var(--on-navy-muted);
+  --color-on-navy-line: var(--on-navy-line);
   --color-gold: var(--gold);
   --color-gold-ink: var(--gold-ink);
   --color-gold-soft: var(--gold-soft);
   --color-line: var(--line);
   --color-line-soft: var(--line-soft);
   --color-teal: var(--teal);
+  --color-chart-uk: var(--chart-uk);
 
   --font-display: Spectral, "Palatino Linotype", Georgia, serif;
   --font-sans: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
-  --radius-sm: 2px;
-  --radius-md: 3px;
-  --radius-lg: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
 
   --shadow-card: var(--shadow-card);
   --shadow-lift: var(--shadow-lift);
@@ -139,40 +145,34 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-size: 16px;
-    line-height: 1.65;
-    overflow-x: hidden;
+    line-height: 1.6;
+    overflow-x: clip;
   }
 
   h1, h2, h3, h4 {
     @apply font-display font-semibold;
-    line-height: 1.18;
-    letter-spacing: -0.005em;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
     text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   ::selection {
     background: var(--gold);
-    color: #20180a;
+    color: #1f1706;
   }
 
   :focus-visible {
     outline: 2px solid var(--gold);
     outline-offset: 3px;
-    border-radius: 2px;
   }
 
   [id] {
     scroll-margin-top: 96px;
   }
-
-  ::-webkit-scrollbar { width: 11px; }
-  ::-webkit-scrollbar-track { background: var(--ground); }
-  ::-webkit-scrollbar-thumb {
-    background: var(--line);
-    border-radius: 8px;
-    border: 3px solid var(--ground);
-  }
-  ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -185,26 +185,11 @@
 }
 
 @layer components {
-  /* the fine ruled paper the ledger blocks sit on */
-  .ledger-rule {
-    background-image: repeating-linear-gradient(
-      to bottom,
-      transparent 0 35px,
-      var(--line-soft) 35px 36px
-    );
-  }
-
-  /* faint film grain, borrowed from the reference sites' texture */
-  .grain::before {
-    content: "";
-    position: fixed;
-    inset: -50%;
-    width: 200%;
-    height: 200%;
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* faint dot grid for the navy mastheads, fading out toward the bottom */
+  .bg-dots {
+    background-image: radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px);
+    background-size: 22px 22px;
+    mask-image: radial-gradient(ellipse 80% 70% at 70% 0%, black 30%, transparent 75%);
   }
 
   .tabular {
@@ -220,18 +205,5 @@
   from { height: var(--radix-accordion-content-height); opacity: 1; }
   to { height: 0; opacity: 0; }
 }
-.animate-accordion-down { animation: accordion-down 0.28s cubic-bezier(0.16, 1, 0.3, 1); }
-.animate-accordion-up { animation: accordion-up 0.22s cubic-bezier(0.16, 1, 0.3, 1); }
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-.animate-marquee {
-  animation: marquee 38s linear infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-marquee { animation: none; }
-}
+.animate-accordion-down { animation: accordion-down 0.28s var(--ease-brand); }
+.animate-accordion-up { animation: accordion-up 0.22s var(--ease-brand); }

@@ -1,5 +1,5 @@
 import { Mail, MapPin, Phone } from 'lucide-react'
-import { Band, Container, Eyebrow } from '@/components/layout/Container'
+import { Band, Container } from '@/components/layout/Container'
 import { Reveal } from '@/components/motion/Reveal'
 import { PageHero } from '@/components/sections/PageHero'
 import { ContactForm } from '@/components/sections/ContactForm'
@@ -22,21 +22,11 @@ const details = [
     note: 'Call or WhatsApp',
     icon: WhatsApp,
   },
-  {
-    term: 'Email',
-    value: site.email,
-    href: `mailto:${site.email}`,
-    note: null,
-    icon: Mail,
-  },
-  {
-    term: 'Office',
-    value: site.address,
-    href: null,
-    note: site.hours,
-    icon: MapPin,
-  },
+  { term: 'Email', value: site.email, href: `mailto:${site.email}`, note: null, icon: Mail },
+  { term: 'Office', value: site.address, href: null, note: site.hours, icon: MapPin },
 ]
+
+const heading = 'mb-4 text-[22px]'
 
 export default function Contact() {
   useSeo({
@@ -54,67 +44,75 @@ export default function Contact() {
         lede="Usually the same day. Both numbers below take WhatsApp, which is generally the quickest way to reach us."
       />
 
-      <Band className="border-t-0">
-        <Container>
-          <div className="grid items-start gap-[clamp(30px,4vw,56px)] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-            <div>
-              <Eyebrow>Direct</Eyebrow>
-              <dl className="m-0 flex flex-col overflow-hidden rounded-md border border-line bg-card">
+      <Band>
+        <Container className="grid items-start gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-14">
+          <div className="flex flex-col gap-12">
+            <Reveal as="section" aria-labelledby="direct">
+              <h2 id="direct" className={heading}>
+                Direct
+              </h2>
+              <dl className="grid gap-3">
                 {details.map(({ term, value, href, note, icon: Icon }) => (
                   <div
                     key={term}
-                    className="group border-t border-line-soft px-[18px] py-4 transition-colors duration-200 first:border-t-0 hover:bg-gold-soft"
+                    className="flex gap-4 rounded-2xl border border-line bg-card p-5 shadow-card"
                   >
-                    <dt className="mb-1.5 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-gold-ink">
-                      <Icon className="size-3.5" />
-                      {term}
-                    </dt>
-                    <dd className="m-0 text-[15px] leading-[1.55]">
-                      {href ? (
-                        <a
-                          href={href}
-                          target={href.startsWith('http') ? '_blank' : undefined}
-                          rel="noopener"
-                          className="text-foreground no-underline transition-colors hover:text-gold-ink"
-                        >
-                          {value}
-                        </a>
-                      ) : (
-                        <span className="text-foreground">{value}</span>
-                      )}
-                      {note && (
-                        <small className="mt-1 block text-[12.5px] text-muted-foreground">
-                          {note}
-                        </small>
-                      )}
-                    </dd>
+                    <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-gold-soft text-gold-ink">
+                      <Icon className="size-4.5" />
+                    </span>
+                    <div className="min-w-0">
+                      <dt className="text-[13px] text-muted-foreground">{term}</dt>
+                      <dd className="mt-0.5 text-[15.5px] font-medium">
+                        {href ? (
+                          <a
+                            href={href}
+                            target={href.startsWith('http') ? '_blank' : undefined}
+                            rel="noopener"
+                            className="transition-colors hover:text-gold-ink"
+                          >
+                            {value}
+                          </a>
+                        ) : (
+                          value
+                        )}
+                        {note && (
+                          <span className="mt-1 block text-[13px] font-normal text-muted-foreground">
+                            {note}
+                          </span>
+                        )}
+                      </dd>
+                    </div>
                   </div>
                 ))}
               </dl>
+            </Reveal>
 
-              <Eyebrow className="mt-9">What happens next</Eyebrow>
-              <div className="overflow-hidden rounded-md border border-line bg-card">
-                {nextSteps.map((step, i) => (
-                  <Reveal
-                    key={step.n}
-                    delay={i * 0.08}
-                    distance={12}
-                    className="grid grid-cols-[34px_minmax(0,1fr)] items-baseline gap-3.5 border-t border-line-soft px-[18px] py-4 first:border-t-0"
-                  >
-                    <span className="font-mono text-[12px] text-gold-ink">{step.n}</span>
-                    <span className="text-[14.5px] leading-[1.55] text-foreground">
-                      <b className="font-semibold">{step.lead}</b> {step.rest}
+            <Reveal as="section" aria-labelledby="next" delay={0.08}>
+              <h2 id="next" className={heading}>
+                What happens next
+              </h2>
+              <ol className="divide-y divide-line-soft rounded-2xl border border-line bg-card shadow-card">
+                {nextSteps.map((step) => (
+                  <li key={step.n} className="grid grid-cols-[32px_minmax(0,1fr)] gap-4 p-5">
+                    <span className="grid size-8 place-items-center rounded-full bg-navy-deep font-mono text-[12px] text-gold">
+                      {step.n}
                     </span>
-                  </Reveal>
+                    <p className="text-[15px] leading-[1.6]">
+                      <b className="font-semibold">{step.lead}</b>{' '}
+                      <span className="text-muted-foreground">{step.rest}</span>
+                    </p>
+                  </li>
                 ))}
-              </div>
-            </div>
-
-            <div>
-              <Eyebrow>Send an enquiry</Eyebrow>
-              <ContactForm />
-            </div>
+              </ol>
+            </Reveal>
           </div>
+
+          <Reveal as="section" aria-labelledby="enquiry" delay={0.12}>
+            <h2 id="enquiry" className={heading}>
+              Send an enquiry
+            </h2>
+            <ContactForm />
+          </Reveal>
         </Container>
       </Band>
     </>

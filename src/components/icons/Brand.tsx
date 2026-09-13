@@ -1,6 +1,20 @@
 import type { SVGProps } from 'react'
 
-/** lucide dropped brand glyphs at v1, so the two we need live here. */
+/** Brand glyphs: our own monogram, plus the two lucide dropped at v1. */
+
+/** The Probity monogram — a navy P on a gold tile, as in the favicon. */
+export function ProbityMark(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 64 64" aria-hidden="true" {...props}>
+      <rect width="64" height="64" rx="16" className="fill-gold" />
+      <path
+        transform="translate(2 0)"
+        d="M18 46V18h13c6.6 0 11 3.7 11 9.6S37.6 37.4 31 37.4h-6.4V46H18Zm6.6-14.1h5.7c3 0 4.9-1.6 4.9-4.3s-1.9-4.3-4.9-4.3h-5.7v8.6Z"
+        fill="#071A2E"
+      />
+    </svg>
+  )
+}
 
 export function WhatsApp(props: SVGProps<SVGSVGElement>) {
   return (

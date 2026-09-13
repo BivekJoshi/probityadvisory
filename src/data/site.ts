@@ -41,21 +41,12 @@ export const proofPoints = [
   },
 ] as const
 
-export interface Stat {
-  /** Counts up on first view. Omit for a figure that is a label, not a quantity. */
-  value?: number
-  /** Shown as-is when `value` is absent. */
-  text?: string
-  suffix?: string
-  label: string
-}
-
-export const stats: Stat[] = [
-  { value: 3, label: 'Chartered Accountants behind every file' },
-  { value: 5, label: 'Ledger platforms we work inside' },
-  { value: 1, suffix: ' day', label: 'To hear back — from a principal, not an assistant' },
-  { text: 'UTC+05:45', label: 'The offset we turn to your advantage' },
-]
+export const stats = [
+  { value: '3', label: 'Chartered Accountants behind every file' },
+  { value: '5', label: 'Ledger platforms we work inside' },
+  { value: '1 day', label: 'To hear back — from a principal, not an assistant' },
+  { value: 'UTC+05:45', label: 'The offset we turn to your advantage' },
+] as const
 
 export const services = [
   {
@@ -268,3 +259,147 @@ export const nextSteps = [
     rest: "A small set of files you review exactly as you would a new joiner's, before anything depends on it.",
   },
 ] as const
+
+export const contactPromise = 'We reply within one working day — from a principal, not an assistant.'
+
+/** The reassurances set under the home-page calls to action. */
+export const heroAssurances = [
+  'Thirty-minute call, no deck',
+  'Pilot batch before you commit',
+  'Named Chartered Accountants',
+] as const
+
+export const audiences = [
+  {
+    key: 'practices',
+    label: 'Accountancy firms',
+    title: 'An extension of your practice, under your name.',
+    body: 'Overflow at peak, a standing monthly workload, or the year-end files nobody has got to. We prepare the work inside your software and hand it back ready for partner review.',
+    points: [
+      'Capacity that flexes with your January, not your headcount',
+      'Files prepared to your house style and review process',
+      'The same named people on your work every month',
+      'A data-processing agreement in place before any login',
+    ],
+    cta: 'Book a discovery call',
+  },
+  {
+    key: 'businesses',
+    label: 'UK businesses',
+    title: 'Books, VAT and year‑end, handled properly.',
+    body: 'For owners who want their compliance done right — and their questions answered by the person who did the work, not by whoever picks up the phone.',
+    points: [
+      'Owner-managed limited companies',
+      'Contractors and construction firms under CIS',
+      'Landlords with a portfolio to keep in order',
+      'Employers running payroll and auto-enrolment',
+    ],
+    cta: 'Talk to us',
+  },
+] as const
+
+export const comparison = {
+  columns: ['Hiring in-house', 'Probity Advisory'],
+  rows: [
+    {
+      label: 'Who prepares the file',
+      inHouse: 'Whoever you manage to recruit',
+      probity: 'A qualified Chartered Accountant',
+    },
+    {
+      label: 'Recruitment fees and notice periods',
+      inHouse: 'Yours to carry',
+      probity: 'None',
+    },
+    {
+      label: "Employer's NIC and a desk",
+      inHouse: 'On top of the salary',
+      probity: 'None — you pay for the work',
+    },
+    {
+      label: 'January and year-end',
+      inHouse: 'Overtime, or turning work away',
+      probity: 'Capacity flexes to the workload',
+    },
+    {
+      label: 'The quiet months',
+      inHouse: 'A salary to cover regardless',
+      probity: 'Hours scale back down',
+    },
+    {
+      label: 'Overnight turnaround',
+      inHouse: 'Not without a night shift',
+      probity: 'Work lands before you open',
+    },
+  ],
+} as const
+
+export const engagementModels = [
+  {
+    title: 'Pilot batch',
+    tag: 'Start here',
+    body: 'A small set of real files, prepared and returned so you can judge the output before anything depends on it.',
+    points: [
+      'One real quarter or one year-end',
+      "Reviewed as you would a new joiner's work",
+      'A straight conversation about the result',
+    ],
+  },
+  {
+    title: 'Monthly workload',
+    tag: null,
+    body: 'Bookkeeping, VAT and payroll moving on an agreed rhythm — overnight, or live alongside your team.',
+    points: [
+      'The same two or three named people',
+      'Working hours agreed in writing',
+      'A standing weekly call with a principal',
+    ],
+  },
+  {
+    title: 'Peak overflow',
+    tag: null,
+    body: 'Extra hands for January and the year-end rush, without a headcount to keep busy in June.',
+    points: [
+      'Year-end accounts and corporation tax',
+      'Returned ready for partner review',
+      'No recruitment, probation or redundancy',
+    ],
+  },
+] as const
+
+export const pricingNote =
+  'Every engagement is priced to the workload rather than a headcount, and quoted once we have seen a live file on the scoping call.'
+
+export const dataSafeguards = [
+  {
+    title: 'Paperwork before logins',
+    body: 'A written data-processing agreement is signed before a single login is issued.',
+  },
+  {
+    title: 'Lawful transfer to Nepal',
+    body: "The ICO's International Data Transfer Agreement is in place from day one, not after the first deadline.",
+  },
+  {
+    title: 'Access per engagement',
+    body: 'Logins are granted for each engagement and withdrawn at the end of it.',
+  },
+  {
+    title: 'Nothing leaves your systems',
+    body: "We work inside your practice software and your client's ledger. No copies in a platform of ours.",
+  },
+] as const
+
+export const homeFaq = [
+  ...partnerQuestions,
+  {
+    q: 'How is the work priced?',
+    a: 'Per engagement, against the workload rather than a headcount. We quote once we have seen a live file on the scoping call, so the figure reflects your actual records rather than a guess.',
+  },
+  {
+    q: 'Which software do you work in?',
+    a: 'FreeAgent, QuickBooks, Sage, Xero and MYOB. Running something else? Tell us — we will learn it on our own time before we touch a client file.',
+  },
+] as const
+
+export const globeCaption =
+  'Lit as the world is right now. Records travel out to Kathmandu; finished work comes home before London opens.'

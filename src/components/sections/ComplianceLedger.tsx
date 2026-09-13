@@ -1,23 +1,26 @@
-import { Reveal } from '@/components/motion/Reveal'
+import { Stagger, StaggerItem } from '@/components/motion/Reveal'
 import { complianceCalendar } from '@/data/site'
 
-/** The UK compliance year, set on ruled ledger paper. */
+/** The UK compliance year, one dated row per deadline. */
 export function ComplianceLedger() {
   return (
-    <div className="ledger-rule overflow-hidden rounded-md border border-line bg-card">
-      {complianceCalendar.map((row, i) => (
-        <Reveal
+    <Stagger
+      as="ol"
+      step={0.05}
+      className="divide-y divide-line-soft overflow-hidden rounded-2xl border border-line bg-card shadow-card"
+    >
+      {complianceCalendar.map((row) => (
+        <StaggerItem
+          as="li"
           key={row.when}
-          delay={i * 0.045}
-          distance={12}
-          className="group grid items-baseline gap-1 border-t border-line-soft px-5 py-3.5 transition-colors duration-200 first:border-t-0 hover:bg-gold-soft sm:grid-cols-[150px_minmax(0,1fr)] sm:gap-5"
+          className="grid items-center gap-2.5 px-5 py-4 transition-colors duration-200 hover:bg-secondary/60 sm:grid-cols-[140px_minmax(0,1fr)] sm:gap-6 sm:px-6"
         >
-          <span className="tabular font-mono text-[13.5px] font-medium text-gold-ink">
+          <span className="tabular w-fit rounded-full bg-gold-soft px-3 py-1 font-mono text-[12.5px] font-medium text-gold-ink">
             {row.when}
           </span>
-          <span className="text-[14.5px] leading-[1.5] text-foreground">{row.what}</span>
-        </Reveal>
+          <span className="text-[15px] leading-[1.55]">{row.what}</span>
+        </StaggerItem>
       ))}
-    </div>
+    </Stagger>
   )
 }

@@ -1,81 +1,100 @@
+import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Container } from './Container'
-import { WhatsApp } from '@/components/icons/Brand'
-import { nav, site } from '@/data/site'
-import { useClock } from '@/hooks/useClock'
+import { ProbityMark, WhatsApp } from '@/components/icons/Brand'
+import { nav, services, site } from '@/data/site'
+import { formatTime, useMinute } from '@/hooks/useClock'
+
+const linkClass = 'text-[14px] text-on-navy-muted transition-colors duration-150 hover:text-white'
+
+function Column({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div>
+      <h2 className="font-sans text-[12.5px] font-semibold uppercase tracking-[0.14em] text-gold">
+        {title}
+      </h2>
+      <ul className="mt-5 flex flex-col gap-3">{children}</ul>
+    </div>
+  )
+}
 
 export function Footer() {
-  const london = useClock('Europe/London')
-  const kathmandu = useClock('Asia/Kathmandu')
+  const now = useMinute()
 
   return (
-    <footer className="border-t border-on-navy-line bg-navy-deep text-on-navy">
-      <Container className="py-[clamp(44px,6vw,68px)]">
-        <div className="grid gap-10 md:grid-cols-[1.4fr_0.8fr_1fr]">
-          <div>
-            <h4 className="font-display text-[19px] font-semibold text-white">{site.name}</h4>
-            <p className="mt-3 max-w-[46ch] text-[14.5px] leading-[1.65] text-on-navy-muted">
+    <footer className="bg-navy-deep text-on-navy">
+      <Container className="py-[clamp(56px,7vw,80px)]">
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.5fr_0.7fr_1.2fr_1.2fr]">
+          <div className="sm:col-span-2 lg:col-span-1">
+            <Link to="/" className="flex w-fit items-center gap-2.5">
+              <ProbityMark className="size-8" />
+              <span className="font-display text-[19px] font-semibold text-white">{site.name}</span>
+            </Link>
+            <p className="mt-4 max-w-[42ch] text-[14.5px] leading-[1.65] text-on-navy-muted">
               {site.description}
             </p>
           </div>
 
-          <div>
-            <h4 className="font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-gold">
-              Pages
-            </h4>
-            <div className="mt-4 flex flex-col gap-2.5">
-              {nav.map((item) => (
-                <Link
-                  key={item.to}
-                  to={item.to}
-                  className="w-fit text-[14px] text-on-navy-muted no-underline transition-colors duration-150 hover:text-gold"
-                >
+          <Column title="Pages">
+            {nav.map((item) => (
+              <li key={item.to}>
+                <Link to={item.to} className={linkClass}>
                   {item.label}
                 </Link>
-              ))}
-            </div>
-          </div>
+              </li>
+            ))}
+          </Column>
 
-          <div>
-            <h4 className="font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-gold">
-              Get in touch
-            </h4>
-            <div className="mt-4 flex flex-col gap-2.5">
+          <Column title="Services">
+            {services.map((service) => (
+              <li key={service.slug}>
+                <Link to={`/services#${service.slug}`} className={linkClass}>
+                  {service.title}
+                </Link>
+              </li>
+            ))}
+          </Column>
+
+          <Column title="Get in touch">
+            <li>
               <a
                 href={`https://wa.me/${site.phoneUKRaw}`}
                 target="_blank"
                 rel="noopener"
-                className="flex w-fit items-center gap-2 text-[14px] text-on-navy-muted no-underline transition-colors duration-150 hover:text-gold"
+                className={`flex items-center gap-2 ${linkClass}`}
               >
-                <WhatsApp className="size-[15px]" />
+                <WhatsApp className="size-3.5" />
                 {site.phoneUK} · UK
               </a>
+            </li>
+            <li>
               <a
                 href={`https://wa.me/${site.phoneNPRaw}`}
                 target="_blank"
                 rel="noopener"
-                className="flex w-fit items-center gap-2 text-[14px] text-on-navy-muted no-underline transition-colors duration-150 hover:text-gold"
+                className={`flex items-center gap-2 ${linkClass}`}
               >
-                <WhatsApp className="size-[15px]" />
+                <WhatsApp className="size-3.5" />
                 {site.phoneNP} · Nepal
               </a>
-              <a
-                href={`mailto:${site.email}`}
-                className="w-fit text-[14px] text-on-navy-muted no-underline transition-colors duration-150 hover:text-gold"
-              >
+            </li>
+            <li>
+              <a href={`mailto:${site.email}`} className={linkClass}>
                 {site.email}
               </a>
-              <span className="text-[14px] text-on-navy-muted">{site.address}</span>
-            </div>
-          </div>
+            </li>
+            <li className="text-[14px] text-on-navy-muted">{site.address}</li>
+            <li className="text-[13px] leading-normal text-on-navy-muted/80">{site.hours}</li>
+          </Column>
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-on-navy-line pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[13px] text-on-navy-muted">
-            © {new Date().getFullYear()} {site.name}. All rights reserved.
+        <div className="mt-14 flex flex-col gap-3 border-t border-on-navy-line pt-6 text-[13px] text-on-navy-muted sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {now.getFullYear()} {site.name}. All rights reserved.
           </p>
-          <p className="tabular font-mono text-[12px] text-on-navy-muted">
-            London {london} · Kathmandu {kathmandu}
+          <p className="tabular font-mono text-[12.5px]">
+            London {formatTime('Europe/London', now)} · Kathmandu{' '}
+            {formatTime('Asia/Kathmandu', now)}
           </p>
         </div>
       </Container>

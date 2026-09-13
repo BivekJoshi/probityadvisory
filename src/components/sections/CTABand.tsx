@@ -4,62 +4,47 @@ import { Button } from '@/components/ui/button'
 import { Container } from '@/components/layout/Container'
 import { Reveal } from '@/components/motion/Reveal'
 import { WhatsApp } from '@/components/icons/Brand'
+import { SceneMount } from '@/components/three/SceneMount'
+import { ContourScene } from '@/components/three/scenes'
 import { site } from '@/data/site'
-import { cn } from '@/lib/utils'
 
 interface CTABandProps {
   title: string
   body: string
   cta?: string
-  dark?: boolean
   whatsapp?: boolean
-  className?: string
 }
 
-export function CTABand({
-  title,
-  body,
-  cta = 'Book a call',
-  dark = false,
-  whatsapp = false,
-  className,
-}: CTABandProps) {
+/** The closing call to action: a navy card set inside the page. */
+export function CTABand({ title, body, cta = 'Book a call', whatsapp = false }: CTABandProps) {
   return (
-    <section
-      className={cn(
-        'relative overflow-hidden border-t border-line-soft py-[clamp(52px,7.5vw,92px)]',
-        dark && 'border-transparent bg-navy-deep text-on-navy',
-        className,
-      )}
-    >
-      {dark && (
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -bottom-32 left-1/2 size-[560px] -translate-x-1/2 rounded-full bg-gold/[0.06] blur-3xl"
-        />
-      )}
-      <Container className="relative">
-        <Reveal className="flex flex-col items-center gap-4 text-center">
-          <h2 className={cn('text-[clamp(25px,3.4vw,36px)]', dark && 'text-white')}>{title}</h2>
-          <p
-            className={cn(
-              'max-w-[54ch] text-[16.5px] leading-[1.62]',
-              dark ? 'text-on-navy-muted' : 'text-muted-foreground',
-            )}
-          >
+    <section className="pb-[clamp(64px,8vw,112px)]">
+      <Container>
+        <Reveal className="relative isolate overflow-hidden rounded-3xl border border-on-navy-line bg-navy-deep px-6 py-[clamp(52px,7vw,88px)] text-center text-on-navy">
+          <SceneMount className="absolute inset-0 -z-10" fallback={<div className="bg-dots absolute inset-0" />}>
+            {(active) => <ContourScene active={active} focus={[0.5, 0.15]} leftFade={0} intensity={0.75} />}
+          </SceneMount>
+          <div
+            aria-hidden="true"
+            className="absolute -bottom-48 left-1/2 -z-10 size-140 -translate-x-1/2 rounded-full bg-gold/12 blur-3xl"
+          />
+          <h2 className="mx-auto max-w-[24ch] text-[clamp(28px,3.6vw,42px)] tracking-[-0.015em] text-white">
+            {title}
+          </h2>
+          <p className="mx-auto mt-4 max-w-[54ch] text-[17px] leading-[1.65] text-on-navy-muted">
             {body}
           </p>
-          <div className="mt-2 flex flex-wrap justify-center gap-3">
-            <Button asChild variant="gold" size="lg">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Button asChild size="lg">
               <Link to="/contact">
                 {cta}
                 <ArrowRight />
               </Link>
             </Button>
             {whatsapp && (
-              <Button asChild variant={dark ? 'outline-dark' : 'outline'} size="lg">
+              <Button asChild variant="outline-dark" size="lg">
                 <a href={`https://wa.me/${site.phoneUKRaw}`} target="_blank" rel="noopener">
-                  <WhatsApp className="size-4" />
+                  <WhatsApp />
                   WhatsApp us
                 </a>
               </Button>
