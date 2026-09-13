@@ -82,7 +82,10 @@ export function Earth({ anchor, labels }: EarthProps) {
   const place = useRef<THREE.Group>(null)
   const tilt = useRef<THREE.Group>(null)
   const spin = useRef<THREE.Group>(null)
+  const dots = useRef<THREE.Points>(null)
+  const comets = useRef<THREE.Points>(null)
   const born = useRef(0)
+  const elapsed = useRef(0)
   const smoothPointer = useRef({ x: 0, y: 0 })
   const sun = useRef({ earth: new THREE.Vector3(), at: 0 })
 
@@ -117,7 +120,10 @@ export function Earth({ anchor, labels }: EarthProps) {
     packets.setAttribute('aAlpha', new THREE.BufferAttribute(new Float32Array(4), 1))
     packets.setAttribute(
       'aColor',
-      new THREE.BufferAttribute(new Float32Array([...GOLD.toArray(), ...GOLD.toArray(), ...STEEL.toArray(), ...STEEL.toArray()]), 3),
+      new THREE.BufferAttribute(
+        new Float32Array([...GOLD.toArray(), ...GOLD.toArray(), ...STEEL.toArray(), ...STEEL.toArray()]),
+        3,
+      ),
     )
     return {
       home,
@@ -129,9 +135,9 @@ export function Earth({ anchor, labels }: EarthProps) {
   }, [cities])
 
   const m = useMemo(() => {
+    // one time and one sun uniform, shared by reference across every material
     const shared = { uTime: { value: 0 }, uSun: { value: new THREE.Vector3(1, 0, 0) } }
     return {
-      shared,
       ocean: shader(shaders.ocean, { uSun: shared.uSun }, { blending: THREE.NormalBlending, depthWrite: true }),
       land: shader(
         shaders.land,
@@ -169,11 +175,7 @@ export function Earth({ anchor, labels }: EarthProps) {
     },
     [routes],
   )
-  useEffect(
-    () => () =>
-      Object.values(m).forEach((value) => value instanceof THREE.Material && value.dispose()),
-    [m],
-  )
+  useEffect(() => () => Object.values(m).forEach((material) => material.dispose()), [m])
 
   const scratch = useMemo(
     () => ({
@@ -187,16 +189,20 @@ export function Earth({ anchor, labels }: EarthProps) {
 
   useFrame((state, delta) => {
     const el = anchor.current
-    if (!el || !place.current || !tilt.current || !spin.current) return
+    const landDots = dots.current
+    const cometHeads = comets.current
+    if (!el || !place.current || !tilt.current || !spin.current || !landDots || !cometHeads) return
+    // per-frame state is reached through the scene graph rather than the memoised materials
+    const land = (landDots.material as THREE.ShaderMaterial).uniforms
+    const heads = (cometHeads.material as THREE.ShaderMaterial).uniforms
+
     const camera = state.camera as THREE.PerspectiveCamera
     const now = performance.now()
     if (!born.current) born.current = now
     const intro = reduced ? 1 : easeOutExpo(Math.min((now - born.current) / 2600, 1))
-    // uTime is one uniform object shared by every material on the globe
-    const landMaterial = m.land
-    const u = landMaterial.uniforms
-    if (!reduced) u.uTime.value += delta
-    const t: number = u.uTime.value
+    if (!reduced) elapsed.current += delta
+    const t = elapsed.current
+    land.uTime.value = t
 
     // --- layout: centre and size the globe on its slot in the page
     const canvas = state.gl.domElement.getBoundingClientRect()
@@ -226,26 +232,26 @@ export function Earth({ anchor, labels }: EarthProps) {
       latLonToVec3(lat, lon, 1, sun.current.earth)
       sun.current.at = now
     }
-    m.shared.uSun.value
+    land.uSun.value
       .copy(sun.current.earth)
       .applyQuaternion(spin.current.getWorldQuaternion(scratch.quaternion))
       .normalize()
 
     const dpr = state.gl.getPixelRatio()
-    m.land.uniforms.uSize.value = radiusPx * 0.0085 * dpr * camera.position.z
-    m.land.uniforms.uReveal.value = intro
-    m.packets.uniforms.uSize.value = radiusPx * 0.05 * dpr * camera.position.z
+    land.uSize.value = radiusPx * 0.0085 * dpr * camera.position.z
+    land.uReveal.value = intro
+    heads.uSize.value = radiusPx * 0.05 * dpr * camera.position.z
 
     // --- the glowing heads of each comet on the two routes
-    const positions = routes.packets.getAttribute('position') as THREE.BufferAttribute
-    const alphas = routes.packets.getAttribute('aAlpha') as THREE.BufferAttribute
-    const heads: [THREE.CatmullRomCurve3, number][] = [
+    const positions = cometHeads.geometry.getAttribute('position') as THREE.BufferAttribute
+    const alphas = cometHeads.geometry.getAttribute('aAlpha') as THREE.BufferAttribute
+    const paths: [THREE.CatmullRomCurve3, number][] = [
       [routes.home, 0.22],
       [routes.out, 0.16],
     ]
-    heads.forEach(([curve, speed], r) => {
+    paths.forEach(([curve, speed], r) => {
       for (let n = 0; n < 2; n++) {
-        const u = (((n + 1 + t * speed) / 2) % 1 + 1) % 1
+        const u = ((((n + 1 + t * speed) / 2) % 1) + 1) % 1
         const p = curve.getPointAt(u, scratch.world)
         positions.setXYZ(r * 2 + n, p.x, p.y, p.z)
         alphas.setX(r * 2 + n, Math.pow(Math.sin(u * Math.PI), 0.6) * intro)
@@ -286,10 +292,16 @@ export function Earth({ anchor, labels }: EarthProps) {
           <mesh material={m.ocean} renderOrder={1}>
             <sphereGeometry args={[1, 96, 64]} />
           </mesh>
-          <points geometry={landGeometry} material={m.land} renderOrder={2} />
+          <points ref={dots} geometry={landGeometry} material={m.land} renderOrder={2} />
           <mesh geometry={routes.outTube} material={m.out} renderOrder={3} />
           <mesh geometry={routes.homeTube} material={m.home} renderOrder={3} />
-          <points geometry={routes.packets} material={m.packets} renderOrder={4} frustumCulled={false} />
+          <points
+            ref={comets}
+            geometry={routes.packets}
+            material={m.packets}
+            renderOrder={4}
+            frustumCulled={false}
+          />
           <CityMarker position={cities.london} ring={m.ringPaper} beam={m.beamPaper} />
           <CityMarker position={cities.kathmandu} ring={m.ringGold} beam={m.beamGold} />
         </group>

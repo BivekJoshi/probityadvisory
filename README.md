@@ -13,6 +13,7 @@ Spectral / IBM Plex type pairing come from the approved
 | Styling | Tailwind CSS v4 (CSS-first `@theme`, no config file) |
 | Components | shadcn/ui pattern — owned source in `src/components/ui` |
 | Animation | Framer Motion 13 |
+| 3D | three.js + React Three Fiber 9, custom GLSL (lazy-loaded) |
 | Routing | React Router 7 |
 | Icons | lucide-react (brand glyphs hand-rolled in `components/icons`) |
 
@@ -36,6 +37,7 @@ src/
     motion/     Reveal, Stagger, WordReveal — the animation vocabulary
     sections/   Page-level blocks (hero, clocks, timeline, ledger, forms …)
     icons/      Probity monogram, WhatsApp / LinkedIn, one glyph per service
+    three/      WebGL scenes: SceneMount / SceneCanvas, objects, GLSL shaders, land mask
   data/         site.ts and team.ts — every word of copy lives here
   hooks/        useMinute + time formatting, useTheme, useSeo
   pages/        Home, Services, About, WhyNepal, Contact, NotFound
@@ -67,8 +69,31 @@ Reduced motion is handled once, by `<MotionConfig reducedMotion="user">` in
 locally are the ones that are not transforms — the overlap chart's bar widths
 and the travelling dot on the clock card's SVG route.
 
-The hero's London ↔ Kathmandu clock card is plain SVG and CSS. There is no
-WebGL, so it renders on locked-down office machines and remote desktops too.
+### 3D scenes
+
+`src/components/three` holds the WebGL work, built on React Three Fiber with
+hand-written shaders:
+
+| Scene | Where | What it shows |
+| --- | --- | --- |
+| `HeroScene` | Home masthead | The live Earth — Natural Earth land as dots, lit by the sun's real position, with work travelling London ↔ Kathmandu — over an animated contour relief |
+| `LedgerScene` | Home, "How the work moves" | 180 instanced ledger pages choreographed through the four process steps as you scroll |
+| `TerrainScene` | Every other masthead | A slow fly-over of ridged relief drawn as survey contours |
+| `ContourScene` | Closing call to action | The contour relief on its own |
+
+- Import scenes only through `three/scenes.ts` (they are lazy) and mount them
+  with `<SceneMount>`, which fetches the chunk once the frame is within a screen
+  of the viewport and stops rendering whenever it scrolls out of view.
+- three.js never ships in the first-paint bundle. Do not add it to
+  `manualChunks`: a manual chunk also absorbs React and gets preloaded.
+- `<SceneCanvas>` is the only place a canvas is created — transparent,
+  decorative, device-pixel ratio capped, on-demand rendering under reduced motion.
+- Without WebGL2 (locked-down office machines, some remote desktops) each scene
+  falls back to the static design: the SVG clock card, the plain timeline, the
+  dotted masthead.
+- `three/data/landMask.ts` is a generated 60,000-point Fibonacci-sphere bitset
+  (~10 kB) from Natural Earth 1:110m land; it only needs regenerating if the
+  sample count changes.
 
 ## Deploying
 
@@ -86,15 +111,14 @@ These files are no longer imported, so they are not in the bundle, but they are
 still type-checked and linted:
 
 ```
-src/components/three/                   (Globe, LazyGlobe)
 src/components/motion/Counter.tsx
 src/components/sections/SoftwareMarquee.tsx
 ```
 
-Once they are gone, drop the 3D dependencies:
+`@react-three/drei` is installed but no longer imported anywhere; it can go:
 
 ```bash
-npm uninstall three @react-three/fiber @react-three/drei @types/three
+npm uninstall @react-three/drei
 ```
 
 ## Known gaps
