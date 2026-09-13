@@ -16,7 +16,7 @@ interface HeroSceneProps {
 export default function HeroScene({ active, anchor, londonLabel, kathmanduLabel }: HeroSceneProps) {
   return (
     <SceneCanvas active={active} camera={{ position: [0, 0, 10], fov: 30 }}>
-      <ContourField focus={[0.8, 0.55]} leftFade={0.9} intensity={0.85} />
+      <ContourField focus={[0.8, 0.55]} leftFade={0.9} intensity={0.7} />
       <Earth anchor={anchor} labels={{ london: londonLabel, kathmandu: kathmanduLabel }} />
     </SceneCanvas>
   )

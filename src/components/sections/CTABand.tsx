@@ -22,7 +22,7 @@ export function CTABand({ title, body, cta = 'Book a call', whatsapp = false }: 
       <Container>
         <Reveal className="relative isolate overflow-hidden rounded-3xl border border-on-navy-line bg-navy-deep px-6 py-[clamp(52px,7vw,88px)] text-center text-on-navy">
           <SceneMount className="absolute inset-0 -z-10" fallback={<div className="bg-dots absolute inset-0" />}>
-            {(active) => <ContourScene active={active} focus={[0.5, 0.15]} leftFade={0} intensity={0.75} />}
+            {(active) => <ContourScene active={active} focus={[0.5, 0.15]} leftFade={0} intensity={0.6} />}
           </SceneMount>
           <div
             aria-hidden="true"

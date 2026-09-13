@@ -11,7 +11,7 @@ export default function LedgerScene({ active, stage }: { active: boolean; stage:
 
   return (
     <SceneCanvas active={active} camera={{ position: [0, 1.3, 7.8], fov: 38 }}>
-      <fog attach="fog" args={[ground, 8, 17]} />
+      <fog attach="fog" args={[ground, 10, 20]} />
       <ambientLight intensity={1.2} color="#9fb6cc" />
       <directionalLight position={[2, 5, 6]} intensity={2.4} />
       <Ledger stage={stage} />

@@ -54,7 +54,7 @@ void main() {
   vec2 pp = (uPointer - 0.5) * vec2(aspect, 1.0);
   float glow = exp(-pow(length(p - pp) * 2.4, 2.0));
 
-  float mask = mix(1.0, smoothstep(0.0, 0.62, vUv.x), uLeftFade);
+  float mask = mix(1.0, smoothstep(0.12, 0.72, vUv.x), uLeftFade);
   mask *= smoothstep(1.9, 0.2, d) * 0.85 + 0.15;
 
   vec3 minor = vec3(0.31, 0.47, 0.64);

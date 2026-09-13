@@ -10,13 +10,11 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        // vendors that change less often than the app cache on their own; three.js
-        // is only ever reached through the lazily loaded scenes
+        // framer-motion changes less often than the app, so it caches on its own.
+        // three.js is deliberately left out: a manual chunk would also absorb React
+        // and get preloaded on first paint, where the lazy scenes keep it off.
         manualChunks(id) {
-          if (!id.includes('node_modules')) return
-          if (id.includes('framer-motion')) return 'motion'
-          if (/node_modules\/(three|@react-three|its-fine|zustand|suspend-react|react-use-measure)\//.test(id))
-            return 'three'
+          if (id.includes('node_modules') && id.includes('framer-motion')) return 'motion'
         },
       },
     },

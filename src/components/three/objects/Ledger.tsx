@@ -9,7 +9,7 @@ import { pointer, trackPointer } from '../support'
  *   0 Scoping call  — scattered records, one live file brought forward
  *   1 Pilot batch   — a small set laid out for review, the rest waiting behind
  *   2 Named team    — three piles, one per principal, each under a gold halo
- *   3 Steady state  — pages moving on an unbroken loop into a bound file
+ *   3 Steady state  — pages circling a bound gold file on three steady orbits
  */
 
 const GOLD_TINT = new THREE.Color(1, 0.78, 0.32)
@@ -38,18 +38,13 @@ const makePose = (): Pose => ({
   gold: 0,
 })
 
-/** A figure-of-eight track: the lemniscate of Bernoulli, laid on the floor. */
-function lemniscate(u: number, out: THREE.Vector3) {
-  const theta = u * Math.PI * 2
-  const d = 1 + Math.sin(theta) ** 2
-  return out.set(
-    (2.9 * Math.cos(theta)) / d,
-    0.1 + Math.sin(theta * 2) * 0.12,
-    ((2.9 * Math.sin(theta) * Math.cos(theta)) / d) * 1.3 + 0.4,
-  )
-}
-
-const ahead = new THREE.Vector3()
+/* three gyroscope-like orbits for the steady state, each tipped toward the viewer */
+const ORBIT_TILTS = [
+  new THREE.Euler(1.15, 0, 0.35),
+  new THREE.Euler(1.3, 0, -0.3),
+  new THREE.Euler(1.0, 0, 0),
+]
+const orbit = new THREE.Vector3()
 
 function pose(stage: number, i: number, count: number, t: number, out: Pose) {
   const p = out.position
@@ -95,10 +90,10 @@ function pose(stage: number, i: number, count: number, t: number, out: Pose) {
       return
     }
     const a = (i / count) * Math.PI * 2 + t * 0.05
-    p.set(Math.cos(a) * 5.6, Math.sin(a * 3) * 0.35 - 0.3, Math.sin(a) * 1.8 - 5.2)
+    p.set(Math.cos(a) * 5.6, Math.sin(a * 3) * 0.35 - 0.3, Math.sin(a) * 1.8 - 6.8)
     r.set(0.3, -a + Math.PI / 2, 0)
-    out.scale = 0.7
-    out.light = 0.22
+    out.scale = 0.55
+    out.light = 0.1
     out.gold = 0
     return
   }
@@ -114,14 +109,17 @@ function pose(stage: number, i: number, count: number, t: number, out: Pose) {
     return
   }
 
-  const u = (i / count + t * 0.03) % 1
-  lemniscate(u, p)
-  lemniscate((u + 0.002) % 1, ahead)
-  // the sheet's face runs along the track, like cards sliding on a rail
-  r.set(-0.12, Math.atan2(ahead.x - p.x, ahead.z - p.z) + Math.PI / 2, 0)
-  out.scale = 0.72
-  out.light = 0.9
-  out.gold = i % 15 === 0 ? 0.85 : 0
+  // pages circle the bound file on three rings, alternating direction, facing the viewer
+  const lane = i % 3
+  const j = Math.floor(i / 3)
+  const radius = 1.45 + lane * 0.62
+  const a = (j / Math.ceil(count / 3)) * Math.PI * 2 + t * (lane % 2 ? -0.22 : 0.18)
+  orbit.set(Math.cos(a) * radius, 0, Math.sin(a) * radius).applyEuler(ORBIT_TILTS[lane])
+  p.set(orbit.x, orbit.y + 0.15, orbit.z + 0.4)
+  r.set(-0.1, 0, Math.sin(a) * 0.25)
+  out.scale = 0.52
+  out.light = 0.55 + 0.45 * clamp01((orbit.z + radius) / (2 * radius))
+  out.gold = j % 12 === 0 ? 0.85 : 0
 }
 
 /** A ruled ledger page with a navy header and a gold tab, drawn once. */
@@ -246,10 +244,14 @@ export function Ledger({ stage }: { stage: MotionValue<number> }) {
     }
     if (glow.current) glow.current.intensity = 3 + near(0) * 5 + near(3) * 7
 
-    const camera = state.camera
+    // pull back on narrow stages so the three piles always fit side by side
+    const camera = state.camera as THREE.PerspectiveCamera
+    const aspect = state.size.width / state.size.height
+    const fit = Math.max(7.8, 2.75 / (Math.tan((camera.fov * Math.PI) / 360) * aspect) + 1.3)
     const ease = 1 - Math.exp(-delta * 2)
     camera.position.x += (pointer.x * 0.4 - camera.position.x) * ease
     camera.position.y += (1.3 + pointer.y * 0.25 - camera.position.y) * ease
+    camera.position.z += (fit - camera.position.z) * ease
     camera.lookAt(0, 0.1, 0)
   })
 
@@ -269,7 +271,7 @@ export function Ledger({ stage }: { stage: MotionValue<number> }) {
         ))}
       </group>
       <mesh ref={file} position={[0, 0.15, 0.4]}>
-        <boxGeometry args={[0.62, 0.8, 0.14]} />
+        <boxGeometry args={[0.7, 0.92, 0.16]} />
         <meshStandardMaterial color="#C9A227" metalness={0.55} roughness={0.35} />
       </mesh>
       <pointLight ref={glow} color="#E0BD52" position={[0, 0.6, 2.6]} distance={9} decay={1.6} />

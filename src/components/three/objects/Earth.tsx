@@ -193,9 +193,10 @@ export function Earth({ anchor, labels }: EarthProps) {
     if (!born.current) born.current = now
     const intro = reduced ? 1 : easeOutExpo(Math.min((now - born.current) / 2600, 1))
     // uTime is one uniform object shared by every material on the globe
-    const uniforms = m.land.uniforms
-    if (!reduced) uniforms.uTime.value += delta
-    const t: number = uniforms.uTime.value
+    const landMaterial = m.land
+    const u = landMaterial.uniforms
+    if (!reduced) u.uTime.value += delta
+    const t: number = u.uTime.value
 
     // --- layout: centre and size the globe on its slot in the page
     const canvas = state.gl.domElement.getBoundingClientRect()
@@ -253,12 +254,14 @@ export function Earth({ anchor, labels }: EarthProps) {
     positions.needsUpdate = true
     alphas.needsUpdate = true
 
-    // --- pin the HTML labels to their cities, fading as they turn away
-    const entries: [Ref, THREE.Vector3][] = [
-      [labels.london, cities.london],
-      [labels.kathmandu, cities.kathmandu],
+    // --- pin the HTML labels beside their cities, fading as they turn away. London's tag
+    // sits up and to the left of its pin, Kathmandu's down and to the right, so the two
+    // never collide; both are held inside the canvas on narrow screens.
+    const entries: [Ref, THREE.Vector3, 'above' | 'below'][] = [
+      [labels.london, cities.london, 'above'],
+      [labels.kathmandu, cities.kathmandu, 'below'],
     ]
-    for (const [ref, local] of entries) {
+    for (const [ref, local, side] of entries) {
       const label = ref.current
       if (!label) continue
       const world = scratch.world.copy(local).applyMatrix4(spin.current.matrixWorld)
@@ -267,7 +270,11 @@ export function Earth({ anchor, labels }: EarthProps) {
       world.project(camera)
       const x = ((world.x + 1) / 2) * canvas.width
       const y = ((1 - world.y) / 2) * canvas.height
-      label.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`
+      const w = label.offsetWidth
+      const h = label.offsetHeight
+      const left = Math.min(Math.max(side === 'above' ? x - w + 18 : x - 18, 8), canvas.width - w - 8)
+      const top = side === 'above' ? y - h - 22 : y + 22
+      label.style.transform = `translate3d(${left.toFixed(1)}px, ${top.toFixed(1)}px, 0)`
       label.style.opacity = String(smoothstep(0.12, 0.4, facing) * smoothstep(0.6, 1, intro))
     }
   })
