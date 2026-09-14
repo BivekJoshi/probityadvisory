@@ -185,8 +185,8 @@ export const team: Principal[] = [
     software: ["Xero", "QuickBooks", "MYOB", "HandiLedger"],
   },
   {
-    slug: "prajwol-paudyal",
-    name: "Prajwol Paudyal",
+    slug: "prajwal-paudyal",
+    name: "Prajwal Paudyal",
     role: "Audit & advisory",
     creds: "CA (ICAI) · CA (ICAN) · Dip IFRS",
     photo: "/team/prajwal-paudyal.jpg",
