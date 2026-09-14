@@ -61,16 +61,26 @@ Copy is deliberately kept out of the components: edit `src/content/` (and
 
 - **A new page:** add its path to `paths` in `config/routes.ts` (and to `nav` if it
   belongs in the menu), create `pages/<name>/<Name>Page.tsx` with a default export,
-  and add one line to the `pages` table in `app/App.tsx`.
-- **A new section:** if one page uses it, put it in that page's `sections/` folder.
-  Move it to `components/sections` (and export it from its `index.ts`) once a
+  and add one line to the `pages` table in `app/App.tsx`. A page file only sets its
+  SEO and lists its sections in order; the markup lives in the sections.
+- **A new section:** if one page uses it, put it in that page's `sections/` folder
+  and export it from `sections/index.ts`. Move it to `components/sections` once a
   second page needs it.
-- **Imports:** every folder under `components/` except `ui/`, and every folder
-  under `features/`, has an `index.ts`. Import from the folder
-  (`@/components/common`), not the file inside it; within a folder, import
+- **When a component grows parts,** make it a folder of the same name:
+  `Header/Header.tsx` is the entry, with `DesktopNav.tsx`, `MobileMenu.tsx` … beside
+  it. The parts are private to that folder, and the parent `index.ts` exports only
+  the entry.
+- **Logic sits beside the UI, not inside it:** state and effects go in a `useX.ts`
+  hook (`useEnquiryForm`, `useScrollStage`), pure functions and lookup tables in a
+  plain `.ts` file (`enquiry.ts`, `poses.ts`). Promote them to `src/hooks` or
+  `src/lib` once something else needs them.
+- **Imports:** every folder under `components/` except `ui/`, every folder under
+  `features/`, and each page's `sections/` has an `index.ts`. Import from the
+  folder (`@/components/common`), not the file inside it; within a folder, import
   siblings relatively. `components/ui` keeps one import per file, as the shadcn
   CLI writes it.
 - **Links:** use `paths` from `@/config/routes` rather than typing `'/contact'`.
+- **Easing:** use `brandEase` from `@/components/motion` rather than repeating the curve.
 
 ## Design system
 
@@ -142,8 +152,9 @@ npm uninstall @react-three/drei
 ## Known gaps
 
 - **The enquiry form has no back end.** A valid submission currently opens the
-  visitor's mail client with the enquiry pre-filled. Replace `handleSubmit` in
-  `src/pages/contact/sections/ContactForm.tsx` with a POST once an endpoint exists.
+  visitor's mail client with the enquiry pre-filled. Replace the `mailto:` hand-off
+  in `handleSubmit` (`src/pages/contact/sections/ContactForm/useEnquiryForm.ts`)
+  with a POST once an endpoint exists.
 - **No testimonials.** The reference material contained no approved client
   quotes, so none were invented. Adding a section is straightforward once real
   quotes are cleared for use.

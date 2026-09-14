@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
+import { brandEase } from './easing'
 
 interface WordRevealProps {
   text: string
@@ -39,7 +40,7 @@ export function WordReveal({
                 className={cn('inline-block', lit.has(clean(word)) && 'text-gold')}
                 initial={{ y: '100%', opacity: 0 }}
                 animate={{ y: '0%', opacity: 1 }}
-                transition={{ duration: 0.8, delay: delay + i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.8, delay: delay + i * 0.05, ease: brandEase }}
               >
                 {word}
               </motion.span>

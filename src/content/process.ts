@@ -76,3 +76,5 @@ export const engagementModels = [
 
 export const pricingNote =
   'Every engagement is priced to the workload rather than a headcount, and quoted once we have seen a live file on the scoping call.'
+
+export type EngagementModel = (typeof engagementModels)[number]

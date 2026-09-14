@@ -1,7 +1,7 @@
 import type { RefObject } from 'react'
 import { SceneCanvas } from '../SceneCanvas'
 import { ContourField } from '../objects/ContourField'
-import { Earth } from '../objects/Earth'
+import { Earth } from '../objects/Earth/Earth'
 
 type Ref = RefObject<HTMLElement | null>
 

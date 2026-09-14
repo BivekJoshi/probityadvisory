@@ -96,3 +96,5 @@ export const complianceCalendar = [
     what: 'CT600 filed with HMRC — with the tax itself due at nine months and a day',
   },
 ] as const
+
+export type Service = (typeof services)[number]

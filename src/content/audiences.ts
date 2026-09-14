@@ -26,3 +26,5 @@ export const audiences = [
     cta: 'Talk to us',
   },
 ] as const
+
+export type Audience = (typeof audiences)[number]

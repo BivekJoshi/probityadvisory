@@ -1,6 +1,6 @@
 import type { MotionValue } from 'framer-motion'
 import { SceneCanvas } from '../SceneCanvas'
-import { Ledger } from '../objects/Ledger'
+import { Ledger } from '../objects/Ledger/Ledger'
 import { useTheme } from '@/features/theme'
 
 /** The process story's stage: ledger pages lit warm against the navy band. */

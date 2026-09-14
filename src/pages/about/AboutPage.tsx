@@ -1,12 +1,7 @@
-import { Award } from 'lucide-react'
-import { Band, Container, Eyebrow, SectionHeader } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Reveal, Stagger, StaggerItem } from '@/components/motion'
-import { CTABand, PageHero, TeamGrid } from '@/components/sections'
+import { CTABand, PageHero } from '@/components/sections'
 import { useSeo } from '@/hooks/useSeo'
-import { memberships } from '@/content/team'
 import { site } from '@/config/site'
-import { PrinciplesGrid } from './sections/PrinciplesGrid'
+import { MembershipsSection, PrincipalsSection, PrinciplesSection } from './sections'
 
 export default function AboutPage() {
   useSeo({
@@ -23,41 +18,9 @@ export default function AboutPage() {
         highlight={['probity']}
         lede="Doing the work properly when nobody is checking. It is the only thing worth promising in this business, because everything else — the software, the turnaround, the rate — can be matched by somebody cheaper next year."
       />
-
-      <Band>
-        <Container>
-          <Reveal>
-            <Eyebrow>How we are set up</Eyebrow>
-          </Reveal>
-          <PrinciplesGrid />
-        </Container>
-      </Band>
-
-      <Band tone="card">
-        <Container>
-          <SectionHeader eyebrow="The principals" title="Who prepares your work." />
-          <TeamGrid full />
-        </Container>
-      </Band>
-
-      <Band>
-        <Container>
-          <SectionHeader
-            eyebrow="Qualifications"
-            title="Memberships held by our principals in their own names."
-          />
-          <Stagger className="flex flex-wrap gap-2.5" step={0.06}>
-            {memberships.map((item) => (
-              <StaggerItem key={item}>
-                <Badge>
-                  <Award className="text-gold-ink" />
-                  {item}
-                </Badge>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </Container>
-      </Band>
+      <PrinciplesSection />
+      <PrincipalsSection />
+      <MembershipsSection />
 
       <CTABand
         title="Meet the people, not the pitch."
