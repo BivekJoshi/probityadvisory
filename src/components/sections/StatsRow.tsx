@@ -1,5 +1,5 @@
-import { Stagger, StaggerItem } from '@/components/motion/Reveal'
-import { stats } from '@/data/site'
+import { Stagger, StaggerItem } from '@/components/motion'
+import { stats } from '@/content/proof'
 
 /** The four figures, as a hairline-divided card. */
 export function StatsRow() {

@@ -1,12 +1,11 @@
 import { useRef, useState, type ReactNode, type Ref } from 'react'
 import { motion } from 'framer-motion'
-import { Container, Eyebrow, Lede } from '@/components/layout/Container'
-import { WordReveal } from '@/components/motion/WordReveal'
-import { SceneMount } from '@/components/three/SceneMount'
-import { HeroScene, TerrainScene } from '@/components/three/scenes'
-import { hasWebGL } from '@/components/three/support'
-import { formatTime, useMinute } from '@/hooks/useClock'
-import { globeCaption } from '@/data/site'
+import { Container, Eyebrow, Lede } from '@/components/common'
+import { WordReveal } from '@/components/motion'
+import { HeroScene, SceneMount, TerrainScene, hasWebGL } from '@/features/three'
+import { formatTime } from '@/lib/time'
+import { useMinute } from '@/hooks/useMinute'
+import { globeCaption } from '@/content/timeZones'
 import { cn } from '@/lib/utils'
 
 interface PageHeroProps {

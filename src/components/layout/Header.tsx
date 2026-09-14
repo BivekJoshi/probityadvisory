@@ -4,10 +4,11 @@ import { motion, useMotionValueEvent, useScroll } from 'framer-motion'
 import { ArrowRight, Menu } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import { ProbityMark } from '@/components/icons/Brand'
-import { Container } from './Container'
-import { ThemeToggle } from './ThemeToggle'
-import { nav, site } from '@/data/site'
+import { ProbityMark } from '@/components/icons'
+import { Container } from '@/components/common'
+import { ThemeToggle } from '@/features/theme'
+import { nav, paths } from '@/config/routes'
+import { site } from '@/config/site'
 import { cn } from '@/lib/utils'
 
 const ease = [0.16, 1, 0.3, 1] as const
@@ -32,7 +33,7 @@ export function Header() {
       )}
     >
       <Container className="flex h-16 items-center justify-between gap-6">
-        <Link to="/" className="flex shrink-0 items-center gap-2.5" aria-label={`${site.name} — home`}>
+        <Link to={paths.home} className="flex shrink-0 items-center gap-2.5" aria-label={`${site.name} — home`}>
           <ProbityMark className="size-8" />
           <span className="flex flex-col leading-none">
             <span className="font-display text-[18px] font-semibold text-white">{site.name}</span>
@@ -48,7 +49,7 @@ export function Header() {
               <li key={item.to}>
                 <NavLink
                   to={item.to}
-                  end={item.to === '/'}
+                  end={item.to === paths.home}
                   className={({ isActive }) =>
                     cn(
                       'relative block rounded-full px-4 py-1.5 text-[14px] transition-colors duration-200',
@@ -77,7 +78,7 @@ export function Header() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <Button asChild size="sm" className="hidden sm:inline-flex">
-            <Link to="/contact">Book a call</Link>
+            <Link to={paths.contact}>Book a call</Link>
           </Button>
 
           <Sheet open={open} onOpenChange={setOpen}>
@@ -109,7 +110,7 @@ export function Header() {
                           so the sheet is closed from the link itself instead. */}
                       <NavLink
                         to={item.to}
-                        end={item.to === '/'}
+                        end={item.to === paths.home}
                         onClick={close}
                         className={({ isActive }) =>
                           cn(
@@ -141,7 +142,7 @@ export function Header() {
                   {site.phoneUK}
                 </a>
                 <Button asChild className="mt-2 w-full">
-                  <Link to="/contact" onClick={close}>
+                  <Link to={paths.contact} onClick={close}>
                     Book a call
                     <ArrowRight />
                   </Link>

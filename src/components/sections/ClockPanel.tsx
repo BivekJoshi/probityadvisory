@@ -1,5 +1,6 @@
 import { useReducedMotion } from 'framer-motion'
-import { formatDifference, formatTime, useMinute } from '@/hooks/useClock'
+import { formatDifference, formatTime } from '@/lib/time'
+import { useMinute } from '@/hooks/useMinute'
 import { cn } from '@/lib/utils'
 
 interface ClockPanelProps {

@@ -2,7 +2,7 @@ import { motion, type HTMLMotionProps, type Variants } from 'framer-motion'
 
 /*
  * The site's scroll-in vocabulary. Reduced motion is handled once, by
- * <MotionConfig reducedMotion="user"> in main.tsx: movement is dropped and
+ * <MotionConfig reducedMotion="user"> in app/providers.tsx: movement is dropped and
  * only the fade remains, so nothing here needs to check for it.
  */
 

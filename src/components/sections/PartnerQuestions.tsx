@@ -4,8 +4,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import { Reveal } from '@/components/motion/Reveal'
-import { partnerQuestions } from '@/data/site'
+import { Reveal } from '@/components/motion'
+import { partnerQuestions } from '@/content/faq'
 
 interface PartnerQuestionsProps {
   /** Defaults to the four partner objections; the home page adds a few more. */

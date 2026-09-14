@@ -1,7 +1,8 @@
 import { Clock, Mail } from 'lucide-react'
-import { WhatsApp } from '@/components/icons/Brand'
-import { Container } from './Container'
-import { contactPromise, site } from '@/data/site'
+import { WhatsApp } from '@/components/icons'
+import { Container } from '@/components/common'
+import { contactPromise } from '@/content/process'
+import { site } from '@/config/site'
 
 const linkClass = 'flex items-center gap-1.5 transition-colors duration-150 hover:text-white'
 

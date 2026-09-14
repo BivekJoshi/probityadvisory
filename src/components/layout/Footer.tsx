@@ -1,9 +1,12 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { Container } from './Container'
-import { ProbityMark, WhatsApp } from '@/components/icons/Brand'
-import { nav, services, site } from '@/data/site'
-import { formatTime, useMinute } from '@/hooks/useClock'
+import { Container } from '@/components/common'
+import { ProbityMark, WhatsApp } from '@/components/icons'
+import { nav, paths } from '@/config/routes'
+import { services } from '@/content/services'
+import { site } from '@/config/site'
+import { formatTime } from '@/lib/time'
+import { useMinute } from '@/hooks/useMinute'
 
 const linkClass = 'text-[14px] text-on-navy-muted transition-colors duration-150 hover:text-white'
 
@@ -26,7 +29,7 @@ export function Footer() {
       <Container className="py-[clamp(56px,7vw,80px)]">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.5fr_0.7fr_1.2fr_1.2fr]">
           <div className="sm:col-span-2 lg:col-span-1">
-            <Link to="/" className="flex w-fit items-center gap-2.5">
+            <Link to={paths.home} className="flex w-fit items-center gap-2.5">
               <ProbityMark className="size-8" />
               <span className="font-display text-[19px] font-semibold text-white">{site.name}</span>
             </Link>
@@ -48,7 +51,7 @@ export function Footer() {
           <Column title="Services">
             {services.map((service) => (
               <li key={service.slug}>
-                <Link to={`/services#${service.slug}`} className={linkClass}>
+                <Link to={`${paths.services}#${service.slug}`} className={linkClass}>
                   {service.title}
                 </Link>
               </li>

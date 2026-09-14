@@ -1,7 +1,7 @@
 import { ArrowUpRight } from 'lucide-react'
-import { Stagger, StaggerItem } from '@/components/motion/Reveal'
-import { LinkedIn } from '@/components/icons/Brand'
-import { team } from '@/data/team'
+import { Stagger, StaggerItem } from '@/components/motion'
+import { LinkedIn } from '@/components/icons'
+import { team } from '@/content/team'
 import { cn } from '@/lib/utils'
 
 /**

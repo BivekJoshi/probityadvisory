@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion'
-import { WhatsApp } from '@/components/icons/Brand'
-import { site } from '@/data/site'
+import { WhatsApp } from '@/components/icons'
+import { site } from '@/config/site'
 
 /** WhatsApp shortcut that appears once the masthead has scrolled out of view. */
 export function WhatsAppFab() {

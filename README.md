@@ -31,25 +31,51 @@ npm run lint
 
 ```
 src/
+  main.tsx        Entry: mounts <App> inside <AppProviders>
+  app/            App.tsx (the route table) · providers.tsx (theme, motion, router)
+  config/         routes.ts (every path, and the nav) · site.ts (name, contact details)
+  content/        Site copy by topic: services, team, process, proof, faq, audiences, timeZones
+  pages/
+    home/         HomePage.tsx + sections/ that only the home page uses
+    services/     ServicesPage.tsx + sections/
+    about/  why-nepal/  contact/  not-found/
   components/
-    ui/         shadcn primitives (button, badge, input, select, accordion, sheet …)
-    layout/     Header, Footer, Layout shell, Container/Band/SectionHeader, theme toggle
-    motion/     Reveal, Stagger, WordReveal — the animation vocabulary
-    sections/   Page-level blocks (hero, clocks, timeline, ledger, forms …)
-    icons/      Probity monogram, WhatsApp / LinkedIn, one glyph per service
-    three/      WebGL scenes: SceneMount / SceneCanvas, objects, GLSL shaders, land mask
-  data/         site.ts and team.ts — every word of copy lives here
-  hooks/        useMinute + time formatting, useTheme, useSeo
-  pages/        Home, Services, About, WhyNepal, Contact, NotFound
+    ui/           shadcn primitives (button, badge, input, select, accordion, sheet …)
+    common/       Container, Band, SectionHeader, Eyebrow, Lede — the page building blocks
+    layout/       The shell: Layout, Header, Footer, TopBar, ScrollProgress, WhatsAppFab
+    sections/     Sections shared by several pages: PageHero, CTABand, ClockPanel, StatsRow …
+    motion/       Reveal, Stagger, WordReveal — the animation vocabulary
+    icons/        Probity monogram, WhatsApp / LinkedIn, one glyph per service
+  features/
+    theme/        ThemeProvider, useTheme, ThemeToggle
+    three/        WebGL scenes: SceneMount / SceneCanvas, objects, GLSL shaders, land mask
+  hooks/          useSeo, useMinute
+  lib/            cn(), time-zone formatting
+  styles/         globals.css — Tailwind and the brand tokens
 ```
 
-Copy is deliberately kept out of the components: edit `src/data/site.ts` and
-`src/data/team.ts` rather than the JSX.
+Copy is deliberately kept out of the components: edit `src/content/` (and
+`src/config/site.ts` for contact details) rather than the JSX.
+
+### Where new code goes
+
+- **A new page:** add its path to `paths` in `config/routes.ts` (and to `nav` if it
+  belongs in the menu), create `pages/<name>/<Name>Page.tsx` with a default export,
+  and add one line to the `pages` table in `app/App.tsx`.
+- **A new section:** if one page uses it, put it in that page's `sections/` folder.
+  Move it to `components/sections` (and export it from its `index.ts`) once a
+  second page needs it.
+- **Imports:** every folder under `components/` except `ui/`, and every folder
+  under `features/`, has an `index.ts`. Import from the folder
+  (`@/components/common`), not the file inside it; within a folder, import
+  siblings relatively. `components/ui` keeps one import per file, as the shadcn
+  CLI writes it.
+- **Links:** use `paths` from `@/config/routes` rather than typing `'/contact'`.
 
 ## Design system
 
-Brand tokens are declared once in `src/index.css` — `:root` for light, `.dark`
-for dark — then mapped to both shadcn semantic names (`--color-primary`,
+Brand tokens are declared once in `src/styles/globals.css` — `:root` for light,
+`.dark` for dark — then mapped to both shadcn semantic names (`--color-primary`,
 `--color-border` …) and brand aliases you can use directly (`bg-navy-deep`,
 `text-gold`, `border-line`). Changing a brand colour in one place moves the whole
 site, in both themes.
@@ -65,13 +91,13 @@ site, in both themes.
 ## Motion
 
 Reduced motion is handled once, by `<MotionConfig reducedMotion="user">` in
-`main.tsx`: movement is dropped and fades remain. The only animations checked
-locally are the ones that are not transforms — the overlap chart's bar widths
-and the travelling dot on the clock card's SVG route.
+`app/providers.tsx`: movement is dropped and fades remain. The only animations
+checked locally are the ones that are not transforms — the overlap chart's bar
+widths and the travelling dot on the clock card's SVG route.
 
 ### 3D scenes
 
-`src/components/three` holds the WebGL work, built on React Three Fiber with
+`src/features/three` holds the WebGL work, built on React Three Fiber with
 hand-written shaders:
 
 | Scene | Where | What it shows |
@@ -81,7 +107,7 @@ hand-written shaders:
 | `TerrainScene` | Every other masthead | A slow fly-over of ridged relief drawn as survey contours |
 | `ContourScene` | Closing call to action | The contour relief on its own |
 
-- Import scenes only through `three/scenes.ts` (they are lazy) and mount them
+- Import scenes only through `@/features/three` (they are lazy) and mount them
   with `<SceneMount>`, which fetches the chunk once the frame is within a screen
   of the viewport and stops rendering whenever it scrolls out of view.
 - three.js never ships in the first-paint bundle. Do not add it to
@@ -91,9 +117,9 @@ hand-written shaders:
 - Without WebGL2 (locked-down office machines, some remote desktops) each scene
   falls back to the static design: the SVG clock card, the plain timeline, the
   dotted masthead.
-- `three/data/landMask.ts` is a generated 60,000-point Fibonacci-sphere bitset
-  (~10 kB) from Natural Earth 1:110m land; it only needs regenerating if the
-  sample count changes.
+- `features/three/data/landMask.ts` is a generated 60,000-point Fibonacci-sphere
+  bitset (~10 kB) from Natural Earth 1:110m land; it only needs regenerating if
+  the sample count changes.
 
 ## Deploying
 
@@ -107,14 +133,6 @@ For Apache/nginx, add the equivalent fallback rule.
 
 ## Leftovers to delete
 
-These files are no longer imported, so they are not in the bundle, but they are
-still type-checked and linted:
-
-```
-src/components/motion/Counter.tsx
-src/components/sections/SoftwareMarquee.tsx
-```
-
 `@react-three/drei` is installed but no longer imported anywhere; it can go:
 
 ```bash
@@ -125,7 +143,7 @@ npm uninstall @react-three/drei
 
 - **The enquiry form has no back end.** A valid submission currently opens the
   visitor's mail client with the enquiry pre-filled. Replace `handleSubmit` in
-  `src/components/sections/ContactForm.tsx` with a POST once an endpoint exists.
+  `src/pages/contact/sections/ContactForm.tsx` with a POST once an endpoint exists.
 - **No testimonials.** The reference material contained no approved client
   quotes, so none were invented. Adding a section is straightforward once real
   quotes are cleared for use.

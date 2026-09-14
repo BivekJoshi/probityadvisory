@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Container } from '@/components/layout/Container'
-import { Reveal } from '@/components/motion/Reveal'
-import { WhatsApp } from '@/components/icons/Brand'
-import { SceneMount } from '@/components/three/SceneMount'
-import { ContourScene } from '@/components/three/scenes'
-import { site } from '@/data/site'
+import { Container } from '@/components/common'
+import { Reveal } from '@/components/motion'
+import { WhatsApp } from '@/components/icons'
+import { ContourScene, SceneMount } from '@/features/three'
+import { site } from '@/config/site'
+import { paths } from '@/config/routes'
 
 interface CTABandProps {
   title: string
@@ -36,7 +36,7 @@ export function CTABand({ title, body, cta = 'Book a call', whatsapp = false }: 
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button asChild size="lg">
-              <Link to="/contact">
+              <Link to={paths.contact}>
                 {cta}
                 <ArrowRight />
               </Link>
