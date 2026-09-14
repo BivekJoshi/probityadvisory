@@ -10,14 +10,25 @@ export function SoftwareStrip() {
           We work in your stack, not ours
         </p>
         <ul className="flex flex-wrap items-center justify-center gap-x-9 gap-y-2 md:justify-end">
-          {software.map((name) => (
-            <li
-              key={name}
-              className="font-display text-[21px] font-semibold text-foreground/45 transition-colors duration-200 hover:text-foreground sm:text-[23px]"
-            >
-              {name}
-            </li>
-          ))}
+          {software.map(({ name, logo }) =>
+            logo ? (
+              <li key={name}>
+                <img
+                  src={logo}
+                  alt={name}
+                  loading="lazy"
+                  className="h-8 w-auto rounded-md object-contain sm:h-9"
+                />
+              </li>
+            ) : (
+              <li
+                key={name}
+                className="font-display text-[21px] font-semibold text-foreground/45 transition-colors duration-200 hover:text-foreground sm:text-[23px]"
+              >
+                {name}
+              </li>
+            ),
+          )}
         </ul>
       </Container>
     </div>

@@ -12,10 +12,19 @@ export function SoftwareColumn() {
         title="We work in your stack, not ours."
         lede="Nothing is exported into a system of our own. We log into yours, work in the client's ledger, and leave the audit trail where your reviewer expects to find it."
       />
-      <Stagger className="flex flex-wrap gap-2.5" step={0.05}>
-        {software.map((item) => (
-          <StaggerItem key={item}>
-            <Badge variant="green">{item}</Badge>
+      <Stagger className="flex flex-wrap items-center gap-2.5" step={0.05}>
+        {software.map(({ name, logo }) => (
+          <StaggerItem key={name}>
+            {logo ? (
+              <img
+                src={logo}
+                alt={name}
+                loading="lazy"
+                className="h-8 w-auto rounded-md object-contain"
+              />
+            ) : (
+              <Badge variant="green">{name}</Badge>
+            )}
           </StaggerItem>
         ))}
       </Stagger>

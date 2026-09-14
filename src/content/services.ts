@@ -74,7 +74,14 @@ export const alsoOnRequest = [
   'Practice overflow at peak',
 ] as const
 
-export const software = ['FreeAgent', 'QuickBooks', 'Sage', 'Xero', 'MYOB'] as const
+/** Ledger platforms we work in. `logo` is a path under /public; without one the name is shown as text. */
+export const software: readonly { name: string; logo?: string }[] = [
+  { name: 'FreeAgent', logo: '/software/freeagent.png' },
+  { name: 'QuickBooks', logo: '/software/quickBook.png' },
+  { name: 'Sage', logo: '/software/sage.png' },
+  { name: 'Xero',logo: '/software/xero.jpg' },
+  { name: 'MYOB' , logo: '/software/myob.png' },
+]
 
 export const complianceCalendar = [
   { when: '7th', what: 'VAT return filed and paid — one month and seven days after the quarter end' },
