@@ -15,14 +15,14 @@ export function ServiceDetail({ service, index }: { service: Service; index: num
     >
       <div>
         <div className="flex items-center gap-3">
-          <span className="grid size-12 place-items-center rounded-xl bg-navy-deep text-gold">
+          <span className="grid size-12 place-items-center rounded-xl bg-forest-deep text-green">
             <Icon className="size-5.5" />
           </span>
           <span className="font-mono text-[12px] text-muted-foreground">0{index + 1}</span>
         </div>
         <h2 className="mt-6 text-[clamp(26px,3vw,34px)] tracking-[-0.015em]">{service.title}</h2>
         <p className="mt-3 text-[16px] leading-[1.65] text-muted-foreground">{service.blurb}</p>
-        <p className="mt-6 flex items-start gap-2.5 rounded-xl bg-gold-soft px-4 py-3 text-[13.5px] leading-[1.55] text-gold-ink">
+        <p className="mt-6 flex items-start gap-2.5 rounded-xl bg-green-soft px-4 py-3 text-[13.5px] leading-[1.55] text-green-ink">
           <CalendarCheck className="mt-0.5 size-4 shrink-0" />
           {service.keyedTo}
         </p>
@@ -32,7 +32,7 @@ export function ServiceDetail({ service, index }: { service: Service; index: num
         <ul className="flex flex-col gap-3.5">
           {service.detail.map((line) => (
             <li key={line} className="flex gap-3 text-[15px] leading-[1.6]">
-              <Check className="mt-1 size-4 shrink-0 text-gold-ink" />
+              <Check className="mt-1 size-4 shrink-0 text-green-ink" />
               {line}
             </li>
           ))}

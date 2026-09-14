@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { arcCurve, landPoints } from '../../lib/geo'
-import { GOLD, STEEL } from './constants'
+import { GREEN, SAGE } from './constants'
 
 export function createLandGeometry(narrow: boolean) {
   const positions = landPoints(narrow ? 2 : 1)
@@ -26,7 +26,7 @@ export function createRoutes(cities: { london: THREE.Vector3; kathmandu: THREE.V
   packets.setAttribute(
     'aColor',
     new THREE.BufferAttribute(
-      new Float32Array([...GOLD.toArray(), ...GOLD.toArray(), ...STEEL.toArray(), ...STEEL.toArray()]),
+      new Float32Array([...GREEN.toArray(), ...GREEN.toArray(), ...SAGE.toArray(), ...SAGE.toArray()]),
       3,
     ),
   )

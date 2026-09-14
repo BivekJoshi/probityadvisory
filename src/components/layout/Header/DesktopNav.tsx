@@ -16,7 +16,7 @@ export function DesktopNav() {
               className={({ isActive }) =>
                 cn(
                   'relative block rounded-full px-4 py-1.5 text-[14px] transition-colors duration-200',
-                  isActive ? 'text-white' : 'text-on-navy-muted hover:text-white',
+                  isActive ? 'text-white' : 'text-on-forest-muted hover:text-white',
                 )
               }
             >

@@ -15,7 +15,7 @@ export function ServicePicker({ picked, onToggle }: ServicePickerProps) {
         {serviceOptions.map((option) => (
           <label
             key={option}
-            className="flex cursor-pointer items-center gap-3 rounded-xl border border-line px-4 py-3 text-[14px] transition-colors duration-150 hover:bg-secondary/60 has-data-[state=checked]:border-gold/60 has-data-[state=checked]:bg-gold-soft"
+            className="flex cursor-pointer items-center gap-3 rounded-xl border border-line px-4 py-3 text-[14px] transition-colors duration-150 hover:bg-secondary/60 has-data-[state=checked]:border-green/60 has-data-[state=checked]:bg-green-soft"
           >
             <Checkbox
               checked={picked.includes(option)}

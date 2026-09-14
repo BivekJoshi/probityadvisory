@@ -5,8 +5,8 @@ import { clamp01, hash } from '../../lib/math'
  * The four process steps as one continuous choreography of ledger pages:
  *   0 Scoping call  — scattered records, one live file brought forward
  *   1 Pilot batch   — a small set laid out for review, the rest waiting behind
- *   2 Named team    — three piles, one per principal, each under a gold halo
- *   3 Steady state  — pages circling a bound gold file on three steady orbits
+ *   2 Named team    — three piles, one per principal, each under a green halo
+ *   3 Steady state  — pages circling a bound green file on three steady orbits
  */
 
 export interface Pose {
@@ -14,7 +14,7 @@ export interface Pose {
   rotation: THREE.Euler
   scale: number
   light: number
-  gold: number
+  green: number
 }
 
 export const makePose = (): Pose => ({
@@ -22,7 +22,7 @@ export const makePose = (): Pose => ({
   rotation: new THREE.Euler(),
   scale: 1,
   light: 1,
-  gold: 0,
+  green: 0,
 })
 
 /* three gyroscope-like orbits for the steady state, each tipped toward the viewer */
@@ -43,7 +43,7 @@ export function pose(stage: number, i: number, count: number, t: number, out: Po
       r.set(-0.08, Math.sin(t * 0.4) * 0.18, 0)
       out.scale = 1.55
       out.light = 1
-      out.gold = 1
+      out.green = 1
       return
     }
     const theta = hash(i * 1.7) * Math.PI * 2
@@ -61,7 +61,7 @@ export function pose(stage: number, i: number, count: number, t: number, out: Po
     )
     out.scale = 0.75 + hash(i * 10.7) * 0.35
     out.light = 0.5 + hash(i * 11.3) * 0.25
-    out.gold = 0
+    out.green = 0
     return
   }
 
@@ -73,7 +73,7 @@ export function pose(stage: number, i: number, count: number, t: number, out: Po
       r.set(-0.16, 0, 0)
       out.scale = 1
       out.light = 1
-      out.gold = i === 0 ? 0.6 : 0
+      out.green = i === 0 ? 0.6 : 0
       return
     }
     const a = (i / count) * Math.PI * 2 + t * 0.05
@@ -81,7 +81,7 @@ export function pose(stage: number, i: number, count: number, t: number, out: Po
     r.set(0.3, -a + Math.PI / 2, 0)
     out.scale = 0.55
     out.light = 0.1
-    out.gold = 0
+    out.green = 0
     return
   }
 
@@ -92,7 +92,7 @@ export function pose(stage: number, i: number, count: number, t: number, out: Po
     r.set(-0.05, (1 - c) * 0.22, 0)
     out.scale = 0.82
     out.light = 1 - Math.min(j / 60, 1) * 0.65
-    out.gold = j === 0 ? 0.5 : 0
+    out.green = j === 0 ? 0.5 : 0
     return
   }
 
@@ -106,5 +106,5 @@ export function pose(stage: number, i: number, count: number, t: number, out: Po
   r.set(-0.1, 0, Math.sin(a) * 0.25)
   out.scale = 0.52
   out.light = 0.55 + 0.45 * clamp01((orbit.z + radius) / (2 * radius))
-  out.gold = j % 12 === 0 ? 0.85 : 0
+  out.green = j % 12 === 0 ? 0.85 : 0
 }

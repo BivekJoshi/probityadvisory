@@ -29,8 +29,8 @@ export function HomeHero() {
       </div>
       <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-2.5">
         {heroAssurances.map((item) => (
-          <li key={item} className="flex items-center gap-2 text-[14px] text-on-navy-muted">
-            <Check className="size-4 text-gold" />
+          <li key={item} className="flex items-center gap-2 text-[14px] text-on-forest-muted">
+            <Check className="size-4 text-green" />
             {item}
           </li>
         ))}

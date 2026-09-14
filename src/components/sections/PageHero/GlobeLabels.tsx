@@ -17,7 +17,7 @@ export function GlobeLabels({ london, kathmandu }: { london: DivRef; kathmandu: 
         city="Kathmandu"
         note="Our team"
         time={formatTime('Asia/Kathmandu', now)}
-        gold
+        green
       />
     </div>
   )

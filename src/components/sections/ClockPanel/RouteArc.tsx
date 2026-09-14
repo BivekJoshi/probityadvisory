@@ -16,12 +16,12 @@ export function RouteArc() {
         strokeWidth="1.5"
         strokeDasharray="2 5"
         strokeLinecap="round"
-        className="text-on-navy-muted/50"
+        className="text-on-forest-muted/50"
       />
-      <circle cx="6" cy="44" r="4" className="fill-on-navy" />
-      <circle cx="194" cy="44" r="4" className="fill-gold" />
+      <circle cx="6" cy="44" r="4" className="fill-on-forest" />
+      <circle cx="194" cy="44" r="4" className="fill-green" />
       {!reduced && (
-        <circle r="3" className="fill-gold">
+        <circle r="3" className="fill-green">
           <animateMotion
             dur="3.6s"
             repeatCount="indefinite"

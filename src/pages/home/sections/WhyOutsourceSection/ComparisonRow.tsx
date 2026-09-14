@@ -32,11 +32,11 @@ export function ComparisonRow({ row, inHouse, probity }: ComparisonRowProps) {
       </span>
       <span
         role="cell"
-        className="mx-4 mb-5 flex items-start gap-2.5 rounded-xl bg-gold-soft px-4 py-3 text-[15px] font-medium leading-normal sm:m-0 sm:rounded-none sm:px-6 sm:py-5"
+        className="mx-4 mb-5 flex items-start gap-2.5 rounded-xl bg-green-soft px-4 py-3 text-[15px] font-medium leading-normal sm:m-0 sm:rounded-none sm:px-6 sm:py-5"
       >
-        <Check className="mt-0.5 size-4 shrink-0 text-gold-ink" />
+        <Check className="mt-0.5 size-4 shrink-0 text-green-ink" />
         <span>
-          <span className={`mb-0.5 block text-gold-ink sm:hidden ${smallCaps}`}>{probity}</span>
+          <span className={`mb-0.5 block text-green-ink sm:hidden ${smallCaps}`}>{probity}</span>
           {row.probity}
         </span>
       </span>

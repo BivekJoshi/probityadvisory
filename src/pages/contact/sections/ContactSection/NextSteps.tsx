@@ -10,7 +10,7 @@ export function NextSteps() {
       <ol className="divide-y divide-line-soft rounded-2xl border border-line bg-card shadow-card">
         {nextSteps.map((step) => (
           <li key={step.n} className="grid grid-cols-[32px_minmax(0,1fr)] gap-4 p-5">
-            <span className="grid size-8 place-items-center rounded-full bg-navy-deep font-mono text-[12px] text-gold">
+            <span className="grid size-8 place-items-center rounded-full bg-forest-deep font-mono text-[12px] text-green">
               {step.n}
             </span>
             <p className="text-[15px] leading-[1.6]">

@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import * as shaders from '../../shaders/earth'
-import { GOLD, PAPER, STEEL } from './constants'
+import { GREEN, PAPER, SAGE } from './constants'
 
 function shader(
   source: { vertexShader: string; fragmentShader: string },
@@ -33,18 +33,18 @@ export function createEarthMaterials() {
       uTime: shared.uTime,
       uSpeed: { value: 0.22 },
       uBase: { value: 0.16 },
-      uColor: { value: GOLD },
+      uColor: { value: GREEN },
     }),
     out: shader(shaders.arc, {
       uTime: shared.uTime,
       uSpeed: { value: 0.16 },
       uBase: { value: 0.08 },
-      uColor: { value: STEEL },
+      uColor: { value: SAGE },
     }),
     packets: shader(shaders.packets, { uSize: { value: 120 } }),
-    ringGold: shader(shaders.ring, { uTime: shared.uTime, uColor: { value: GOLD } }, { side: THREE.DoubleSide }),
+    ringGreen: shader(shaders.ring, { uTime: shared.uTime, uColor: { value: GREEN } }, { side: THREE.DoubleSide }),
     ringPaper: shader(shaders.ring, { uTime: shared.uTime, uColor: { value: PAPER } }, { side: THREE.DoubleSide }),
-    beamGold: shader(shaders.beam, { uColor: { value: GOLD } }),
+    beamGreen: shader(shaders.beam, { uColor: { value: GREEN } }),
     beamPaper: shader(shaders.beam, { uColor: { value: PAPER } }),
   }
 }

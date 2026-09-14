@@ -15,11 +15,11 @@ export function Eyebrow({
     <p
       className={cn(
         'mb-5 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[12.5px] font-medium',
-        onDark ? 'border-on-navy-line bg-white/5 text-on-navy' : 'border-line bg-card text-foreground/80',
+        onDark ? 'border-on-forest-line bg-white/5 text-on-forest' : 'border-line bg-card text-foreground/80',
         className,
       )}
     >
-      <span className="size-1.5 rounded-full bg-gold" aria-hidden="true" />
+      <span className="size-1.5 rounded-full bg-green" aria-hidden="true" />
       {children}
     </p>
   )
@@ -34,7 +34,7 @@ export function Lede({
     <p
       className={cn(
         'max-w-[60ch] text-[17px] leading-[1.65] sm:text-[18px]',
-        onDark ? 'text-on-navy-muted' : 'text-muted-foreground',
+        onDark ? 'text-on-forest-muted' : 'text-muted-foreground',
         className,
       )}
       {...props}

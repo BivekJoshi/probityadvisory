@@ -4,7 +4,7 @@ import { Reveal } from '@/components/motion'
 import { processSteps } from '@/content/process'
 
 /**
- * Four numbered steps on a rail that fills with gold as the block scrolls
+ * Four numbered steps on a rail that fills with green as the block scrolls
  * past — horizontal from tablet up, vertical on phones.
  */
 export function ProcessTimeline() {
@@ -18,8 +18,8 @@ export function ProcessTimeline() {
         aria-hidden="true"
         className="absolute bottom-5 left-5 top-5 w-px bg-line md:bottom-auto md:right-0 md:h-px md:w-auto"
       >
-        <motion.div style={{ scaleX: progress }} className="hidden size-full origin-left bg-gold md:block" />
-        <motion.div style={{ scaleY: progress }} className="size-full origin-top bg-gold md:hidden" />
+        <motion.div style={{ scaleX: progress }} className="hidden size-full origin-left bg-green md:block" />
+        <motion.div style={{ scaleY: progress }} className="size-full origin-top bg-green md:hidden" />
       </div>
 
       <ol className="relative grid gap-8 md:grid-cols-4 md:gap-6">
@@ -30,7 +30,7 @@ export function ProcessTimeline() {
             delay={i * 0.08}
             className="grid grid-cols-[40px_minmax(0,1fr)] gap-5 md:block"
           >
-            <span className="grid size-10 place-items-center rounded-full border border-line bg-card font-mono text-[13px] font-medium text-gold-ink shadow-card">
+            <span className="grid size-10 place-items-center rounded-full border border-line bg-card font-mono text-[13px] font-medium text-green-ink shadow-card">
               {step.n}
             </span>
             <div className="md:mt-6 md:pr-4">

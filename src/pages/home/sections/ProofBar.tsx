@@ -18,11 +18,11 @@ export function ProofBar() {
           const Icon = icons[i]
           return (
             <StaggerItem key={point.term} className="flex gap-4 p-6 sm:p-7">
-              <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-gold-soft text-gold-ink">
+              <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-green-soft text-green-ink">
                 <Icon className="size-5" />
               </span>
               <div>
-                <dt className="text-[13px] font-semibold text-gold-ink">{point.term}</dt>
+                <dt className="text-[13px] font-semibold text-green-ink">{point.term}</dt>
                 <dd className="mt-1 text-[15px] leading-[1.55] text-foreground">{point.detail}</dd>
               </div>
             </StaggerItem>

@@ -135,7 +135,7 @@ export function Earth({ anchor, labels }: EarthProps) {
             frustumCulled={false}
           />
           <CityMarker position={cities.london} ring={m.ringPaper} beam={m.beamPaper} />
-          <CityMarker position={cities.kathmandu} ring={m.ringGold} beam={m.beamGold} />
+          <CityMarker position={cities.kathmandu} ring={m.ringGreen} beam={m.beamGreen} />
         </group>
         <mesh material={m.atmosphere} scale={1.22} renderOrder={5}>
           <sphereGeometry args={[1, 64, 48]} />

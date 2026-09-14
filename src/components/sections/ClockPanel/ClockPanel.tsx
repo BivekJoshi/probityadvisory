@@ -18,19 +18,19 @@ export function ClockPanel({ className, showDifference = false }: ClockPanelProp
   return (
     <div
       className={cn(
-        'overflow-hidden rounded-2xl border border-on-navy-line bg-white/4 shadow-[0_30px_60px_-30px_rgb(0_0_0/0.7)] backdrop-blur-sm',
+        'overflow-hidden rounded-2xl border border-on-forest-line bg-white/4 shadow-[0_30px_60px_-30px_rgb(0_0_0/0.7)] backdrop-blur-sm',
         className,
       )}
     >
-      <div className="flex items-center justify-between gap-4 border-b border-on-navy-line px-5 py-3">
-        <span className="flex items-center gap-2 text-[12.5px] font-medium text-on-navy-muted">
+      <div className="flex items-center justify-between gap-4 border-b border-on-forest-line px-5 py-3">
+        <span className="flex items-center gap-2 text-[12.5px] font-medium text-on-forest-muted">
           <span className="relative flex size-2">
-            <span className="absolute inline-flex size-full animate-ping rounded-full bg-gold/60" />
-            <span className="relative inline-flex size-2 rounded-full bg-gold" />
+            <span className="absolute inline-flex size-full animate-ping rounded-full bg-green/60" />
+            <span className="relative inline-flex size-2 rounded-full bg-green" />
           </span>
           Live time
         </span>
-        <span className="font-mono text-[12px] text-gold">UTC+05:45</span>
+        <span className="font-mono text-[12px] text-green">UTC+05:45</span>
       </div>
 
       <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-end gap-3 px-5 pb-6 pt-7 sm:gap-5">

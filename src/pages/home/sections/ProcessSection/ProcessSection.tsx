@@ -31,7 +31,7 @@ export function ProcessSection() {
   }
 
   return (
-    <section className="relative bg-navy-deep pt-[clamp(64px,8vw,112px)] text-on-navy">
+    <section className="relative bg-forest-deep pt-[clamp(64px,8vw,112px)] text-on-forest">
       <Container>
         <SectionHeader onDark eyebrow={eyebrow} title={title} className="md:mb-6" />
 

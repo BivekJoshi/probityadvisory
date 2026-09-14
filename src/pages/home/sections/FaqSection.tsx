@@ -16,7 +16,7 @@ export function FaqSection() {
               Something we have not covered? Ask a principal directly at{' '}
               <a
                 href={`mailto:${site.email}`}
-                className="font-medium text-foreground underline decoration-gold/60 underline-offset-4 transition-colors hover:text-gold-ink"
+                className="font-medium text-foreground underline decoration-green/60 underline-offset-4 transition-colors hover:text-green-ink"
               >
                 {site.email}
               </a>

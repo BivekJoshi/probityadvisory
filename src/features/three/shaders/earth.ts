@@ -39,19 +39,19 @@ const float PI = 3.141592653589793;
 void main() {
   float sun = dot(normalize(vNormalWorld), uSun);
   float day = smoothstep(-0.25, 0.35, sun);
-  vec3 col = mix(vec3(0.016, 0.043, 0.082), vec3(0.047, 0.125, 0.215), day);
+  vec3 col = mix(vec3(0.014, 0.03, 0.018), vec3(0.04, 0.11, 0.06), day);
 
   // graticule every 15 degrees
   vec3 n = normalize(vObject);
   vec2 ll = vec2(atan(n.z, n.x), asin(n.y)) / (PI / 12.0);
   vec2 g = abs(fract(ll + 0.5) - 0.5) / fwidth(ll);
-  col += vec3(0.25, 0.4, 0.6) * (1.0 - min(min(g.x, g.y), 1.0)) * 0.07;
+  col += vec3(0.3, 0.5, 0.36) * (1.0 - min(min(g.x, g.y), 1.0)) * 0.07;
 
-  // a warm band where day turns to night
-  col += vec3(0.85, 0.62, 0.22) * exp(-pow(sun * 5.5, 2.0)) * 0.1;
+  // a leaf-green band where day turns to night
+  col += vec3(0.62, 0.8, 0.26) * exp(-pow(sun * 5.5, 2.0)) * 0.1;
 
   float fresnel = pow(1.0 - max(dot(normalize(vNormalView), normalize(vViewDir)), 0.0), 2.5);
-  col += vec3(0.3, 0.52, 0.85) * fresnel * (0.25 + 0.5 * day);
+  col += vec3(0.3, 0.62, 0.5) * fresnel * (0.25 + 0.5 * day);
 
   gl_FragColor = vec4(col, 1.0);
 }
@@ -97,8 +97,8 @@ void main() {
   float city = step(0.94, vRand) * (1.0 - vDay);
   float twinkle = 0.7 + 0.3 * sin(uTime * 1.7 + vRand * 80.0);
 
-  vec3 col = mix(vec3(0.2, 0.33, 0.48), vec3(0.66, 0.78, 0.9), vDay);
-  col = mix(col, vec3(1.0, 0.8, 0.36), city * twinkle);
+  vec3 col = mix(vec3(0.21, 0.35, 0.25), vec3(0.7, 0.85, 0.72), vDay);
+  col = mix(col, vec3(0.66, 0.95, 0.4), city * twinkle);
 
   float alpha = soft * smoothstep(0.0, 0.35, vFacing) * mix(0.55, 1.0, max(vDay, city)) * vShow;
   gl_FragColor = vec4(col * alpha, alpha);
@@ -118,7 +118,7 @@ void main() {
   // drawn on the back faces: brightest at the limb, gone by the outer edge
   float glow = pow(clamp(-dot(normalize(vNormalView), normalize(vViewDir)), 0.0, 1.0), 2.2) * 1.3;
   float sunSide = smoothstep(-0.4, 0.6, dot(normalize(vNormalWorld), uSun));
-  vec3 col = mix(vec3(0.18, 0.35, 0.7), vec3(0.45, 0.7, 1.0), sunSide);
+  vec3 col = mix(vec3(0.14, 0.4, 0.32), vec3(0.45, 0.85, 0.6), sunSide);
   float a = glow * mix(0.45, 1.0, sunSide);
   gl_FragColor = vec4(col * a, a);
 }

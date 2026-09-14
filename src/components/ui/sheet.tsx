@@ -16,7 +16,7 @@ const SheetOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      'fixed inset-0 z-50 bg-navy-deep/70 backdrop-blur-[2px]',
+      'fixed inset-0 z-50 bg-forest-deep/70 backdrop-blur-[2px]',
       'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
       className,
     )}
@@ -34,7 +34,7 @@ const SheetContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-sm flex-col gap-4 border-l border-on-navy-line bg-navy-deep p-7 text-on-navy shadow-lift',
+        'fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-sm flex-col gap-4 border-l border-on-forest-line bg-forest-deep p-7 text-on-forest shadow-lift',
         'transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out',
         'data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right data-[state=closed]:duration-250 data-[state=open]:duration-350',
         className,
@@ -43,7 +43,7 @@ const SheetContent = React.forwardRef<
     >
       {children}
       <DialogPrimitive.Close
-        className="absolute right-6 top-6 rounded-sm text-on-navy-muted transition-colors hover:text-gold focus-visible:outline-none"
+        className="absolute right-6 top-6 rounded-sm text-on-forest-muted transition-colors hover:text-green focus-visible:outline-none"
         aria-label="Close menu"
       >
         <X className="size-5" />

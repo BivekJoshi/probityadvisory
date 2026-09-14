@@ -7,7 +7,7 @@ export function DataSection() {
       <div aria-hidden="true" className="bg-dots absolute inset-0 -z-10" />
       <div
         aria-hidden="true"
-        className="absolute -right-40 top-1/4 -z-10 size-120 rounded-full bg-gold/8 blur-3xl"
+        className="absolute -right-40 top-1/4 -z-10 size-120 rounded-full bg-green/8 blur-3xl"
       />
       <Container className="grid gap-4 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center lg:gap-16">
         <SectionHeader

@@ -25,7 +25,7 @@ interface PageHeroProps {
   children?: ReactNode
 }
 
-/** The navy masthead at the top of every page. */
+/** The forest masthead at the top of every page. */
 export function PageHero({
   eyebrow,
   title,
@@ -43,7 +43,7 @@ export function PageHero({
   const kathmandu = useRef<HTMLDivElement>(null)
 
   return (
-    <section className="relative isolate overflow-hidden bg-navy-deep text-on-navy">
+    <section className="relative isolate overflow-hidden bg-forest-deep text-on-forest">
       <HeroBackdrop
         globe={globe}
         anchor={anchor}

@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 const tones = {
   ground: '',
   card: 'border-y border-line-soft bg-card',
-  dark: 'bg-navy-deep text-on-navy',
+  dark: 'bg-forest-deep text-on-forest',
 } as const
 
 /** Standard vertical rhythm for a page section. */

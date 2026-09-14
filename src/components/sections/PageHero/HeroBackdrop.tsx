@@ -20,11 +20,11 @@ export function HeroBackdrop({ globe, anchor, london, kathmandu, leftFade }: Her
     <>
       <div
         aria-hidden="true"
-        className="absolute -right-40 -top-40 -z-20 size-130 rounded-full bg-gold/8 blur-3xl"
+        className="absolute -right-40 -top-40 -z-20 size-130 rounded-full bg-green/8 blur-3xl"
       />
       <div
         aria-hidden="true"
-        className="absolute -bottom-48 -left-32 -z-20 size-110 rounded-full bg-navy/70 blur-3xl"
+        className="absolute -bottom-48 -left-32 -z-20 size-110 rounded-full bg-forest/70 blur-3xl"
       />
       <SceneMount className="absolute inset-0 -z-10" fallback={<div className="bg-dots absolute inset-0" />}>
         {(active) =>

@@ -32,8 +32,8 @@ export function FooterContact() {
           {site.email}
         </a>
       </li>
-      <li className="text-[14px] text-on-navy-muted">{site.address}</li>
-      <li className="text-[13px] leading-normal text-on-navy-muted/80">{site.hours}</li>
+      <li className="text-[14px] text-on-forest-muted">{site.address}</li>
+      <li className="text-[13px] leading-normal text-on-forest-muted/80">{site.hours}</li>
     </FooterColumn>
   )
 }

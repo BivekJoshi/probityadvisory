@@ -30,7 +30,7 @@ export function AudiencePanel({ audience }: { audience: Audience }) {
               key={point}
               className="flex flex-col gap-3 rounded-2xl border border-line-soft bg-background p-5"
             >
-              <span className="grid size-10 place-items-center rounded-xl bg-gold-soft text-gold-ink">
+              <span className="grid size-10 place-items-center rounded-xl bg-green-soft text-green-ink">
                 <Icon className="size-5" />
               </span>
               <span className="text-[15px] font-medium leading-[1.5]">{point}</span>

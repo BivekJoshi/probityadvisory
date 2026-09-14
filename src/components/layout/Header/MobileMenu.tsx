@@ -17,14 +17,14 @@ export function MobileMenu() {
         <button
           type="button"
           aria-label="Open menu"
-          className="grid size-9 place-items-center rounded-full border border-white/15 text-on-navy transition-colors hover:border-white/30 hover:bg-white/5 lg:hidden"
+          className="grid size-9 place-items-center rounded-full border border-white/15 text-on-forest transition-colors hover:border-white/30 hover:bg-white/5 lg:hidden"
         >
           <Menu className="size-4.5" />
         </button>
       </SheetTrigger>
       <SheetContent>
         <SheetTitle className="flex items-center gap-2.5 font-display text-[18px] font-semibold text-white">
-          <ProbityMark className="size-7" />
+          <ProbityMark className="h-7 w-auto text-green" />
           {site.name}
         </SheetTitle>
 

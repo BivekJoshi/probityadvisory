@@ -21,7 +21,7 @@ export const workingPatterns = [
     range: '09:00 – 17:30 your time · 13:45 – 22:15 ours',
     left: 37.5,
     width: 35.4,
-    tone: 'gold' as const,
+    tone: 'green' as const,
   },
 ] as const
 

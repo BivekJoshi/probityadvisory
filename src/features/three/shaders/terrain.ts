@@ -51,9 +51,9 @@ void main() {
   float near = smoothstep(0.8, 2.6, vDepth);
   float mask = mix(1.0, smoothstep(0.22, 0.78, gl_FragCoord.x / uBuffer.x), uLeftFade);
 
-  vec3 minor = vec3(0.33, 0.5, 0.68);
-  vec3 gold = vec3(0.86, 0.7, 0.28);
-  vec3 col = mix(minor, gold, major);
+  vec3 minor = vec3(0.4, 0.56, 0.44);
+  vec3 green = vec3(0.45, 0.78, 0.25);
+  vec3 col = mix(minor, green, major);
 
   float alpha = line * mix(0.2, 0.62, major) + grid * 0.045;
   alpha += smoothstep(0.95, 1.7, vHeight) * 0.05;

@@ -14,7 +14,7 @@ export function SentNotice({ sent }: { sent: boolean }) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4, ease: brandEase }}
           role="status"
-          className="flex items-start gap-2.5 rounded-xl border border-gold/50 bg-gold-soft px-4 py-3 text-[14px] text-gold-ink"
+          className="flex items-start gap-2.5 rounded-xl border border-green/50 bg-green-soft px-4 py-3 text-[14px] text-green-ink"
         >
           <CheckCircle2 className="mt-0.5 size-4 shrink-0" />
           Your mail client should have opened with the enquiry ready to send. If it did not, email

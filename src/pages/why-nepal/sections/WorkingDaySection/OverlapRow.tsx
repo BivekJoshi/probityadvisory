@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 const tone = {
   uk: 'bg-chart-uk text-white',
   np: 'bg-teal text-white',
-  gold: 'bg-gold font-medium text-primary-foreground',
+  green: 'bg-green font-medium text-primary-foreground',
 } as const
 
 /**

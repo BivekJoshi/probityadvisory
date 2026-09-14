@@ -15,19 +15,19 @@ export function ProcessStage({ stage, active }: ProcessStageProps) {
   return (
     <div
       className={cn(
-        'sticky top-16 z-10 h-[46vh] bg-navy-deep',
-        'after:pointer-events-none after:absolute after:inset-x-0 after:-bottom-12 after:h-12 after:bg-linear-to-b after:from-navy-deep after:to-transparent',
+        'sticky top-16 z-10 h-[46vh] bg-forest-deep',
+        'after:pointer-events-none after:absolute after:inset-x-0 after:-bottom-12 after:h-12 after:bg-linear-to-b after:from-forest-deep after:to-transparent',
         'lg:top-[calc((100dvh_-_min(76dvh,680px))/2+32px)] lg:h-[min(76dvh,680px)] lg:self-start lg:bg-transparent lg:after:hidden',
       )}
     >
-      <div className="relative size-full overflow-hidden lg:rounded-3xl lg:border lg:border-on-navy-line lg:bg-white/2">
+      <div className="relative size-full overflow-hidden lg:rounded-3xl lg:border lg:border-on-forest-line lg:bg-white/2">
         <SceneMount className="absolute inset-0">
           {(visible) => <LedgerScene active={visible} stage={stage} />}
         </SceneMount>
 
         <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-4 sm:p-6">
-          <p className="font-mono text-[12px] tracking-[0.08em] text-on-navy-muted">
-            <span className="text-gold">{processSteps[active].n}</span> / 0{processSteps.length} ·{' '}
+          <p className="font-mono text-[12px] tracking-[0.08em] text-on-forest-muted">
+            <span className="text-green">{processSteps[active].n}</span> / 0{processSteps.length} ·{' '}
             {processSteps[active].title}
           </p>
           <div className="flex gap-1.5" aria-hidden="true">
@@ -36,7 +36,7 @@ export function ProcessStage({ stage, active }: ProcessStageProps) {
                 key={step.n}
                 className={cn(
                   'h-1 rounded-full transition-all duration-500',
-                  i === active ? 'w-7 bg-gold' : 'w-3 bg-white/20',
+                  i === active ? 'w-7 bg-green' : 'w-3 bg-white/20',
                 )}
               />
             ))}

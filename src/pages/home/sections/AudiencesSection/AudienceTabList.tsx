@@ -41,7 +41,7 @@ export function AudienceTabList({ active, onSelect }: AudienceTabListProps) {
             {selected && (
               <motion.span
                 layoutId="audience-pill"
-                className="absolute inset-0 rounded-2xl bg-navy-deep"
+                className="absolute inset-0 rounded-2xl bg-forest-deep"
                 transition={{ type: 'spring', bounce: 0.15, duration: 0.5 }}
               />
             )}

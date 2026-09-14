@@ -16,7 +16,7 @@ export function MembershipsSection() {
           {memberships.map((item) => (
             <StaggerItem key={item}>
               <Badge>
-                <Award className="text-gold-ink" />
+                <Award className="text-green-ink" />
                 {item}
               </Badge>
             </StaggerItem>

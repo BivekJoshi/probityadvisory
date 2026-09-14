@@ -15,7 +15,7 @@ export function SoftwareColumn() {
       <Stagger className="flex flex-wrap gap-2.5" step={0.05}>
         {software.map((item) => (
           <StaggerItem key={item}>
-            <Badge variant="gold">{item}</Badge>
+            <Badge variant="green">{item}</Badge>
           </StaggerItem>
         ))}
       </Stagger>

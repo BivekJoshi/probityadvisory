@@ -5,29 +5,30 @@
 
 /* ============================================================
    PROBITY ADVISORY — brand system
-   Palette: deep navy / paper ground / gold accent
-   Type: Spectral (display serif) · IBM Plex Sans (body) · IBM Plex Mono (figures)
+   Palette: forest black / paper ground / leaf green, taken from the PA stationery
+   Type: Montserrat (display, per the brand sheet) · IBM Plex Sans (body) · IBM Plex Mono (figures)
    ============================================================ */
 
 :root {
   /* brand */
-  --ground: #f7f8fa;
+  --ground: #f5f7f2;
   --surface: #ffffff;
-  --surface-2: #eef2f6;
-  --ink: #0f1b2a;
-  --ink-muted: #56687a;
-  --line: #dde3ea;
-  --line-soft: #eaeef3;
-  --navy: #0e2a47;
-  --navy-deep: #071a2e;
-  --on-navy: #e9f0f7;
-  --on-navy-muted: #a3b6c9;
-  --on-navy-line: rgb(255 255 255 / 0.1);
-  --gold: #c9a227;
-  --gold-ink: #86660f;
-  --gold-soft: rgb(201 162 39 / 0.12);
-  --teal: #2e6e8e;
-  --chart-uk: #0e2a47;
+  --surface-2: #ecf1e8;
+  --ink: #111a12;
+  --ink-muted: #57655a;
+  --line: #dce4d7;
+  --line-soft: #e8eee4;
+  --forest: #1b3317;
+  --forest-deep: #0f1a10;
+  --on-forest: #e9f0e6;
+  --on-forest-muted: #a7b7a5;
+  --on-forest-line: rgb(255 255 255 / 0.1);
+  /* the logo green (#527e29) lifted so it reads as text on the dark bands */
+  --green: #5aad2a;
+  --green-ink: #446d20;
+  --green-soft: rgb(90 173 42 / 0.12);
+  --teal: #26758f;
+  --chart-uk: #1c2a1e;
 
   /* shadcn semantic mapping */
   --background: var(--ground);
@@ -36,41 +37,41 @@
   --card-foreground: var(--ink);
   --popover: var(--surface);
   --popover-foreground: var(--ink);
-  --primary: var(--gold);
-  --primary-foreground: #1f1706;
+  --primary: var(--green);
+  --primary-foreground: #0a1409;
   --secondary: var(--surface-2);
   --secondary-foreground: var(--ink);
   --muted: var(--surface-2);
   --muted-foreground: var(--ink-muted);
-  --accent: var(--gold-soft);
-  --accent-foreground: var(--gold-ink);
+  --accent: var(--green-soft);
+  --accent-foreground: var(--green-ink);
   --destructive: #b4342a;
   --destructive-foreground: #ffffff;
   --border: var(--line);
   --input: var(--line);
-  --ring: var(--gold);
+  --ring: var(--green);
 
-  --shadow-card: 0 1px 2px rgb(15 27 42 / 0.04), 0 2px 8px -2px rgb(15 27 42 / 0.04);
-  --shadow-lift: 0 2px 6px rgb(14 42 71 / 0.05), 0 20px 44px -18px rgb(14 42 71 / 0.22);
+  --shadow-card: 0 1px 2px rgb(17 26 18 / 0.04), 0 2px 8px -2px rgb(17 26 18 / 0.04);
+  --shadow-lift: 0 2px 6px rgb(27 51 23 / 0.05), 0 20px 44px -18px rgb(27 51 23 / 0.22);
 }
 
 .dark {
-  --ground: #08121d;
-  --surface: #0f1c2a;
-  --surface-2: #152638;
-  --ink: #e6eef6;
-  --ink-muted: #95a9bc;
-  --line: #1f3347;
-  --line-soft: #172839;
-  --navy: #10304f;
-  --navy-deep: #050d17;
-  --gold: #d6b33f;
-  --gold-ink: #e0bd52;
-  --gold-soft: rgb(214 179 63 / 0.13);
-  --teal: #4a8dad;
-  --chart-uk: #2d5378;
+  --ground: #070d08;
+  --surface: #0e1810;
+  --surface-2: #142217;
+  --ink: #e6eee3;
+  --ink-muted: #9aad97;
+  --line: #1f3222;
+  --line-soft: #172719;
+  --forest: #173a1c;
+  --forest-deep: #040805;
+  --green: #6bbf3f;
+  --green-ink: #7ccb52;
+  --green-soft: rgb(107 191 63 / 0.13);
+  --teal: #2b7f9b;
+  --chart-uk: #34473a;
 
-  --primary-foreground: #141004;
+  --primary-foreground: #0a1409;
   --destructive: #e2685c;
   --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3);
   --shadow-lift: 0 2px 6px rgb(0 0 0 / 0.4), 0 20px 44px -18px rgb(0 0 0 / 0.7);
@@ -97,25 +98,25 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* brand aliases usable as bg-navy, text-gold, border-line ... */
+  /* brand aliases usable as bg-forest, text-green, border-line ... */
   --color-ground: var(--ground);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
   --color-ink: var(--ink);
-  --color-navy: var(--navy);
-  --color-navy-deep: var(--navy-deep);
-  --color-on-navy: var(--on-navy);
-  --color-on-navy-muted: var(--on-navy-muted);
-  --color-on-navy-line: var(--on-navy-line);
-  --color-gold: var(--gold);
-  --color-gold-ink: var(--gold-ink);
-  --color-gold-soft: var(--gold-soft);
+  --color-forest: var(--forest);
+  --color-forest-deep: var(--forest-deep);
+  --color-on-forest: var(--on-forest);
+  --color-on-forest-muted: var(--on-forest-muted);
+  --color-on-forest-line: var(--on-forest-line);
+  --color-green: var(--green);
+  --color-green-ink: var(--green-ink);
+  --color-green-soft: var(--green-soft);
   --color-line: var(--line);
   --color-line-soft: var(--line-soft);
   --color-teal: var(--teal);
   --color-chart-uk: var(--chart-uk);
 
-  --font-display: Spectral, "Palatino Linotype", Georgia, serif;
+  --font-display: Montserrat, "Segoe UI", Helvetica, Arial, sans-serif;
   --font-sans: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
@@ -161,12 +162,12 @@
   }
 
   ::selection {
-    background: var(--gold);
-    color: #1f1706;
+    background: var(--green);
+    color: #0a1409;
   }
 
   :focus-visible {
-    outline: 2px solid var(--gold);
+    outline: 2px solid var(--green);
     outline-offset: 3px;
   }
 
@@ -185,7 +186,7 @@
 }
 
 @layer components {
-  /* faint dot grid for the navy mastheads, fading out toward the bottom */
+  /* faint dot grid for the forest mastheads, fading out toward the bottom */
   .bg-dots {
     background-image: radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px);
     background-size: 22px 22px;

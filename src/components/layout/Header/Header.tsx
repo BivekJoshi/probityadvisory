@@ -10,7 +10,7 @@ import { HeaderBrand } from './HeaderBrand'
 import { MobileMenu } from './MobileMenu'
 
 export function Header() {
-  // Solid at rest, so it matches the navy masthead it sits on; frosted once the
+  // Solid at rest, so it matches the forest masthead it sits on; frosted once the
   // page scrolls light content up underneath it.
   const scrolled = useScrolledPast(8)
 
@@ -19,8 +19,8 @@ export function Header() {
       className={cn(
         'sticky top-0 z-50 border-b transition-[background-color,border-color] duration-300',
         scrolled
-          ? 'border-white/8 bg-navy-deep/90 backdrop-blur-xl backdrop-saturate-150'
-          : 'border-transparent bg-navy-deep',
+          ? 'border-white/8 bg-forest-deep/90 backdrop-blur-xl backdrop-saturate-150'
+          : 'border-transparent bg-forest-deep',
       )}
     >
       <Container className="flex h-16 items-center justify-between gap-6">

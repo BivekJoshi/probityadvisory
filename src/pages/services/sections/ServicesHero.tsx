@@ -18,9 +18,9 @@ export function ServicesHero() {
             <a
               key={service.slug}
               href={`#${service.slug}`}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[14px] text-on-navy transition-colors duration-200 hover:border-white/30 hover:bg-white/10"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[14px] text-on-forest transition-colors duration-200 hover:border-white/30 hover:bg-white/10"
             >
-              <Icon className="size-4 text-gold" />
+              <Icon className="size-4 text-green" />
               {service.title}
             </a>
           )

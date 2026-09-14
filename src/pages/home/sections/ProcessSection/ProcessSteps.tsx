@@ -26,11 +26,11 @@ export function ProcessSteps({ stepRefs, active }: ProcessStepsProps) {
               i === active ? 'opacity-100' : 'translate-y-2 opacity-30',
             )}
           >
-            <span className="font-mono text-[13px] tracking-[0.08em] text-gold">
+            <span className="font-mono text-[13px] tracking-[0.08em] text-green">
               {step.n} / 0{processSteps.length}
             </span>
             <h3 className="mt-4 text-[clamp(28px,3.4vw,42px)] text-white">{step.title}</h3>
-            <p className="mt-4 max-w-[46ch] text-[17px] leading-[1.7] text-on-navy-muted">
+            <p className="mt-4 max-w-[46ch] text-[17px] leading-[1.7] text-on-forest-muted">
               {step.body}
             </p>
           </div>

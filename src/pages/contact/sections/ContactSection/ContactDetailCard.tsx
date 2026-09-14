@@ -6,7 +6,7 @@ export function ContactDetailCard({ detail }: { detail: ContactDetail }) {
 
   return (
     <div className="flex gap-4 rounded-2xl border border-line bg-card p-5 shadow-card">
-      <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-gold-soft text-gold-ink">
+      <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-green-soft text-green-ink">
         <Icon className="size-4.5" />
       </span>
       <div className="min-w-0">
@@ -17,7 +17,7 @@ export function ContactDetailCard({ detail }: { detail: ContactDetail }) {
               href={href}
               target={href.startsWith('http') ? '_blank' : undefined}
               rel="noopener"
-              className="transition-colors hover:text-gold-ink"
+              className="transition-colors hover:text-green-ink"
             >
               {value}
             </a>

@@ -3,7 +3,7 @@ import { clamp01, hash, lerp, smootherstep } from '../../lib/math'
 import { pointer } from '../../lib/pointer'
 import { pose, type Pose } from './poses'
 
-const GOLD_TINT = new THREE.Color(1, 0.78, 0.32)
+const GREEN_TINT = new THREE.Color(0.6, 0.92, 0.4)
 
 interface SheetScratch {
   a: Pose
@@ -34,7 +34,7 @@ export function updateSheets(
     s.matrix.compose(s.a.position, s.qa, s.scale.setScalar(lerp(s.a.scale, s.b.scale, w)))
     mesh.setMatrixAt(i, s.matrix)
     const light = lerp(s.a.light, s.b.light, w)
-    mesh.setColorAt(i, s.color.setRGB(light, light, light).lerp(GOLD_TINT, lerp(s.a.gold, s.b.gold, w)))
+    mesh.setColorAt(i, s.color.setRGB(light, light, light).lerp(GREEN_TINT, lerp(s.a.green, s.b.green, w)))
   }
   mesh.instanceMatrix.needsUpdate = true
   if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true

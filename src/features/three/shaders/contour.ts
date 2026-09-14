@@ -44,9 +44,9 @@ void main() {
   float mask = mix(1.0, smoothstep(0.12, 0.72, vUv.x), uLeftFade);
   mask *= smoothstep(1.9, 0.2, d) * 0.85 + 0.15;
 
-  vec3 minor = vec3(0.31, 0.47, 0.64);
-  vec3 gold = vec3(0.84, 0.68, 0.25);
-  vec3 col = mix(mix(minor, gold, major), gold * 1.15, glow * 0.6);
+  vec3 minor = vec3(0.38, 0.53, 0.42);
+  vec3 green = vec3(0.42, 0.76, 0.22);
+  vec3 col = mix(mix(minor, green, major), green * 1.15, glow * 0.6);
 
   float alpha = line * mix(0.16, 0.5, major) * mask;
   alpha += line * glow * 0.45;

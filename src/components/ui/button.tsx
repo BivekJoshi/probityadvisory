@@ -15,10 +15,10 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        gold: 'bg-gold text-primary-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.25)] hover:brightness-110',
+        green: 'bg-green text-primary-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.25)] hover:brightness-110',
         outline: 'border border-line bg-card text-foreground hover:border-foreground/25 hover:bg-secondary',
         'outline-dark':
-          'border border-white/20 bg-white/5 text-on-navy hover:border-white/35 hover:bg-white/10',
+          'border border-white/20 bg-white/5 text-on-forest hover:border-white/35 hover:bg-white/10',
       },
       size: {
         sm: 'h-9 px-4 text-[13.5px]',
@@ -26,7 +26,7 @@ const buttonVariants = cva(
         lg: 'h-12 px-6 text-[15px]',
       },
     },
-    defaultVariants: { variant: 'gold', size: 'md' },
+    defaultVariants: { variant: 'green', size: 'md' },
   },
 )
 

@@ -4,7 +4,7 @@ import { engagementModels } from '@/content/process'
 import { EngagementCard } from './EngagementCard'
 import { PricingNote } from './PricingNote'
 
-/** The three ways in, with the pilot set apart in navy as the place to start. */
+/** The three ways in, with the pilot set apart in forest as the place to start. */
 export function EngagementSection() {
   return (
     <Band tone="card">

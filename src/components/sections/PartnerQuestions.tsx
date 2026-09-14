@@ -21,7 +21,7 @@ export function PartnerQuestions({ items = partnerQuestions }: PartnerQuestionsP
           <AccordionItem
             key={item.q}
             value={`q-${i}`}
-            className="rounded-2xl border border-line bg-card px-6 transition-[border-color,box-shadow] duration-300 data-[state=open]:border-gold/50 data-[state=open]:shadow-card sm:px-7"
+            className="rounded-2xl border border-line bg-card px-6 transition-[border-color,box-shadow] duration-300 data-[state=open]:border-green/50 data-[state=open]:shadow-card sm:px-7"
           >
             <AccordionTrigger>“{item.q}”</AccordionTrigger>
             <AccordionContent>{item.a}</AccordionContent>

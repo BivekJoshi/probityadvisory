@@ -29,7 +29,7 @@ export function TeamMemberCard({ person, full }: { person: Principal; full: bool
       <div className="flex flex-1 flex-col gap-3 p-6">
         <div>
           <h3 className="text-[21px]">{person.name}</h3>
-          <p className="mt-1.5 font-mono text-[11.5px] tracking-[0.04em] text-gold-ink">
+          <p className="mt-1.5 font-mono text-[11.5px] tracking-[0.04em] text-green-ink">
             {person.creds}
           </p>
         </div>
@@ -45,7 +45,7 @@ export function TeamMemberCard({ person, full }: { person: Principal; full: bool
             href={person.linkedin}
             target="_blank"
             rel="noopener"
-            className="mt-auto inline-flex w-fit items-center gap-2 pt-3 text-[13.5px] font-medium text-foreground/80 transition-colors hover:text-gold-ink"
+            className="mt-auto inline-flex w-fit items-center gap-2 pt-3 text-[13.5px] font-medium text-foreground/80 transition-colors hover:text-green-ink"
           >
             <LinkedIn className="size-4" />
             LinkedIn profile

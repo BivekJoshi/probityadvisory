@@ -36,7 +36,7 @@ export function Ledger({ stage }: { stage: MotionValue<number> }) {
     [texture],
   )
   const halo = useMemo(
-    () => new THREE.MeshBasicMaterial({ color: '#E0BD52', transparent: true, opacity: 0, depthWrite: false }),
+    () => new THREE.MeshBasicMaterial({ color: '#74C44C', transparent: true, opacity: 0, depthWrite: false }),
     [],
   )
 
@@ -94,9 +94,9 @@ export function Ledger({ stage }: { stage: MotionValue<number> }) {
       </group>
       <mesh ref={file} position={[0, 0.15, 0.4]}>
         <boxGeometry args={[0.7, 0.92, 0.16]} />
-        <meshStandardMaterial color="#C9A227" metalness={0.55} roughness={0.35} />
+        <meshStandardMaterial color="#5AAD2A" metalness={0.55} roughness={0.35} />
       </mesh>
-      <pointLight ref={glow} color="#E0BD52" position={[0, 0.6, 2.6]} distance={9} decay={1.6} />
+      <pointLight ref={glow} color="#74C44C" position={[0, 0.6, 2.6]} distance={9} decay={1.6} />
     </>
   )
 }

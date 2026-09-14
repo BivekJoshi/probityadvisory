@@ -22,7 +22,7 @@ export function HeroAside({ aside, globe, anchor }: HeroAsideProps) {
         <figure className="mx-auto w-full max-w-140">
           {/* the globe scene centres and sizes itself on this empty square */}
           <div ref={anchor} className="aspect-square w-full" />
-          <figcaption className="mx-auto -mt-4 max-w-[42ch] text-center text-[13px] leading-[1.6] text-on-navy-muted">
+          <figcaption className="mx-auto -mt-4 max-w-[42ch] text-center text-[13px] leading-[1.6] text-on-forest-muted">
             {globeCaption}
           </figcaption>
         </figure>

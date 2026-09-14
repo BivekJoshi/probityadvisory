@@ -7,7 +7,7 @@ export function FooterBottom() {
   const now = useMinute()
 
   return (
-    <div className="mt-14 flex flex-col gap-3 border-t border-on-navy-line pt-6 text-[13px] text-on-navy-muted sm:flex-row sm:items-center sm:justify-between">
+    <div className="mt-14 flex flex-col gap-3 border-t border-on-forest-line pt-6 text-[13px] text-on-forest-muted sm:flex-row sm:items-center sm:justify-between">
       <p>
         © {now.getFullYear()} {site.name}. All rights reserved.
       </p>

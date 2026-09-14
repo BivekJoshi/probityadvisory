@@ -27,9 +27,9 @@ export function ComparisonTable() {
           </span>
           <span
             role="columnheader"
-            className={`flex items-center gap-2 bg-gold-soft px-6 py-4 text-gold-ink ${smallCaps}`}
+            className={`flex items-center gap-2 bg-green-soft px-6 py-4 text-green-ink ${smallCaps}`}
           >
-            <ProbityMark className="size-5" />
+            <ProbityMark className="h-4 w-auto" />
             {probity}
           </span>
         </div>

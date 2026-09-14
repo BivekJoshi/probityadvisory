@@ -24,7 +24,7 @@ export function MobileNav({ onNavigate }: { onNavigate: () => void }) {
               className={({ isActive }) =>
                 cn(
                   'block rounded-xl px-4 py-3 font-display text-[21px] transition-colors',
-                  isActive ? 'bg-white/6 text-gold' : 'text-on-navy hover:bg-white/4',
+                  isActive ? 'bg-white/6 text-green' : 'text-on-forest hover:bg-white/4',
                 )
               }
             >

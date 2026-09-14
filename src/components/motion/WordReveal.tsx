@@ -6,7 +6,7 @@ import { brandEase } from './easing'
 interface WordRevealProps {
   text: string
   className?: string
-  /** Words to tint gold, matched case-insensitively without punctuation. */
+  /** Words to tint green, matched case-insensitively without punctuation. */
   highlight?: readonly string[]
   delay?: number
   as?: 'h1' | 'h2'
@@ -37,7 +37,7 @@ export function WordReveal({
             {/* padding keeps descenders from being clipped by the mask */}
             <span className="mb-[-0.12em] inline-block overflow-hidden pb-[0.12em] align-bottom">
               <motion.span
-                className={cn('inline-block', lit.has(clean(word)) && 'text-gold')}
+                className={cn('inline-block', lit.has(clean(word)) && 'text-green')}
                 initial={{ y: '100%', opacity: 0 }}
                 animate={{ y: '0%', opacity: 1 }}
                 transition={{ duration: 0.8, delay: delay + i * 0.05, ease: brandEase }}

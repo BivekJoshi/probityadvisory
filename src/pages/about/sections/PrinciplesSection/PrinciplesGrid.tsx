@@ -14,9 +14,9 @@ export function PrinciplesGrid() {
         return (
           <StaggerItem
             key={item.title}
-            className="rounded-2xl border border-line bg-card p-7 shadow-card transition-colors duration-300 hover:border-gold/50"
+            className="rounded-2xl border border-line bg-card p-7 shadow-card transition-colors duration-300 hover:border-green/50"
           >
-            <span className="grid size-11 place-items-center rounded-xl bg-gold-soft text-gold-ink">
+            <span className="grid size-11 place-items-center rounded-xl bg-green-soft text-green-ink">
               <Icon className="size-5" />
             </span>
             <h3 className="mt-5 text-[20px]">{item.title}</h3>
