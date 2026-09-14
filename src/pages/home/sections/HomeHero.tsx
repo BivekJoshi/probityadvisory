@@ -11,7 +11,7 @@ export function HomeHero() {
       overlap
       scene="globe"
       eyebrow="Outsourced accounting for UK practices"
-      title="Your Accounts. Our Expertise. One Seamless Team."
+      title={'Your Accounts.\nOur Expertise.\nOne Seamless Team.'}
       highlight={['that', 'way']}
       lede="Bookkeeping, VAT, year-end accounts and payroll for UK accountancy firms — prepared in Kathmandu by qualified Chartered Accountants and returned ready for partner review."
       aside={<ClockPanel />}

@@ -5,7 +5,11 @@ export const paths = {
   about: '/about',
   whyNepal: '/why-nepal',
   contact: '/contact',
+  principal: '/team/:slug',
 } as const
+
+/** The portfolio page for one principal. */
+export const principalPath = (slug: string) => paths.principal.replace(':slug', slug)
 
 export const nav = [
   { label: 'Home', to: paths.home },

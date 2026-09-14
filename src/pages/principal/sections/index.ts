@@ -1,0 +1,6 @@
+export { CareerSection } from './CareerSection'
+export { ExpertiseSection } from './ExpertiseSection'
+export { OtherPrincipals } from './OtherPrincipals'
+export { PortfolioHero } from './PortfolioHero/PortfolioHero'
+export { PortfolioHighlights } from './PortfolioHighlights'
+export { ProfileSection } from './ProfileSection'

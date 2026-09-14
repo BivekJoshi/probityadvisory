@@ -7,7 +7,7 @@ export default function AboutPage() {
   useSeo({
     title: `About — ${site.name}`,
     description:
-      'Three qualified Chartered Accountants in Kathmandu — ICAEW, ICAI and ICAN — who take on UK practice work directly, with no account manager in between.',
+      'Two qualified Chartered Accountants in Kathmandu — ICAEW, ICAI and ICAN — who take on UK practice work directly, with no account manager in between.',
   })
 
   return (

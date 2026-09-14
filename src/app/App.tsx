@@ -10,6 +10,7 @@ const pages = [
   { path: paths.about, Page: lazy(() => import('@/pages/about/AboutPage')) },
   { path: paths.whyNepal, Page: lazy(() => import('@/pages/why-nepal/WhyNepalPage')) },
   { path: paths.contact, Page: lazy(() => import('@/pages/contact/ContactPage')) },
+  { path: paths.principal, Page: lazy(() => import('@/pages/principal/PrincipalPage')) },
 ]
 
 const NotFoundPage = lazy(() => import('@/pages/not-found/NotFoundPage'))

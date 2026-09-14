@@ -2,7 +2,7 @@ export const proofPoints = [
   {
     term: 'Who does the work',
     detail:
-      'Three qualified Chartered Accountants — ICAEW, ICAI and ICAN — not a processing floor.',
+      'Two qualified Chartered Accountants — ICAEW, ICAI and ICAN — not a processing floor.',
   },
   {
     term: 'When it gets done',
@@ -15,7 +15,7 @@ export const proofPoints = [
 ] as const
 
 export const stats = [
-  { value: '3', label: 'Chartered Accountants behind every file' },
+  { value: '2', label: 'Chartered Accountants behind every file' },
   { value: '5', label: 'Ledger platforms we work inside' },
   { value: '1 day', label: 'To hear back — from a principal, not an assistant' },
   { value: 'UTC+05:45', label: 'The offset we turn to your advantage' },

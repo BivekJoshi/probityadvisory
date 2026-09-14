@@ -4,6 +4,9 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  // Listen on all interfaces so other devices on the LAN can open the dev/preview server.
+  server: { host: true },
+  preview: { host: true },
   resolve: {
     alias: { '@': new URL('./src', import.meta.url).pathname },
   },
