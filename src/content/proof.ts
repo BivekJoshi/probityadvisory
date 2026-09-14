@@ -2,7 +2,7 @@ export const proofPoints = [
   {
     term: 'Who does the work',
     detail:
-      'Two qualified Chartered Accountants — ICAEW, ICAI and ICAN — not a processing floor.',
+      'Three qualified Chartered Accountants — ICAEW, ICAI and ICAN — not a processing floor.',
   },
   {
     term: 'When it gets done',
@@ -15,7 +15,7 @@ export const proofPoints = [
 ] as const
 
 export const stats = [
-  { value: '2', label: 'Chartered Accountants behind every file' },
+  { value: '3', label: 'Chartered Accountants behind every file' },
   { value: '5', label: 'Ledger platforms we work inside' },
   { value: '1 day', label: 'To hear back — from a principal, not an assistant' },
   { value: 'UTC+05:45', label: 'The offset we turn to your advantage' },
@@ -23,9 +23,9 @@ export const stats = [
 
 /** The reassurances set under the home-page calls to action. */
 export const heroAssurances = [
-  'Thirty-minute call, no deck',
-  'Pilot batch before you commit',
-  'Named Chartered Accountants',
+  // 'Thirty-minute call, no deck',
+  // 'Pilot batch before you commit',
+  // 'Named Chartered Accountants',
 ] as const
 
 export const comparison = {

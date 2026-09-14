@@ -25,7 +25,7 @@ export const workingPatterns = [
   },
 ] as const
 
-export const globeCaption =
-  'Lit as the world is right now. Records travel out to Kathmandu; finished work comes home before London opens.'
+export const globeCaption =''
+  // 'Lit as the world is right now. Records travel out to Kathmandu; finished work comes home before London opens.'
 
 export type WorkingPattern = (typeof workingPatterns)[number]
