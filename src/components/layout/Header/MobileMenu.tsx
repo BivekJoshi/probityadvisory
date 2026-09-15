@@ -24,7 +24,7 @@ export function MobileMenu() {
       </SheetTrigger>
       <SheetContent>
         <SheetTitle className="flex items-center gap-2.5 font-display text-[18px] font-semibold text-white">
-          <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-white">
+          <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-white">
             <ProbityMark className="h-5 w-auto text-black" />
           </span>
           {site.name}

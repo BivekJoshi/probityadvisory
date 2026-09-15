@@ -7,7 +7,7 @@ export function FooterBrand() {
   return (
     <div className="sm:col-span-2 lg:col-span-1">
       <Link to={paths.home} className="flex w-fit items-center gap-2.5">
-        <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-white">
+        <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-white">
           <ProbityMark className="h-5.5 w-auto text-black" />
         </span>
         <span className="font-display text-[19px] font-semibold text-white">{site.name}</span>

@@ -8,7 +8,7 @@ export function HeaderBrand() {
   return (
     <Link to={paths.home} className="flex shrink-0 items-center gap-2.5" aria-label={`${site.name} — home`}>
       {/* the mark is black, so it gets a white tile to stand out on the forest bar */}
-      <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-white shadow-card">
+      <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-white shadow-card">
         <ProbityMark className="h-5.5 w-auto text-black" />
       </span>
       <span className="flex flex-col leading-none">

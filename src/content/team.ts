@@ -193,7 +193,7 @@ export const team: Principal[] = [
     short:
       "Proprietor of his own practice, a Fellow of the ICAI, and a working US tax consultant.",
     bio: [
-      "Deepak qualified with the Institute of Chartered Accountants of India in 2019, the Institute of Chartered Accountants of Nepal in 2021, and the Institute of Chartered Accountants in England and Wales in 2025. He began his career at Nepal Investment Bank, where he worked as an officer in the credit department appraising loan proposals, analysing financial statements and assessing credit risk.",
+      "Prajwal qualified with the Institute of Chartered Accountants of India in 2019, the Institute of Chartered Accountants of Nepal in 2021... He is the founder/practising professional at Paudyal Prajwal & Associates, providing professional services to businesses and organisations.His professional experience includes statutory and internal audits, tax advisory and compliance, financial reporting, accounting and bookkeeping, financial analysis, internal control reviews, due diligence, and business consultancy.",
       "He now runs his own audit and advisory practice in Nepal, working across audit, accounting and financial advisory for clients in several sectors. He sits on the Pokhara Branch Coordination Committee of the ICAN and the Kaski Committee of the Association of Chartered Accountants of Nepal, and is Secretary of the Lions Club of Nepal Landmark.",
     ],
     highlights: [
