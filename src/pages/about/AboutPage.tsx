@@ -1,4 +1,5 @@
 import { CTABand, PageHero } from '@/components/sections'
+import { useScrollToHash } from '@/hooks/useScrollToHash'
 import { useSeo } from '@/hooks/useSeo'
 import { site } from '@/config/site'
 import { MembershipsSection, PrincipalsSection, PrinciplesSection } from './sections'
@@ -9,6 +10,7 @@ export default function AboutPage() {
     description:
       'Three qualified Chartered Accountants in Kathmandu — ICAEW, ICAI and ICAN — who take on UK practice work directly, with no account manager in between.',
   })
+  useScrollToHash()
 
   return (
     <>

@@ -3,6 +3,19 @@ import { PartnerQuestions } from '@/components/sections'
 import { homeFaq } from '@/content/faq'
 import { site } from '@/config/site'
 
+const askPrincipal = (
+  <>
+    Something we have not covered? Ask a principal directly at{' '}
+    <a
+      href={`mailto:${site.email}`}
+      className="font-medium text-foreground underline decoration-green/60 underline-offset-4 transition-colors hover:text-green-ink"
+    >
+      {site.email}
+    </a>
+    .
+  </>
+)
+
 export function FaqSection() {
   return (
     <Band className="pt-0">
@@ -11,20 +24,12 @@ export function FaqSection() {
           className="lg:sticky lg:top-28 lg:self-start"
           eyebrow="Questions"
           title="What partners ask before they start."
-          lede={
-            <>
-              Something we have not covered? Ask a principal directly at{' '}
-              <a
-                href={`mailto:${site.email}`}
-                className="font-medium text-foreground underline decoration-green/60 underline-offset-4 transition-colors hover:text-green-ink"
-              >
-                {site.email}
-              </a>
-              .
-            </>
-          }
+          lede={askPrincipal}
         />
-        <PartnerQuestions items={homeFaq} />
+        <div>
+          <PartnerQuestions items={homeFaq} />
+          <p className="mt-8 text-[15px] leading-[1.6] text-muted-foreground">{askPrincipal}</p>
+        </div>
       </Container>
     </Band>
   )

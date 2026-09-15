@@ -23,6 +23,8 @@ interface PageHeroProps {
   scene?: 'terrain' | 'globe'
   /** Rendered under the lede — calls to action, jump links. */
   children?: ReactNode
+  /** A small link set above the heading, back to where the page sits. */
+  back?: ReactNode
 }
 
 /** The forest masthead at the top of every page. */
@@ -35,6 +37,7 @@ export function PageHero({
   overlap,
   scene = 'terrain',
   children,
+  back,
 }: PageHeroProps) {
   const [webgl] = useState(hasWebGL)
   const globe = scene === 'globe' && webgl
@@ -59,6 +62,7 @@ export function PageHero({
           overlap ? 'pb-[clamp(120px,13vw,176px)]' : 'pb-[clamp(56px,8vw,112px)]',
         )}
       >
+        {back && <div className="mb-8">{back}</div>}
         <div
           className={cn(
             'grid items-center gap-12',
