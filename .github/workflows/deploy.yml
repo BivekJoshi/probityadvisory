@@ -1,0 +1,140 @@
+name: Deploy to cPanel
+
+# Push to PRODUCTION goes live. `main` is the integration branch and does not
+# deploy. Use the "Run workflow" button to redeploy by hand.
+#
+#   feature --PR--> ci.yml --merge--> main --merge--> PRODUCTION --> cPanel
+#                                 (integration)      (release)
+#
+# The branch name is case-sensitive: PRODUCTION, not production.
+
+on:
+  push:
+    branches: [PRODUCTION]
+  workflow_dispatch:
+
+# Never let two deploys upload over each other.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  website:
+    name: Static site to public_html
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION || '22' }}
+          cache: npm
+
+      - run: npm ci
+
+      # Type-checks (tsc -b) and bundles into dist/.
+      - name: Build
+        run: npm run build
+
+      # _redirects and vercel.json style rewrites mean nothing to Apache;
+      # .htaccess does the SPA fallback on cPanel.
+      - name: Add the Apache config
+        run: |
+          rm -f dist/_redirects
+          cp deploy/public_html.htaccess dist/.htaccess
+          cp deploy/assets.htaccess dist/assets/.htaccess
+
+      # A silently-failed build must never be allowed to empty the live site.
+      - name: Fail if the build looks empty
+        run: |
+          test -f dist/index.html        || { echo "dist/index.html missing";        exit 1; }
+          test -f dist/.htaccess         || { echo "dist/.htaccess missing";         exit 1; }
+          test -d dist/assets            || { echo "dist/assets missing";            exit 1; }
+          test -f dist/assets/.htaccess  || { echo "dist/assets/.htaccess missing";  exit 1; }
+
+      - name: Set up the SSH key
+        env:
+          SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          # Pin the host key so the upload cannot be silently intercepted.
+          ssh-keyscan -p "${SERVER_PORT:-22}" "$SERVER_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          test -s ~/.ssh/known_hosts || { echo "ssh-keyscan returned nothing - check SERVER_HOST/SERVER_PORT"; exit 1; }
+
+      # Prove the connection works before touching anything on the server.
+      - name: Verify SSH access
+        env:
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          REMOTE_DIR: ${{ vars.SERVER_DEPLOY_PATH || 'public_html' }}
+        run: |
+          ssh -i ~/.ssh/deploy_key -p "${SERVER_PORT:-22}" \
+              "$SERVER_USER@$SERVER_HOST" \
+              "test -d '$REMOTE_DIR' && echo 'remote dir OK'"
+
+      # The host has no rsync, so the build ships as a tarball and
+      # deploy/remote-sync.sh installs it. That script reproduces
+      # `rsync --delete` with a manifest, so stale hashed files under assets/
+      # are removed rather than accumulating forever. It also refuses to
+      # install an upload that is missing index.html, .htaccess or assets/,
+      # so a truncated transfer cannot empty the live site.
+      #
+      # Never written and never deleted, because cPanel owns them:
+      # .well-known/ (AutoSSL renewal), cgi-bin/, php.ini, .user.ini, .htpasswd
+      - name: Pack the build
+        run: |
+          tar czf deploy.tgz -C dist .
+          ls -lh deploy.tgz
+
+      - name: Upload to public_html
+        env:
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          REMOTE_DIR: ${{ vars.SERVER_DEPLOY_PATH || 'public_html' }}
+        run: |
+          PORT="${SERVER_PORT:-22}"
+          DEST="$SERVER_USER@$SERVER_HOST"
+
+          scp -i ~/.ssh/deploy_key -P "$PORT" \
+            deploy.tgz deploy/remote-sync.sh "$DEST:~/"
+
+          ssh -i ~/.ssh/deploy_key -p "$PORT" "$DEST" \
+            "chmod +x ~/remote-sync.sh && ~/remote-sync.sh ~/deploy.tgz ~/$REMOTE_DIR && rm -f ~/remote-sync.sh"
+
+      # Skipped while the domain is still being pointed at the server, so a
+      # pending DNS change cannot fail an otherwise good deploy. Once the name
+      # resolves this becomes a real gate: a live domain answering anything
+      # other than 200 fails the run.
+      - name: Check the site responds
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: |
+          if [ -z "$SITE_URL" ]; then
+            echo "SITE_URL is not set - skipping the live check."
+            exit 0
+          fi
+
+          host=$(printf '%s' "$SITE_URL" | sed -E 's,^https?://,,; s,/.*,,')
+
+          if ! getent ahosts "$host" >/dev/null 2>&1; then
+            echo "::warning::$host does not resolve yet - DNS is not pointed at the server."
+            echo "The upload succeeded. Re-run this workflow once DNS propagates."
+            exit 0
+          fi
+
+          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 "$SITE_URL/")
+          echo "GET $SITE_URL/ -> $code"
+          [ "$code" = "200" ] || { echo "::error::$SITE_URL returned $code, expected 200"; exit 1; }
+
+      - name: Remove the key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key

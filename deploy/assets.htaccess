@@ -1,0 +1,5 @@
+# Vite fingerprints every filename in assets/, so they can be cached forever.
+# Copied to dist/assets/.htaccess by the deploy workflow.
+<IfModule mod_headers.c>
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</IfModule>

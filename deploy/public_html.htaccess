@@ -1,0 +1,55 @@
+# Apache config for the static site in public_html.
+# Copied to dist/.htaccess by the deploy workflow — do not edit on the server,
+# it is overwritten on every deploy.
+
+Options -Indexes
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Let AutoSSL validate over plain HTTP. cPanel exempts .well-known globally
+  # today, but renewal runs unattended every ~90 days and a redirect here
+  # fails it silently, expiring the certificate. Cheap insurance.
+  RewriteRule ^\.well-known/ - [L]
+
+  # Force HTTPS.
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Force the bare domain — pick one canonical host so SEO is not split.
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+  # Single-page app: React Router (BrowserRouter) owns every route, so any
+  # request that is not a real file or directory gets index.html. Without this
+  # a refresh on /about answers 404.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ /index.html [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+  # Files copied from public/ (team photos, favicon) keep their names across
+  # deploys, so they get a short cache. Hashed build output under assets/ is
+  # cached forever by its own .htaccess, written by the deploy workflow.
+  <FilesMatch "\.(svg|png|jpg|jpeg|webp|avif|ico)$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+
+  # HTML must revalidate or a deploy is invisible until the cache expires.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml \
+    application/javascript application/json image/svg+xml
+</IfModule>
