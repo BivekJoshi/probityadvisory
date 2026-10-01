@@ -3,7 +3,7 @@ import { clamp01, hash } from '../../lib/math'
 
 /*
  * The four process steps as one continuous choreography of ledger pages:
- *   0 Scoping call  — scattered records, one live file brought forward
+ *   0 Scoping call  — scattered records, one sample file brought forward
  *   1 Pilot batch   — a small set laid out for review, the rest waiting behind
  *   2 Named team    — three piles, one per principal, each under a green halo
  *   3 Steady state  — pages circling a bound green file on three steady orbits

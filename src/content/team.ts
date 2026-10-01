@@ -20,7 +20,8 @@ export interface Highlight {
 export interface Principal {
   slug: string;
   name: string;
-  role: string;
+  /** Left out until confirmed; the cards and the page then say only "Principal". */
+  role?: string;
   creds: string;
   photo: string;
   short: string;
@@ -38,7 +39,9 @@ export interface Principal {
 
 /*
  * Everything below the bio is the bio restated as structure — no fact appears in
- * highlights, career or focus that is not already in the paragraphs.
+ * highlights, career or focus that is not already in the paragraphs. A principal
+ * whose details are not yet confirmed keeps these lists empty, and the profile
+ * page leaves out each section that has nothing in it.
  */
 export const team: Principal[] = [
   {
@@ -46,12 +49,12 @@ export const team: Principal[] = [
     name: "Deepak Pandey",
     role: "Audit & advisory",
     creds: "CA (ICAI) · CA (ICAN) · ACA (ICAEW)",
-    photo: "/team/deepak-pandey.jpg",
+    photo: "/team/deepak-pandey.jpeg",
     short:
       "Audit and advisory practitioner; began his career in credit at Nepal Investment Bank before establishing his own practice.",
     bio: [
-      "Deepak qualified with the Institute of Chartered Accountants of India in 2019, the Institute of Chartered Accountants of Nepal in 2021, and the Institute of Chartered Accountants in England and Wales in 2025. He began his career at Nepal Investment Bank, where he worked as an officer in the credit department appraising loan proposals, analysing financial statements and assessing credit risk.",
-      "He now runs his own audit and advisory practice in Nepal, working across audit, accounting and financial advisory for clients in several sectors. He sits on the Pokhara Branch Coordination Committee of the ICAN and the Kaski Committee of the Association of Chartered Accountants of Nepal, and is Secretary of the Lions Club of Nepal Landmark.",
+      "Deepak qualified with the Institute of Chartered Accountants of India in 2019 and the Institute of Chartered Accountants of Nepal in 2021, and was admitted to membership of the Institute of Chartered Accountants in England and Wales in 2025.",
+      "He began his career at Nepal Investment Bank, where he worked as an officer in the credit department appraising loan proposals, analysing financial statements and assessing credit risk. He now runs his own audit and advisory practice in Nepal, working across audit, accounting and financial advisory for clients in several sectors. He sits on the Pokhara Branch Coordination Committee of the ICAN and the Kaski Committee of the Association of Chartered Accountants of Nepal, and is Secretary of the Lions Club of Nepal Landmark.",
     ],
     highlights: [
       {
@@ -100,8 +103,7 @@ export const team: Principal[] = [
       {
         when: "2025",
         title: "Associate Chartered Accountant — ICAEW",
-        detail:
-          "Qualified with the Institute of Chartered Accountants in England and Wales.",
+        detail: "Admitted to ICAEW membership.",
       },
       {
         when: "Today",
@@ -185,87 +187,18 @@ export const team: Principal[] = [
     software: ["Xero", "QuickBooks", "MYOB", "HandiLedger"],
   },
   {
+    // Only what is confirmed. His bio, career and qualification years follow once he sends them.
     slug: "prajwal-paudyal",
     name: "Prajwal Paudyal",
-    role: "Audit & advisory",
-    creds: "CA (ICAI) · CA (ICAN) · Dip IFRS",
+    creds: "CA (ICAI) · CA (ICAN)",
     photo: "/team/prajwal-paudyal.jpg",
-    short:
-      "Proprietor of his own practice, a Fellow of the ICAI, and a working US tax consultant.",
-    bio: [
-      "Prajwal qualified with the Institute of Chartered Accountants of India in 2019, the Institute of Chartered Accountants of Nepal in 2021... He is the founder/practising professional at Paudyal Prajwal & Associates, providing professional services to businesses and organisations.His professional experience includes statutory and internal audits, tax advisory and compliance, financial reporting, accounting and bookkeeping, financial analysis, internal control reviews, due diligence, and business consultancy.",
-      "He now runs his own audit and advisory practice in Nepal, working across audit, accounting and financial advisory for clients in several sectors. He sits on the Pokhara Branch Coordination Committee of the ICAN and the Kaski Committee of the Association of Chartered Accountants of Nepal, and is Secretary of the Lions Club of Nepal Landmark.",
-    ],
-    highlights: [
-      {
-        value: "3",
-        label: "Chartered institutes, in India, Nepal and England & Wales",
-      },
-      { value: "2019", label: "First qualified as a Chartered Accountant" },
-      { value: "ICAEW", label: "Associate Chartered Accountant since 2025" },
-    ],
-    qualifications: [
-      {
-        title: "CA",
-        body: "Institute of Chartered Accountants of India",
-        year: "2019",
-      },
-      {
-        title: "CA",
-        body: "Institute of Chartered Accountants of Nepal",
-        year: "2021",
-      },
-      {
-        title: "ACA",
-        body: "Institute of Chartered Accountants in England and Wales",
-        year: "2025",
-      },
-    ],
-    career: [
-      {
-        when: "Early career",
-        title: "Credit officer, Nepal Investment Bank",
-        detail:
-          "Appraised loan proposals, analysed financial statements and assessed credit risk in the credit department.",
-      },
-      {
-        when: "2019",
-        title: "Chartered Accountant — ICAI",
-        detail:
-          "Qualified with the Institute of Chartered Accountants of India.",
-      },
-      {
-        when: "2021",
-        title: "Chartered Accountant — ICAN",
-        detail:
-          "Qualified with the Institute of Chartered Accountants of Nepal.",
-      },
-      {
-        when: "2025",
-        title: "Associate Chartered Accountant — ICAEW",
-        detail:
-          "Qualified with the Institute of Chartered Accountants in England and Wales.",
-      },
-      {
-        when: "Today",
-        title: "Principal, his own audit & advisory practice",
-        detail:
-          "Audit, accounting and financial advisory for clients in several sectors in Nepal.",
-      },
-    ],
-    focus: [
-      "Audit",
-      "Accounting",
-      "Financial advisory",
-      "Credit appraisal",
-      "Financial statement analysis",
-    ],
-    roles: [
-      "Member, Pokhara Branch Coordination Committee — ICAN",
-      "Member, Kaski Committee — Association of Chartered Accountants of Nepal",
-      "Secretary, Lions Club of Nepal Landmark",
-    ],
-    linkedin: "https://www.linkedin.com/in/cadeepakpandey/",
+    short: "Proprietor of his own practice in Nepal.",
+    bio: [],
+    highlights: [],
+    qualifications: [],
+    career: [],
+    focus: [],
+    linkedin: "https://www.linkedin.com/in/prajwal-paudyal-b67234b5/",
   },
 ];
 
@@ -279,7 +212,7 @@ export const principles = [
   },
   {
     title: "Qualified, not merely trained",
-    body: "Every file is prepared by someone who has passed a full Chartered Accountancy qualification — ICAI in India, ICAN in Nepal, and in one case the ICAEW. That is a different proposition from a processing centre with a supervisor.",
+    body: "Every file is prepared by a principal who is a member of both ICAI and ICAN; one of us is also a member of ICAEW.",
   },
   {
     title: "We say when we do not know",

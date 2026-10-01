@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, CalendarRange, FilePen, ShieldCheck, UsersRound } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import type { Audience } from '@/content/audiences'
+import { audience } from '@/content/audiences'
 import { paths } from '@/config/routes'
-import { audienceIcons } from './audienceIcons'
 
-/** One audience's pitch and call to action, beside its four illustrated points. */
-export function AudiencePanel({ audience }: { audience: Audience }) {
+/* one glyph per point, in the same order as audience.points */
+const icons = [CalendarRange, FilePen, UsersRound, ShieldCheck] as const
+
+/** The pitch to practices and its call to action, beside the four illustrated points. */
+export function AudiencePanel() {
   return (
     <>
       <div className="flex flex-col items-start">
@@ -24,7 +26,7 @@ export function AudiencePanel({ audience }: { audience: Audience }) {
 
       <ul className="grid gap-3 sm:grid-cols-2">
         {audience.points.map((point, i) => {
-          const Icon = audienceIcons[audience.key][i]
+          const Icon = icons[i]
           return (
             <li
               key={point}

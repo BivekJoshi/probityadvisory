@@ -33,12 +33,13 @@ npm run lint
 src/
   main.tsx        Entry: mounts <App> inside <AppProviders>
   app/            App.tsx (the route table) · providers.tsx (theme, motion, router)
-  config/         routes.ts (every path, and the nav) · site.ts (name, contact details)
-  content/        Site copy by topic: services, team, process, proof, faq, audiences, timeZones
+  config/         routes.ts (every path, and the nav) · site.ts (name, URL, contact details)
+  content/        Site copy by topic: services, team, process, proof, faq, audiences, timeZones,
+                  privacy — and seo.ts, every page's title and description
   pages/
     home/         HomePage.tsx + sections/ that only the home page uses
     services/     ServicesPage.tsx + sections/
-    about/  why-nepal/  contact/  not-found/
+    about/  why-nepal/  contact/  privacy/  principal/  not-found/
   components/
     ui/           shadcn primitives (button, badge, input, select, accordion, sheet …)
     common/       Container, Band, SectionHeader, Eyebrow, Lede — the page building blocks
@@ -52,6 +53,8 @@ src/
   hooks/          useSeo, useMinute
   lib/            cn(), time-zone formatting
   styles/         globals.css — Tailwind and the brand tokens
+plugins/          staticPages.ts — the Vite plugin that writes each route's HTML, 404.html, sitemap.xml
+public/api/       enquiry.php — emails the contact form to info@ from the web host
 ```
 
 Copy is deliberately kept out of the components: edit `src/content/` (and
@@ -60,9 +63,13 @@ Copy is deliberately kept out of the components: edit `src/content/` (and
 ### Where new code goes
 
 - **A new page:** add its path to `paths` in `config/routes.ts` (and to `nav` if it
-  belongs in the menu), create `pages/<name>/<Name>Page.tsx` with a default export,
-  and add one line to the `pages` table in `app/App.tsx`. A page file only sets its
-  SEO and lists its sections in order; the markup lives in the sections.
+  belongs in the menu), give it a title and description in `pageSeo` in
+  `content/seo.ts`, create `pages/<name>/<Name>Page.tsx` with a default export that
+  calls `useSeo(pageSeo.<name>)`, and add one line to the `pages` table in
+  `app/App.tsx`. A page file only sets its SEO and lists its sections in order; the
+  markup lives in the sections. The `pageSeo` entry is also what gets the page its
+  own HTML file and sitemap entry at build time — without it the live server
+  answers the URL with a 404.
 - **A new section:** if one page uses it, put it in that page's `sections/` folder
   and export it from `sections/index.ts`. Move it to `components/sections` once a
   second page needs it.
@@ -133,13 +140,36 @@ hand-written shaders:
 
 ## Deploying
 
-The build is a static SPA, so the host must rewrite unknown paths to
-`index.html` or deep links like `/why-nepal` will 404. Both are included:
+`.github/workflows/deploy.yml` builds and uploads to the cPanel host on every push
+to `PRODUCTION`.
 
-- Netlify — `public/_redirects`
-- Vercel — `vercel.json`
+The build gives every route its own HTML file — `about.html`,
+`team/deepak-pandey.html` … — whose `<head>` already carries that page's title,
+description, canonical URL and link-preview tags (`og:image` is
+`public/og-image.png`, the firm's 1200×630 card). The app still renders the body.
+It also writes `404.html` and `sitemap.xml`; `robots.txt` is in `public/`.
 
-For Apache/nginx, add the equivalent fallback rule.
+- **Apache (live)** — `deploy/public_html.htaccess` serves `/about` from
+  `about.html`, 301s `/about.html` and `/about/` to `/about`, and answers anything
+  else with `404.html` and a real 404 status. There is no catch-all fallback any
+  more, so a route without a `pageSeo` entry 404s.
+- **Netlify** — `public/_redirects` only forwards the old
+  `probityadvisory.netlify.app` copy to the real domain.
+- **Vercel** — `vercel.json` turns on clean URLs; `404.html` is picked up as is.
+
+### Contact form
+
+The form POSTs JSON to `/api/enquiry.php`, which runs on the cPanel host's PHP and
+`mail()`s the enquiry to `info@probityadvisory.co.uk` with the visitor in
+Reply-To. A hidden `website` field is the spam honeypot. The dev server and
+`vite preview` cannot run PHP, so locally a send always shows the failure notice.
+
+Delivery depends on the domain's DNS: an MX record for the mailbox, and an SPF
+record that lets the web host send as `@probityadvisory.co.uk` (plus DKIM),
+otherwise the domain's DMARC policy (`p=quarantine`) sends the mail to spam. If
+the mailboxes live with an outside provider rather than cPanel, set cPanel's
+*Email Routing* to *Remote Mail Exchanger* so the host does not try to deliver
+`info@` locally.
 
 ## Leftovers to delete
 
@@ -151,10 +181,11 @@ npm uninstall @react-three/drei
 
 ## Known gaps
 
-- **The enquiry form has no back end.** A valid submission currently opens the
-  visitor's mail client with the enquiry pre-filled. Replace the `mailto:` hand-off
-  in `handleSubmit` (`src/pages/contact/sections/ContactForm/useEnquiryForm.ts`)
-  with a POST once an endpoint exists.
+- **The privacy notice is a stand-in.** `src/content/privacy.ts` describes what the
+  site does today; replace it with the firm's own text when it arrives.
+- **Prajwal Paudyal's profile is deliberately bare** — name, credentials and one
+  line — until his own details are confirmed. Fill in `bio`, `career` and the rest
+  in `src/content/team.ts` and the profile sections reappear by themselves.
 - **No testimonials.** The reference material contained no approved client
   quotes, so none were invented. Adding a section is straightforward once real
   quotes are cleared for use.

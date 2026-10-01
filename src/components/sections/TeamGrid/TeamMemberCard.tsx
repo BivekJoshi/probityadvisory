@@ -45,7 +45,9 @@ export function TeamMemberCard({ person, wide = false }: TeamMemberCardProps) {
       </div>
 
       <div className="flex flex-1 flex-col p-6 sm:p-7">
-        <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-green-ink">{person.role}</p>
+        <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-green-ink">
+          {person.role ?? 'Principal'}
+        </p>
         <h3 className="mt-2 text-[clamp(22px,2.2vw,26px)] tracking-[-0.01em]">
           <Link
             to={principalPath(person.slug)}

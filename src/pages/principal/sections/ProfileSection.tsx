@@ -5,9 +5,11 @@ import { LinkedIn } from '@/components/icons'
 import type { Principal } from '@/content/team'
 import { cn } from '@/lib/utils'
 
-/** The bio set as an editorial column, beside a sticky card of credentials. */
+/** The bio set as an editorial column, beside a sticky card of whichever credentials are on file. */
 export function ProfileSection({ person }: { person: Principal }) {
   const firstName = person.name.split(' ')[0]
+  const { qualifications, roles, linkedin } = person
+  const hasCard = qualifications.length > 0 || Boolean(roles?.length) || Boolean(linkedin)
 
   return (
     <Band>
@@ -34,57 +36,63 @@ export function ProfileSection({ person }: { person: Principal }) {
           </div>
         </div>
 
-        <Reveal delay={0.1}>
-          <div className="rounded-2xl border border-line bg-card p-6 shadow-card sm:p-7 lg:sticky lg:top-24">
-            <h3 className="flex items-center gap-2.5 text-[17px]">
-              <Award className="size-4.5 text-green-ink" />
-              Qualifications
-            </h3>
-            <ul className="mt-5 divide-y divide-line-soft">
-              {person.qualifications.map((q) => (
-                <li key={q.body} className="flex items-start gap-3.5 py-3.5 first:pt-0">
-                  <span className="mt-0.5 shrink-0 rounded-md bg-green-soft px-2 py-0.5 font-mono text-[12px] font-medium text-green-ink">
-                    {q.title}
-                  </span>
-                  <span className="flex-1 text-[14.5px] leading-[1.5] text-foreground/85">{q.body}</span>
-                  {q.year && (
-                    <span className="tabular shrink-0 font-mono text-[12.5px] text-muted-foreground">{q.year}</span>
-                  )}
-                </li>
-              ))}
-            </ul>
+        {hasCard && (
+          <Reveal delay={0.1}>
+            <div className="flex flex-col gap-7 rounded-2xl border border-line bg-card p-6 shadow-card sm:p-7 lg:sticky lg:top-24">
+              {qualifications.length > 0 && (
+                <div>
+                  <h3 className="flex items-center gap-2.5 text-[17px]">
+                    <Award className="size-4.5 text-green-ink" />
+                    Qualifications
+                  </h3>
+                  <ul className="mt-5 divide-y divide-line-soft">
+                    {qualifications.map((q) => (
+                      <li key={q.body} className="flex items-start gap-3.5 py-3.5 first:pt-0">
+                        <span className="mt-0.5 shrink-0 rounded-md bg-green-soft px-2 py-0.5 font-mono text-[12px] font-medium text-green-ink">
+                          {q.title}
+                        </span>
+                        <span className="flex-1 text-[14.5px] leading-[1.5] text-foreground/85">{q.body}</span>
+                        {q.year && (
+                          <span className="tabular shrink-0 font-mono text-[12.5px] text-muted-foreground">{q.year}</span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-            {person.roles && (
-              <>
-                <h3 className="mt-7 flex items-center gap-2.5 text-[17px]">
-                  <Landmark className="size-4.5 text-green-ink" />
-                  Offices held
-                </h3>
-                <ul className="mt-4 space-y-3">
-                  {person.roles.map((role) => (
-                    <li key={role} className="flex gap-3 text-[14.5px] leading-[1.5] text-foreground/85">
-                      <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-green" />
-                      {role}
-                    </li>
-                  ))}
-                </ul>
-              </>
-            )}
+              {roles && roles.length > 0 && (
+                <div>
+                  <h3 className="flex items-center gap-2.5 text-[17px]">
+                    <Landmark className="size-4.5 text-green-ink" />
+                    Offices held
+                  </h3>
+                  <ul className="mt-4 space-y-3">
+                    {roles.map((role) => (
+                      <li key={role} className="flex gap-3 text-[14.5px] leading-[1.5] text-foreground/85">
+                        <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-green" />
+                        {role}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-            {person.linkedin && (
-              <a
-                href={person.linkedin}
-                target="_blank"
-                rel="noopener"
-                className="mt-7 flex items-center gap-2 border-t border-line-soft pt-5 text-[14px] font-medium text-foreground/80 transition-colors hover:text-green-ink"
-              >
-                <LinkedIn className="size-4" />
-                LinkedIn profile
-                <ArrowUpRight className="ml-auto size-4" />
-              </a>
-            )}
-          </div>
-        </Reveal>
+              {linkedin && (
+                <a
+                  href={linkedin}
+                  target="_blank"
+                  rel="noopener"
+                  className="flex items-center gap-2 border-t border-line-soft pt-5 text-[14px] font-medium text-foreground/80 transition-colors first:border-t-0 first:pt-0 hover:text-green-ink"
+                >
+                  <LinkedIn className="size-4" />
+                  LinkedIn profile
+                  <ArrowUpRight className="ml-auto size-4" />
+                </a>
+              )}
+            </div>
+          </Reveal>
+        )}
       </Container>
     </Band>
   )

@@ -1,15 +1,11 @@
 import { CTABand, PageHero } from '@/components/sections'
 import { useScrollToHash } from '@/hooks/useScrollToHash'
 import { useSeo } from '@/hooks/useSeo'
-import { site } from '@/config/site'
+import { pageSeo } from '@/content/seo'
 import { MembershipsSection, PrincipalsSection, PrinciplesSection } from './sections'
 
 export default function AboutPage() {
-  useSeo({
-    title: `About — ${site.name}`,
-    description:
-      'Three qualified Chartered Accountants in Kathmandu — ICAEW, ICAI and ICAN — who take on UK practice work directly, with no account manager in between.',
-  })
+  useSeo(pageSeo.about)
   useScrollToHash()
 
   return (

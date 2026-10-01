@@ -1,3 +1,5 @@
+import { software } from './services'
+
 export const proofPoints = [
   {
     term: 'Who does the work',
@@ -10,13 +12,13 @@ export const proofPoints = [
   },
   {
     term: 'Where it gets done',
-    detail: 'Inside your stack: FreeAgent, QuickBooks, Sage, Xero and MYOB.',
+    detail: 'Inside your stack: FreeAgent, QuickBooks, Sage and Xero.',
   },
 ] as const
 
 export const stats = [
-  { value: '3', label: 'Chartered Accountants behind every file' },
-  { value: '5', label: 'Ledger platforms we work inside' },
+  { value: '3', label: 'Chartered Accountants on the team' },
+  { value: String(software.length), label: 'Ledger platforms we work inside' },
   { value: '1 day', label: 'To hear back — from a principal, not an assistant' },
   { value: 'UTC+05:45', label: 'The offset we turn to your advantage' },
 ] as const
@@ -71,7 +73,7 @@ export const dataSafeguards = [
   },
   {
     title: 'Lawful transfer to Nepal',
-    body: "The ICO's International Data Transfer Agreement is in place from day one, not after the first deadline.",
+    body: "The ICO's International Data Transfer Agreement is in place from day one.",
   },
   {
     title: 'Access per engagement',

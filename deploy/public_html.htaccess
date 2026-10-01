@@ -22,13 +22,30 @@ DirectoryIndex index.html
   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 
-  # Single-page app: React Router (BrowserRouter) owns every route, so any
-  # request that is not a real file or directory gets index.html. Without this
-  # a refresh on /about answers 404.
-  RewriteCond %{REQUEST_FILENAME} !-f
+  # One address per page. /index.html and /about.html are the files behind / and
+  # /about, never URLs of their own. THE_REQUEST is the line the browser sent,
+  # so the internal rewrites below cannot trigger these.
+  RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+  RewriteRule ^ / [R=301,L]
+  RewriteCond %{THE_REQUEST} \s/+([^?\s]+?)\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # ... and no trailing slash, except on real directories.
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^ /index.html [L]
+  RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+  # Every route has its own HTML file, written by the build (plugins/staticPages.ts)
+  # with that page's title, description and canonical URL: /about is about.html,
+  # /team/deepak-pandey is team/deepak-pandey.html. React Router takes over in the browser.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_URI} !^/404$
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.+)$ /$1.html [L]
 </IfModule>
+
+# Anything else is a real 404 (not the old SPA fallback's 200), so search engines
+# drop dead links. 404.html is the app shell, which renders the not-found page.
+ErrorDocument 404 /404.html
 
 <IfModule mod_headers.c>
   Header always set X-Content-Type-Options "nosniff"

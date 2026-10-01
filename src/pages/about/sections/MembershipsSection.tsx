@@ -10,7 +10,7 @@ export function MembershipsSection() {
       <Container>
         <SectionHeader
           eyebrow="Qualifications"
-          title="Memberships held by our principals in their own names."
+          title="Memberships and qualifications held by our principals in their own names."
         />
         <Stagger className="flex flex-wrap gap-2.5" step={0.06}>
           {memberships.map((item) => (

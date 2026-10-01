@@ -28,7 +28,7 @@ export const services = [
       'A review-ready file: accounts, computation and a working paper set your partner can actually follow.',
     keyedTo: 'Keyed to: accounts nine months after year end, CT600 at twelve',
     summary: [
-      'Statutory accounts under FRS 102 1A and FRS 105',
+      'Statutory accounts under FRS 102 Section 1A and FRS 105',
       'Cross-referenced lead schedules',
       'Corporation tax computation and CT600',
       'Review points flagged, not buried',
@@ -69,7 +69,7 @@ export const services = [
 export const alsoOnRequest = [
   'Management accounts & KPI packs',
   'Budgets & cash-flow forecasting',
-  'Company secretarial & Companies House filings',
+  'Companies House filings, prepared for your practice to submit',
   'Cloud migration & system set-up',
   'Practice overflow at peak',
 ] as const
@@ -79,8 +79,7 @@ export const software: readonly { name: string; logo?: string }[] = [
   { name: 'FreeAgent', logo: '/software/freeagent.png' },
   { name: 'QuickBooks', logo: '/software/quickBook.png' },
   { name: 'Sage', logo: '/software/sage.png' },
-  { name: 'Xero',logo: '/software/xero.jpg' },
-  { name: 'MYOB' , logo: '/software/myob.png' },
+  { name: 'Xero', logo: '/software/xero.jpg' },
 ]
 
 export const complianceCalendar = [

@@ -1,5 +1,3 @@
-import { site } from '@/config/site'
-
 export type EnquiryErrors = Partial<Record<'name' | 'email', string>>
 
 export interface Enquiry {
@@ -12,6 +10,9 @@ export interface Enquiry {
   message: string
 }
 
+/** The script on the web host that emails each enquiry to the practice: public/api/enquiry.php. */
+const endpoint = '/api/enquiry.php'
+
 /** Name and email are required; the email must at least look like one. */
 export function validateEnquiry({ name, email }: Enquiry): EnquiryErrors {
   const errors: EnquiryErrors = {}
@@ -21,20 +22,17 @@ export function validateEnquiry({ name, email }: Enquiry): EnquiryErrors {
   return errors
 }
 
-/** The enquiry as a `mailto:` link to the practice, subject and body filled in. */
-export function enquiryMailto(enquiry: Enquiry) {
-  const body = [
-    `Name: ${enquiry.name}`,
-    `Firm or company: ${enquiry.firm || '—'}`,
-    `Email: ${enquiry.email}`,
-    `Phone: ${enquiry.phone || '—'}`,
-    `Enquirer type: ${enquiry.enquirerType}`,
-    `What they need: ${enquiry.services.length ? enquiry.services.join(', ') : '—'}`,
-    '',
-    enquiry.message,
-  ].join('\n')
-
-  return `mailto:${site.email}?subject=${encodeURIComponent(
-    `Enquiry from ${enquiry.name}`,
-  )}&body=${encodeURIComponent(body)}`
+/**
+ * Posts the enquiry to the host, which emails it to the practice. `website` is the
+ * honeypot: people never see that field, so anything in it marks a bot, and the
+ * script drops the message while still answering as if it had been sent.
+ */
+export async function sendEnquiry(enquiry: Enquiry, website: string) {
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ ...enquiry, website }),
+  })
+  const result = (await response.json().catch(() => null)) as { ok?: boolean } | null
+  if (!response.ok || !result?.ok) throw new Error(`Enquiry not sent (HTTP ${response.status})`)
 }

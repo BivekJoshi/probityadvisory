@@ -1,7 +1,7 @@
 import { CTABand } from '@/components/sections'
 import { useScrollToHash } from '@/hooks/useScrollToHash'
 import { useSeo } from '@/hooks/useSeo'
-import { site } from '@/config/site'
+import { pageSeo } from '@/content/seo'
 import {
   BeyondComplianceSection,
   ComplianceSection,
@@ -10,11 +10,7 @@ import {
 } from './sections'
 
 export default function ServicesPage() {
-  useSeo({
-    title: `Services — ${site.name}`,
-    description:
-      'Bookkeeping and VAT under MTD, year-end accounts and corporation tax, and payroll with CIS and pensions — staffed by qualified Chartered Accountants in Kathmandu.',
-  })
+  useSeo(pageSeo.services)
   useScrollToHash()
 
   return (

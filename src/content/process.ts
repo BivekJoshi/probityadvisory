@@ -2,7 +2,7 @@ export const processSteps = [
   {
     n: '01',
     title: 'Scoping call',
-    body: 'You show us one live file and tell us what "finished" means inside your practice. Thirty minutes, no deck.',
+    body: 'You show us a sample file (anonymised is fine) and tell us what "finished" means inside your practice. Thirty minutes, no deck.',
   },
   {
     n: '02',
@@ -30,7 +30,7 @@ export const nextSteps = [
   {
     n: '02',
     lead: 'A thirty-minute call.',
-    rest: 'You show us one live file and tell us what finished looks like in your practice.',
+    rest: 'You show us a sample file (anonymised is fine) and tell us what finished looks like in your practice.',
   },
   {
     n: '03',
@@ -75,6 +75,6 @@ export const engagementModels = [
 ] as const
 
 export const pricingNote =
-  'Every engagement is priced to the workload rather than a headcount, and quoted once we have seen a live file on the scoping call.'
+  'Every engagement is priced to the workload rather than a headcount, and quoted once we have seen a sample file on the scoping call.'
 
 export type EngagementModel = (typeof engagementModels)[number]

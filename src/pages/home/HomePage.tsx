@@ -1,6 +1,6 @@
 import { CTABand } from '@/components/sections'
 import { useSeo } from '@/hooks/useSeo'
-import { site } from '@/config/site'
+import { pageSeo } from '@/content/seo'
 import {
   AudiencesSection,
   DataSection,
@@ -17,10 +17,7 @@ import {
 } from './sections'
 
 export default function HomePage() {
-  useSeo({
-    title: `${site.name} — Outsourced accounting for UK practices`,
-    description: site.description,
-  })
+  useSeo(pageSeo.home)
 
   return (
     <>

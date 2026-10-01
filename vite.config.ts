@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import { staticPages } from './plugins/staticPages.ts'
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss(), staticPages()],
   // Listen on all interfaces so other devices on the LAN can open the dev/preview server.
   server: { host: true },
   preview: { host: true },

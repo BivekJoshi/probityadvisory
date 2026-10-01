@@ -13,7 +13,7 @@ export const partnerQuestions = [
   },
   {
     q: 'Is transferring data to Nepal even allowed?',
-    a: "With the right paperwork, yes. Every engagement starts with a written data-processing agreement and the ICO's International Data Transfer Agreement in place before a single login is issued — not after the first deadline.",
+    a: "With the right paperwork, yes. Every engagement starts with a written data-processing agreement and the ICO's International Data Transfer Agreement in place before a single login is issued.",
   },
 ] as const
 
@@ -21,10 +21,10 @@ export const homeFaq = [
   ...partnerQuestions,
   {
     q: 'How is the work priced?',
-    a: 'Per engagement, against the workload rather than a headcount. We quote once we have seen a live file on the scoping call, so the figure reflects your actual records rather than a guess.',
+    a: 'Per engagement, against the workload rather than a headcount. We quote once we have seen a sample file on the scoping call, so the figure reflects your actual records rather than a guess.',
   },
   {
     q: 'Which software do you work in?',
-    a: 'FreeAgent, QuickBooks, Sage, Xero and MYOB. Running something else? Tell us — we will learn it on our own time before we touch a client file.',
+    a: 'FreeAgent, QuickBooks, Sage and Xero. Running something else? Tell us — we will learn it on our own time before we touch a client file.',
   },
 ] as const

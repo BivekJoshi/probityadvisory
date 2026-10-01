@@ -5,6 +5,7 @@ export const paths = {
   about: '/about',
   whyNepal: '/why-nepal',
   contact: '/contact',
+  privacy: '/privacy',
   principal: '/team/:slug',
 } as const
 
