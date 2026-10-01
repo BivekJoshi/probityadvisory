@@ -15,7 +15,7 @@ export function ServicesSection() {
         <SectionHeader
           eyebrow="What we take on"
           title="Three things, done properly."
-          lede="We would rather be the firm you trust with the compliance spine of your practice than the one that claims twenty services and staffs none of them well."
+          lede="We focus on the compliance spine of your practice and put a qualified accountant on every part of it."
           action={
             <Button asChild variant="outline">
               <Link to={paths.services}>

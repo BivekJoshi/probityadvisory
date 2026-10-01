@@ -3,11 +3,11 @@ import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { PageHero } from '@/components/sections'
 import { useSeo } from '@/hooks/useSeo'
-import { site } from '@/config/site'
+import { pageSeo } from '@/content/seo'
 import { paths } from '@/config/routes'
 
 export default function NotFoundPage() {
-  useSeo({ title: `Page not found — ${site.name}` })
+  useSeo(pageSeo.notFound)
 
   return (
     <PageHero

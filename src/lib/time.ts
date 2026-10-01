@@ -16,7 +16,7 @@ export function formatTime(timeZone: string, at: Date) {
 }
 
 /** UTC offset in minutes, read from the zone's "GMT+05:45"-style name. */
-function offsetMinutes(timeZone: string, at: Date) {
+export function offsetMinutes(timeZone: string, at: Date) {
   const name =
     new Intl.DateTimeFormat('en-GB', { timeZone, timeZoneName: 'longOffset' })
       .formatToParts(at)
@@ -26,9 +26,14 @@ function offsetMinutes(timeZone: string, at: Date) {
   return (sign === '-' ? -1 : 1) * (Number(hours) * 60 + Number(minutes ?? 0))
 }
 
+/** How far `to` runs ahead of `from`, in minutes; negative when it is behind. */
+export function zoneGap(from: string, to: string, at: Date) {
+  return offsetMinutes(to, at) - offsetMinutes(from, at)
+}
+
 /** The gap between two zones, phrased the way a person would say it. */
 export function formatDifference(from: string, to: string, at: Date) {
-  const diff = offsetMinutes(to, at) - offsetMinutes(from, at)
+  const diff = zoneGap(from, to, at)
   const hours = Math.floor(Math.abs(diff) / 60)
   const minutes = Math.abs(diff) % 60
   const parts = [`${hours} hour${hours === 1 ? '' : 's'}`]

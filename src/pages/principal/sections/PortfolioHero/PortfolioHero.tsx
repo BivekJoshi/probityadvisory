@@ -7,13 +7,14 @@ import type { Principal } from '@/content/team'
 import { paths } from '@/config/routes'
 import { PortraitFrame } from './PortraitFrame'
 
-export function PortfolioHero({ person }: { person: Principal }) {
+/** `overlap` leaves room for the highlights card; a profile without highlights has none. */
+export function PortfolioHero({ person, overlap }: { person: Principal; overlap: boolean }) {
   const [firstName, ...rest] = person.name.split(' ')
 
   return (
     <PageHero
-      overlap
-      eyebrow={`Principal · ${person.role}`}
+      overlap={overlap}
+      eyebrow={person.role ? `Principal · ${person.role}` : 'Principal'}
       title={person.name}
       highlight={rest}
       lede={person.short}

@@ -1,14 +1,10 @@
 import { CTABand, ClockPanel, PageHero } from '@/components/sections'
 import { useSeo } from '@/hooks/useSeo'
-import { site } from '@/config/site'
+import { pageSeo } from '@/content/seo'
 import { CostSection, QuestionsSection, WorkingDaySection } from './sections'
 
 export default function WhyNepalPage() {
-  useSeo({
-    title: `Why Nepal — ${site.name}`,
-    description:
-      'Nepal runs at UTC+05:45. We set our working day to yours — an overnight turnaround that lands before you open, or a team on your clock all day.',
-  })
+  useSeo(pageSeo.whyNepal)
 
   return (
     <>

@@ -11,11 +11,11 @@ export function ClockNote({ now, showDifference }: ClockNoteProps) {
     <p className="border-t border-on-forest-line bg-green/7 px-5 py-3.5 text-[13px] leading-[1.55] text-on-forest-muted">
       {showDifference ? (
         <>
-          Right now the difference is{' '}
+          Right now Kathmandu is{' '}
           <b className="font-medium text-green">
             {formatDifference('Europe/London', 'Asia/Kathmandu', now)}
-          </b>
-          .
+          </b>{' '}
+          of London.
         </>
       ) : (
         <>

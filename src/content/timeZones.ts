@@ -1,31 +1,11 @@
-export const workingPatterns = [
-  {
-    label: 'Your day',
-    sub: 'London',
-    range: '09:00 – 17:30',
-    left: 37.5,
-    width: 35.4,
-    tone: 'uk' as const,
-  },
-  {
-    label: 'Overnight',
-    sub: 'turnaround',
-    range: '04:15 – 13:15 your time · 09:00 – 18:00 ours',
-    left: 17.7,
-    width: 37.5,
-    tone: 'np' as const,
-  },
-  {
-    label: 'Aligned',
-    sub: 'to your hours',
-    range: '09:00 – 17:30 your time · 13:45 – 22:15 ours',
-    left: 37.5,
-    width: 35.4,
-    tone: 'green' as const,
-  },
-] as const
+/** Minutes after midnight, so the working-day chart can place them on a 24-hour track. */
+const at = (hours: number, minutes = 0) => hours * 60 + minutes
+
+/** A UK practice's day, on London time. */
+export const ukDay = { start: at(9), end: at(17, 30) }
+
+/** Our standard day, on Kathmandu time — the overnight run. */
+export const nepalDay = { start: at(9), end: at(18) }
 
 export const globeCaption =''
   // 'Lit as the world is right now. Records travel out to Kathmandu; finished work comes home before London opens.'
-
-export type WorkingPattern = (typeof workingPatterns)[number]

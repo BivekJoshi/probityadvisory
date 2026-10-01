@@ -1,6 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { brandEase } from '@/components/motion'
-import type { WorkingPattern } from '@/content/timeZones'
+import type { WorkingPattern } from './workingDay'
 import { cn } from '@/lib/utils'
 
 const tone = {

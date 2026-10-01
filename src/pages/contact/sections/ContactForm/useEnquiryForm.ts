@@ -1,24 +1,25 @@
 import { useState, type FormEvent } from 'react'
 import { enquirerTypes } from '@/content/enquiry'
-import { enquiryMailto, validateEnquiry, type EnquiryErrors } from './enquiry'
+import { sendEnquiry, validateEnquiry, type EnquiryErrors } from './enquiry'
 
-/**
- * State and submission for the enquiry form. No back end is wired up yet, so a
- * valid submission opens the visitor's mail client with the enquiry pre-filled.
- * Swap the `mailto:` hand-off in `handleSubmit` for a POST when an endpoint exists.
- */
+export type SendStatus = 'idle' | 'sending' | 'sent' | 'failed'
+
+/** State and submission for the enquiry form, which posts to the host's mail script. */
 export function useEnquiryForm() {
   const [errors, setErrors] = useState<EnquiryErrors>({})
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState<SendStatus>('idle')
   const [enquirerType, setEnquirerType] = useState(enquirerTypes[0])
   const [picked, setPicked] = useState<string[]>([])
 
   const toggleService = (value: string, checked: boolean) =>
     setPicked((prev) => (checked ? [...prev, value] : prev.filter((v) => v !== value)))
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const data = new FormData(event.currentTarget)
+    if (status === 'sending') return
+    // currentTarget is cleared once the handler awaits, so hold on to the form
+    const form = event.currentTarget
+    const data = new FormData(form)
     const field = (key: string) => String(data.get(key) ?? '').trim()
     const enquiry = {
       name: field('name'),
@@ -34,9 +35,17 @@ export function useEnquiryForm() {
     setErrors(next)
     if (Object.keys(next).length) return
 
-    window.location.href = enquiryMailto(enquiry)
-    setSent(true)
+    setStatus('sending')
+    try {
+      await sendEnquiry(enquiry, field('website'))
+      form.reset()
+      setPicked([])
+      setEnquirerType(enquirerTypes[0])
+      setStatus('sent')
+    } catch {
+      setStatus('failed')
+    }
   }
 
-  return { errors, sent, enquirerType, setEnquirerType, picked, toggleService, handleSubmit }
+  return { errors, status, enquirerType, setEnquirerType, picked, toggleService, handleSubmit }
 }

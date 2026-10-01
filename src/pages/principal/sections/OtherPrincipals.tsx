@@ -7,12 +7,12 @@ import { team, type Principal } from '@/content/team'
 import { paths, principalPath } from '@/config/routes'
 
 /** Links on to the rest of the team, so a portfolio is never a dead end. */
-export function OtherPrincipals({ person }: { person: Principal }) {
+export function OtherPrincipals({ person, className }: { person: Principal; className?: string }) {
   const others = team.filter((other) => other.slug !== person.slug)
   if (others.length === 0) return null
 
   return (
-    <Band className="pt-0">
+    <Band className={className}>
       <Container>
         <SectionHeader
           eyebrow="The principals"
@@ -44,7 +44,9 @@ export function OtherPrincipals({ person }: { person: Principal }) {
                 />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-green-ink">{other.role}</p>
+                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-green-ink">
+                  {other.role ?? 'Principal'}
+                </p>
                 <h3 className="mt-1 text-[20px]">
                   <Link
                     to={principalPath(other.slug)}

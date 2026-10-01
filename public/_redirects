@@ -1,1 +1,2 @@
-/*    /index.html   200
+# The old Netlify copy of the site forwards every path to the real domain.
+https://probityadvisory.netlify.app/* https://probityadvisory.co.uk/:splat 301!
